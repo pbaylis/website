@@ -1,0 +1,38 @@
+baseurl = "/"
+languageCode = "en-us"
+title = "Patrick Baylis"
+theme = "hugo-xmin"
+googleAnalytics = ""
+disqusShortname = ""
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+preserveTaxonomyNames = true
+footnotereturnlinkcontents = "↩"
+
+[permalinks]
+    post = "/post/:year/:month/:day/:slug/"
+    note = "/note/:year/:month/:day/:slug/"
+
+[[menu.main]]
+    name = "Home"
+    url = "/"
+    weight = 1
+[[menu.main]]
+    name = "Research"
+    url = "/research/"
+    weight = 2
+[[menu.main]]
+    name = "Teaching"
+    url = "/teaching/"
+    weight = 3
+[[menu.main]]
+    name = "CV"
+    url = "/pdf/Baylis_CV.pdf"
+    weight = 4
+[[menu.main]]
+    name = "Office hours"
+    url = "/office-hours/"
+    weight = 5
+
+[params]
+    description = "The professional web home of Patrick Baylis."
+    footer = "&copy; Patrick Baylis 2014 -- 2018"

@@ -1,0 +1,132 @@
+---
+title: Climate Projection Sandbox
+date: '2018-05-20'
+categories:
+  - econometrics
+tags:
+  - R
+  - climate
+  - projection
+output:
+  blogdown::html_page:
+    toc: yes
+    fig_height: 3
+    fig_width: 4
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#estimate-damage-function">Estimate damage function</a></li>
+<li><a href="#generate-climate-predictions">Generate climate predictions</a></li>
+<li><a href="#predict-along-interval">Predict along interval</a><ul>
+<li><a href="#predict-from-felm-output-with-svycontrast">Predict from felm output with <code>svycontrast</code></a></li>
+<li><a href="#predict-from-lm-output-with-predict">Predict from lm output with <code>predict</code></a></li>
+</ul></li>
+<li><a href="#compute-damages">Compute damages</a></li>
+</ul>
+</div>
+
+<p>TODO:</p>
+<ul>
+<li>How to constrain basis spline to be flat outside of range of data?</li>
+<li>Add citations</li>
+</ul>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>Code to conduct a climate projection exercise. The idea is to combine a dose-response function <span class="math inline">\(f(T)\)</span> (also known as a damage function) with an estimate of the projected shift in the distribution of climate <span class="math inline">\(\Delta g(T)\)</span>. Specifically, damages are: <span class="math display">\[ \int^T f(t) \Delta g(t) dt \]</span></p>
+<p>However, we’ll be estimating this integral numerically, because <span class="math inline">\(f(T)\)</span> is annoying to integrate analytically and <span class="math inline">\(g(T)\)</span> will be projected numerically. More on that later. First, import some packages</p>
+<pre class="r"><code>library(data.table) # data munging
+library(ggplot2) # plotting
+library(splines) # bsplines for spline estimation
+library(survey) # svycontrast for prediction
+library(lfe) # high dimensional FE 
+library(scales) # transparency</code></pre>
+<p>Simulate a mostly-but-not-entirely increasing sinusoidal dose-response function, where <span class="math inline">\(y\)</span> is some outcome we care about that is affected (in a weird way) by temperature.</p>
+<pre class="r"><code>set.seed(42)
+N &lt;- 1000 
+dt &lt;- data.table(T = runif(N, 0, 40))
+dt[, y := -10 + 0.5 * T + 8 * sin(T / 6) + rnorm(N)]
+
+ggplot(data = dt, aes(x = T, y = y)) + geom_point() + theme_minimal()</code></pre>
+<p><img src="/posts/2018-05-20-climate-projection_files/figure-html/dgp-1.png" width="384" /></p>
+</div>
+<div id="estimate-damage-function" class="section level1">
+<h1>Estimate damage function</h1>
+<p>Since we normally wouldn’t know the exact functional form of the DGP, we’ll estimate <span class="math inline">\(f(T)\)</span> with a b-spline. If you haven’t used splines before or just need a refresher, see this handy <a href="http://people.stat.sfu.ca/~cschwarz/Consulting/Trinity/Phase2/TrinityWorkshop/Workshop-material-Simon/Intro_to_splines/intro_to_splines_notes.pdf">reference</a> on using splines, and specifically why b-splines are attractive in a regression model. We’ll use a cubic spline with knots at the internal quartiles.</p>
+<pre class="r"><code>knots &lt;- quantile(dt$T, probs = c(0.25, 0.5, 0.75))
+boundary &lt;- range(dt$T); degree = 3; intercept = TRUE
+X &lt;- ns(dt$T, knots = knots, Boundary.knots = boundary, intercept=intercept)
+
+# Estimate with both felm and lm to demonstrate
+fit &lt;- felm(y ~ X - 1, data = dt)
+lmfit &lt;- lm(y ~ X - 1, data = dt)</code></pre>
+</div>
+<div id="generate-climate-predictions" class="section level1">
+<h1>Generate climate predictions</h1>
+<p>Generate some climate predictions. Normally you’d do this by combining the output from a climate model - see Auffhammer et al (2014) for details on how to do this - but today we’ll just take the realized “weather” from above and increase it by 5 on average. Construct a sequence of equally spaced intervals that includes the range of observed and predicted temperature and create basis vectors for both. Then estimate the PDFs of the current and future distributions and take the difference between them as <span class="math inline">\(\Delta g(T)\)</span>.</p>
+<pre class="r"><code>dt[, T_future := T + rnorm(N, 5, 5)]
+
+width &lt;- 1 # Set interval for prediction: lower values = more precision (diminishing returns here)
+s &lt;- seq(min(dt[, list(T, T_future)]), max(dt[, list(T, T_future)]), width) 
+
+# TODO: Should I use hist rather than density? Density might be smarter.
+densities &lt;- data.table(s = s, 
+                        cur_density = approxfun(density(dt$T))(s),
+                        fut_density = approxfun(density(dt$T_future))(s))
+densities[is.na(cur_density), cur_density := 0]
+densities[is.na(fut_density), fut_density := 0]
+densities[, diff_density := fut_density - cur_density] 
+
+ggplot(data = melt(densities, id.vars = &quot;s&quot;), aes(x = s, y = value, colour = variable, group = variable)) + 
+  geom_line() + theme_minimal()</code></pre>
+<p><img src="/posts/2018-05-20-climate-projection_files/figure-html/climpred-1.png" width="384" /></p>
+</div>
+<div id="predict-along-interval" class="section level1">
+<h1>Predict along interval</h1>
+<pre class="r"><code>Xp &lt;- ns(s, knots = knots, Boundary.knots = boundary, intercept=intercept)</code></pre>
+<div id="predict-from-felm-output-with-svycontrast" class="section level2">
+<h2>Predict from felm output with <code>svycontrast</code></h2>
+<p>Predict over the sequence using <code>survey::svycontrast</code>. This works with both <code>lm</code> and <code>felm</code>.</p>
+<pre class="r"><code>res.list &lt;- list()
+for (i in 1:nrow(Xp)) {
+  this.x &lt;- s[i]
+  this.row &lt;- c(unlist(Xp[i, ])) # Sometimes, will need to fill in values for other covariates (0s or means?), e.g. ppt
+  temp.dt &lt;- as.data.table(svycontrast(fit, this.row))
+  temp.dt[, x:=this.x]
+  setnames(temp.dt, c(&quot;coef&quot;, &quot;se&quot;, &quot;x&quot;))
+  res.list[[as.character(this.x)]] &lt;- temp.dt
+}
+result_survey &lt;- rbindlist(res.list)
+
+ggplot(data = result_survey, aes(x = x, y = coef)) + 
+  geom_point(data = dt, mapping = aes(x = T, y = y), colour = &quot;blue&quot;, alpha = 0.5) +
+  geom_line() +
+  theme_minimal()</code></pre>
+<p><img src="/posts/2018-05-20-climate-projection_files/figure-html/predict1-1.png" width="384" /></p>
+</div>
+<div id="predict-from-lm-output-with-predict" class="section level2">
+<h2>Predict from lm output with <code>predict</code></h2>
+<p>Alternative to usingy <code>survey::svycontrast</code> loop is to do the same using <code>predict.lm</code>, but there is no equivalent <code>predict.felm</code>.</p>
+<pre class="r"><code># Note the list notation here. Need to tell predict that Xp is replacing X o
+result_predict &lt;- as.data.table(predict(lmfit, newdata = list(X = Xp), se.fit = T))
+result_predict[, s := s]
+ggplot(data = result_predict, aes(x = s, y = fit)) + 
+  geom_point(data = dt, mapping = aes(x = T, y = y), colour = &quot;blue&quot;, alpha = 0.5) +
+  geom_line() +
+  theme_minimal() </code></pre>
+<p><img src="/posts/2018-05-20-climate-projection_files/figure-html/predict2-1.png" width="384" /></p>
+</div>
+</div>
+<div id="compute-damages" class="section level1">
+<h1>Compute damages</h1>
+<p>Finally, compute damages: <span class="math inline">\(\sum^T f(T) \times \Delta g(T) \times \text{interval width}\)</span>.</p>
+<pre class="r"><code>f &lt;- result_survey$coef
+g &lt;- densities$diff_density
+
+sum(f * g * width)</code></pre>
+<pre><code>## [1] 3.370896</code></pre>
+<p>Note that the interpretation of this sum is that it is the amount of damage <em>at the given observational unit</em> for this amount of climate change. So if this is a regression of, say, daily crimes in a county on temperature, then the implication is the given amount of climate change will result in this many more crimes per county per day on average. Of course, this relies on the usual assumptions about the extrapolation of the results from weather regressions to climate effects – for discussions on that point, see AUFFHAMMER, HSIANG, ETC.</p>
+<p>Substitute in different damage functions <span class="math inline">\(f(T)\)</span> to show, for example, how different choices of fixed effects change the output. Substitute in different climate projections <span class="math inline">\(\Delta g(T)\)</span> to show damages by region, over time, by region over time, et cetera.</p>
+</div>
