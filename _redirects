@@ -1,0 +1,2 @@
+# Redirect default Netlify subdomain to primary domain
+http://festive-joliot-dc4714.netlify.com/* http://patrickbaylis.com/:splat 301!
