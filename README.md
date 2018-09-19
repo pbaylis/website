@@ -1,7 +1,3 @@
-# pbaylis-web
-
-Repository for Patrick Baylis' professional website. https://www.patrickbaylis.com
-
 # How this website was created
 
 1. Built website with [blogdown](https://bookdown.org/yihui/blogdown/), which is a R-based wrapper/magic-maker for Hugo. Using [Xmin](https://github.com/yihui/hugo-xmin) theme.
