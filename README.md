@@ -7,4 +7,4 @@
 3. Updated DNS settings in Namecheap as follows (this took a bit of fiddling):
   - type: A; host: @; value: 104.198.14.52
   - type: CNAME; host: www; value: festive-joliot-dc4714.netlify.com.
-4. Netlify basically set up https on its own, apparently issued (for free) using Let's Encrypt
+4. Netlify basically set up https on its own, apparently issued (for free) using Let's Encrypt.
