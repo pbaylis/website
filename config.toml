@@ -32,6 +32,10 @@ footnotereturnlinkcontents = "↩"
     name = "Office hours"
     url = "/office-hours/"
     weight = 5
+[[menu.main]]
+    name = "Posts"
+    url = "/posts/"
+    weight = 6
 
 [params]
     description = "The professional web home of Patrick Baylis."
