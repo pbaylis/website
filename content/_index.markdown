@@ -4,7 +4,7 @@ title: Home
 
 <img src="/./_index_files/smiling_dbgranite.jpg" alt="Headshot" width="25%"style="float:right; margin:4px 4px 4px 4px;" />
 
-I'm an environmental economist and assistant professor at the [Vancouver School of Economics](http://economics.ubc.ca/). I study the economic impacts of and responses to climate change.
+I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) and a member of the [Centre for Food, Resource and Environmental Economics](https://cfree.landfood.ubc.ca/) (CFREE). I study the economic impacts of and responses to climate change. 
 
 Specifically, my current [research](/research/) includes estimating the impact of temperature on tweets to understand preferences for climate change, assessing the implicit subsidy of federal wildfire suppression, projecting how climate change will alter peak electricity demand, and estimating how consumers respond to defaults in electricity consumption. My favorite projects use large datasets, natural language processing, spatial information, or all three; as a result, I do most of my data work in [R](https://www.r-project.org)/[RStudio](https://www.rstudio.com) and [Python](https://www.python.org).
 
