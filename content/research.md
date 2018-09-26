@@ -14,10 +14,10 @@ title: Research
   - [Paper](http://www.pnas.org/content/114/8/1886.full)
   - Selected media:  [New York Times](https://www.nytimes.com/interactive/2017/06/22/climate/95-degree-day-maps.html),  [ARS Technica](https://arstechnica.com/science/2017/02/us-electric-grid-isnt-ready-to-handle-our-future-climate/)
 
-## Working papers
+## Works in progress
 
 - Patrick Baylis. "Temperature and Temperament: Evidence from Twitter." Submitted.
-  - [Working paper](/pdf/Baylis_TT.pdf) (May 2018, original version October 2015)
+  - [Working paper](http://patrickbaylis.com/assets/pdf/Baylis_TT.pdf)
   - Selected media:  [Popular Science](https://www.popsci.com/science-confirms-obvious-we-hate-being-hot),  [Washington Post](https://www.washingtonpost.com/news/wonk/wp/2016/01/07/clear-evidence-that-cold-days-are-better-than-hot-ones/?noredirect=on&utm_term=.1338bbea7602),  [Time](http://time.com/4172187/temperature-weather-hot-cold-preferences/),  [Weather Channel](https://weather.com/health/news/weather-makes-us-more-miserable),  [UC Newsroom](https://www.universityofcalifornia.edu/news/what-billion-tweets-tell-us-about-climate-change),  [Energy Institute Blog](https://energyathaas.wordpress.com/2015/12/07/heat-and-happiness/),  [G-FEED Blog](http://www.g-feed.com/2015/12/warming-makes-people-unhappy-evidence.html),  [Marginal Revolution Blog](https://marginalrevolution.com/marginalrevolution/2016/01/do-you-get-grumpy-over-seventy-degrees-fahrenheit.html)
 - Meredith Fowlie, Catherine Wolfram, C Anna Spurlock, Annika Todd, Patrick Baylis, and Peter Cappers. "Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Programs." Revise and resubmit.
   - [NBER Working paper](http://conference.nber.org/confer/2015/SI2015/EEE/Cappers_Fowlie_Spurlock_Todd_Wolfram_Baylis.pdf)
