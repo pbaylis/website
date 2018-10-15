@@ -15,7 +15,6 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#autoscaled-beamer-presentation-template">Autoscaled beamer presentation template</a></li>
 <li><a href="#bonus-autoscaled-document">Bonus: autoscaled document</a></li>
 <li><a href="#reference-links">Reference links</a></li>
 </ul>
@@ -23,9 +22,7 @@ output:
 
 <p>“Democracy is the worst form of government, except for all the others” - Winston Churchill (although <a href="https://www.nytimes.com/2017/02/14/opinion/dont-quote-them-on-it.html">apparently</a> he was quoting someone else)</p>
 <p>This is how I feel about beamer. I still haven’t figured out the perfect solution. Markdown + pandoc can work, but I always end up hacking in LaTeX, since I can be particular about what my slides look like. Recently I’ve started using the metropolis theme, which does a lot of things better than vanilla beamer. It doesn’t avoid all of the usual beamer pain, though. My least favorite (and most repetitive) activity is resizing figures and tables to fit slides properly. In preparation for an upcoming presentation, I decided to see if there was a way around that. There is. Below is some code that autoscales images and tables (with notes) in a beamer presentation.</p>
-<p>Here’s an <a href="/zip/autoscaling-archive.zip">archive</a> with the code below, plus example table, figure, and PDF output.</p>
-<div id="autoscaled-beamer-presentation-template" class="section level1">
-<h1>Autoscaled beamer presentation template</h1>
+<p>Here’s an <a href="/zip/autoscaling-archive.zip">archive</a> with the code below, plus example table, figure, and PDF output. # Autoscaled beamer presentation template</p>
 <pre class="latex"><code>\documentclass{beamer}
 
 \usetheme{metropolis} % Preferred beamer theme
@@ -60,7 +57,6 @@ output:
 
 \end{document}</code></pre>
 <p>Note that I use <code>threeparttable</code> for my tables. This isn’t necessary, but it’s fairly standard for me since it handles regression tables nicely. Also note that this expands to the full width and height of the available frame. This is a lot of code for a single figure or table, but can easily be shrunk into a reusable macro.</p>
-</div>
 <div id="bonus-autoscaled-document" class="section level1">
 <h1>Bonus: autoscaled document</h1>
 <p>The setup is fairly similar for autoscaling figures in a regular document.</p>
@@ -108,5 +104,4 @@ output:
 <li><a href="https://tex.stackexchange.com/questions/11954/automatically-scale-big-and-small-graphics-for-beamer-presentations">Scaling graphics automatically</a></li>
 <li><a href="https://tex.stackexchange.com/questions/13809/resizing-a-table-by-textheight/13812">Scaling tables automatically</a></li>
 </ul>
-<p>I plan to test these out later, when I don’t have a talk to prepare.</p>
 </div>
