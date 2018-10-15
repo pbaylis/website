@@ -18,7 +18,7 @@ Bad literary references aside, readers of this blog know that climate economists
 
 The [PRISM AN81-d](http://www.prism.oregonstate.edu/documents/PRISM_datasets.pdf) dataset is daily minimum and maximum temperatures, precipitation, and minimum and maximum vapor pressure deficit data for the continental United States from 1981 to present. It is created by the [PRISM Climate Group](http://www.prism.oregonstate.edu/) at Oregon State, and it is *really* nice. Why? It's a gridded data product: it is composed of hundreds of thousands of 4km by 4km grid cells, where the values for each cell are determined by a [complex interpolation method](http://www.prism.oregonstate.edu/documents/Daly2008_PhysiographicMapping_IntJnlClim.pdf) from weather station data ([GHCN-D](https://data.noaa.gov/dataset/global-historical-climatology-network-daily-ghcn-daily-version-3)) that accounts for topological factors. Importantly, it's consistent: there are no discontinuous jumps in the data (see figure below) and it's a balanced panel: the observations are never missing.
 
-![PRISM 30 year normals](/assets/img/PRISM_tmax_30yr_normal_4kmM2_annual.png)<br>*Source: PRISM Climate Group*
+![PRISM 30 year normals](/img/tmean_gridavg.png)<br>*Source: PRISM Climate Group*
 
 These benefits are well-understood, and as a result many researchers use the PRISM dataset for their statistical models. However, there is a particularity of these data that may be important to researchers making use of the daily variation in the data: most measurements of temperature maximums, and some measurements of temperature minimums, actually refer to the maximum or minimum temperature of the day *before* the date listed.
 
@@ -28,19 +28,19 @@ To understand this, you have to understand that daily climate observations are a
 
 This definition means that generally only morning observers should be included in the data. The last sentence is important: because a day runs from 4am-4am PST (or 7am-7am EST) and because days are labeled using the endpoint of that time period, *most of the observations from which the daily measures are constructed for a given date are taken from the day prior*. A diagram may be helpful here:
 
-![Diagram](/assets/img/prism_dates_example.png)
+![Diagram](/img/prism_dates_example.png)
 
 The above is a plot of temperature over about two days, representing a possible set of within-day monitor data. Let's say that this station takes a morning reading at 7am PST (10am EST), meaning that this station would be included in the PRISM dataset. The top x-axis is the actual date, while the bottom x axis shows which observations are used under the PRISM day definition. The red lines are actual midnights, the dark green dotted line is the PRISM day definition cutoff and the orange (blue) dots in the diagram are the observations that represent the true maximums (minimums) of that calendar day. Because of the definition of a PRISM day, the maximum temperatures ("tmax"s from here on out) given for Tuesday and Wednesday (in PRISM) are actually observations recorded on Monday and Tuesday, respectively. On the other hand, the minimum temperatures ("tmin"s) given for Tuesday (in PRISM) is actually drawn from Tuesday, but the tmin given for Wednesday (in PRISM) is *also* from Tuesday.
 
 To see this visually, I pulled the GHCN data and plotted a histogram of the average reporting time by station for the stations that report observation time (66% in the United States). The histogram below shows the average observation time by stations for all GHCN-D stations in the continental United States in UTC, colored by whether or not they would be included in PRISM according to the guidelines given above.
 
-![Histogram of observation time](/assets/img/obs_time_hist.png)
+![Histogram of observation time](/img/obs_time_hist.png)
 
 This confirms what I asserted above: most, but not all, GHCN-D stations are morning observers, and the PRISM day definition does a good job capturing the bulk of that distribution. On average, stations fulfilling the PRISM criterion report at 7:25am or so.
 
 The next step is to look empirically at how many minimum and maximum temperature observations are likely to fall before or after the observation time cutoff. To do that, we need some raw weather station data, which I pulled from [NOAA's Quality Controlled Local Climatological Data](https://www.ncdc.noaa.gov/data-access/land-based-station-data/land-based-datasets/quality-controlled-local-climatological-data-qclcd) (QCLCD). To get a sense for which extreme temperatures would be reported as occurring on the actual day they occurred, I assumed that all stations would report at 7:25am, the average observation time in the PRISM dataset. The next two figures show histograms of observed maximum and minimum temperatures.
 
-![Histogram of observed maximum temperatures](/assets/img/max_temp_hist.png) ![Histogram of observed minimum temperatures](/assets/img/min_temp_hist.png)
+![Histogram of observed maximum temperatures](/img/max_temp_hist.png) ![Histogram of observed minimum temperatures](/img/min_temp_hist.png)
 
 I've colored the histograms so that all extremes (tmins and tmaxes) after 7:25am are red, indicating that extremes after that time will be reported as occurring during the following day. As expected, the vast majority of tmaxes (>94%) occur after 7:25am. But surprisingly, a good portion (32%) of tmins do as well. If you're concerned about the large number of minimum temperature observations around midnight, remember that a midnight-to-midnight summary is likely to have this sort of "bump", since days with a warmer-than-usual morning and a colder-than-usual night will have their lowest temperature at the end of the calendar day.
 
