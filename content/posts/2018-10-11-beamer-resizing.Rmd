@@ -7,13 +7,103 @@ categories:
 tags:
   - latex
   - beamer
+output:
+  blogdown::html_page:
+    toc: yes
 ---
 
 "Democracy is the worst form of government, except for all the others" - Winston Churchill (although [apparently](https://www.nytimes.com/2017/02/14/opinion/dont-quote-them-on-it.html) he was quoting someone else)
 
-This is how I feel about beamer. I still haven't figured out the perfect solution. Markdown + pandoc can work, but I always end up hacking in LaTeX, since I can be particular about what my slides look like. Recently I've started using the metropolis theme, which does a lot of things better than vanilla beamer. It doesn't avoid all of the usual beamer pain, though. My least favorite (and most repetitive) activity is resizing figures and tables to fit slides properly. In preparation for an upcoming presentation, I decided to see if there was a way around that.
+This is how I feel about beamer. I still haven't figured out the perfect solution. Markdown + pandoc can work, but I always end up hacking in LaTeX, since I can be particular about what my slides look like. Recently I've started using the metropolis theme, which does a lot of things better than vanilla beamer. It doesn't avoid all of the usual beamer pain, though. My least favorite (and most repetitive) activity is resizing figures and tables to fit slides properly. In preparation for an upcoming presentation, I decided to see if there was a way around that. There is. Below is some code that autoscales images and tables (with notes) in a beamer presentation. 
 
-Here are some promising links: 
+Here's an [archive](/zip/autoscaling-archive.zip) with the code below, plus example table, figure, and PDF output. 
+
+# Autoscaled beamer presentation template
+
+```latex
+\documentclass{beamer}
+
+\usetheme{metropolis} % Preferred beamer theme
+
+\usepackage{graphicx} % Load graphics
+\usepackage{booktabs} % Nice tables
+\usepackage{dcolumn} % Booktabs column spacing
+\usepackage{threeparttable} % Align column caption, table, and notes
+\usepackage{adjustbox} % Shrink stuff
+
+\usepackage{showframe} % Useful for debugging
+
+\begin{document}
+
+\begin{frame}{Autoscaling image}
+	\begin{figure}
+		\caption{Autoscaling image}
+	  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{myimage.png}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Autoscaling table}
+		\begin{table}
+			\begin{adjustbox}{width=\textwidth, totalheight=\textheight-2\baselineskip,keepaspectratio}
+				\begin{threeparttable}
+				\caption{Autoscaling table}
+					\input{mytable.tex}
+				\end{threeparttable}
+			\end{adjustbox}
+		\end{table}
+\end{frame}
+
+\end{document}
+```
+
+Note that I use `threeparttable` for my tables. This isn't necessary, but it's fairly standard for me since it handles regression tables nicely. Also note that this expands to the full width and height of the available frame. This is a lot of code for a single figure or table, but can easily be shrunk into a reusable macro.
+
+# Bonus: autoscaled document
+
+The setup is fairly similar for autoscaling figures in a regular document.
+
+```latex
+\documentclass{article}
+
+\usepackage{graphicx} % Load graphics
+\usepackage{booktabs} % Nice tables
+\usepackage{dcolumn} % Booktabs column spacing
+\usepackage{threeparttable} % Align column caption, table, and notes
+\usepackage{adjustbox} % Shrink boxes
+
+\usepackage{showframe} % Useful for debugging
+
+% Flexible notes environment based on minipage
+\newenvironment{notes}[1][Notes]{\begin{minipage}[t]{\linewidth}\normalsize{\itshape#1: }}{\end{minipage}}
+
+\begin{document}
+
+\begin{figure}
+	\caption{Autoscaling image}
+  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{myimage.png}
+	\begin{notes}
+		This is a really fantastic image, even more fantastic for having been autoscaled.
+	\end{notes}
+\end{figure}
+
+\begin{table}
+	\begin{adjustbox}{width=\textwidth, totalheight=\textheight-2\baselineskip,keepaspectratio}
+		\begin{threeparttable}
+		\caption{Autoscaling table}
+			\input{mytable.tex}
+		  \begin{notes}
+					* p $<$ 0.1, ** p $<$ 0.05, *** p $<$ 0.01. This is a really fantastic table, even more fantastic for having been autoscaled.
+			\end{notes}
+		\end{threeparttable}
+	\end{adjustbox}
+\end{table}
+
+\end{document}
+```
+
+Here I include notes as well, which are more useful for a document (I try to avoid tables with notes, or even better tables at all, in my presentations). In general, however, I prefer to not use `adjustbox` on my tables in documents to ensure consistent font size throughout (less important in presentations). 
+
+# Reference links
 
 - [Scaling graphics automatically](https://tex.stackexchange.com/questions/11954/automatically-scale-big-and-small-graphics-for-beamer-presentations)
 - [Scaling tables automatically](https://tex.stackexchange.com/questions/13809/resizing-a-table-by-textheight/13812)
