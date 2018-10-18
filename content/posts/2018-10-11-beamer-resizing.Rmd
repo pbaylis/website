@@ -17,7 +17,8 @@ output:
 This is how I feel about beamer. I still haven't figured out the perfect solution. Markdown + pandoc can work, but I always end up hacking in LaTeX, since I can be particular about what my slides look like. Recently I've started using the metropolis theme, which does a lot of things better than vanilla beamer. It doesn't avoid all of the usual beamer pain, though. My least favorite (and most repetitive) activity is resizing figures and tables to fit slides properly. In preparation for an upcoming presentation, I decided to see if there was a way around that. There is. Below is some code that autoscales images and tables (with notes) in a beamer presentation. 
 
 Here's an [archive](/zip/autoscaling-archive.zip) with the code below, plus example table, figure, and PDF output. 
-# Autoscaled beamer presentation template
+
+ # Autoscaled beamer presentation template
 
 ```latex
 \documentclass{beamer}
