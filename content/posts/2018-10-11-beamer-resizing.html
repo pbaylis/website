@@ -22,7 +22,8 @@ output:
 
 <p>“Democracy is the worst form of government, except for all the others” - Winston Churchill (although <a href="https://www.nytimes.com/2017/02/14/opinion/dont-quote-them-on-it.html">apparently</a> he was quoting someone else)</p>
 <p>This is how I feel about beamer. I still haven’t figured out the perfect solution. Markdown + pandoc can work, but I always end up hacking in LaTeX, since I can be particular about what my slides look like. Recently I’ve started using the metropolis theme, which does a lot of things better than vanilla beamer. It doesn’t avoid all of the usual beamer pain, though. My least favorite (and most repetitive) activity is resizing figures and tables to fit slides properly. In preparation for an upcoming presentation, I decided to see if there was a way around that. There is. Below is some code that autoscales images and tables (with notes) in a beamer presentation.</p>
-<p>Here’s an <a href="/zip/autoscaling-archive.zip">archive</a> with the code below, plus example table, figure, and PDF output. # Autoscaled beamer presentation template</p>
+<p>Here’s an <a href="/zip/autoscaling-archive.zip">archive</a> with the code below, plus example table, figure, and PDF output.</p>
+<p># Autoscaled beamer presentation template</p>
 <pre class="latex"><code>\documentclass{beamer}
 
 \usetheme{metropolis} % Preferred beamer theme
