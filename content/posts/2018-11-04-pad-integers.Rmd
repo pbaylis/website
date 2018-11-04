@@ -1,0 +1,19 @@
+---
+layout: post
+title:  "Things I forget: padding integers with zeroes"
+date:   2018-11-04
+categories:
+  - programming
+tags:
+  - R
+  - RStudio
+---
+
+So simple, so difficult to remember.
+
+```{r}
+x <- c(5, 15, 2015)
+sprintf(sprintf("%03d", x))
+```
+
+Source: [SO post](https://stackoverflow.com/questions/5812493/how-to-add-leading-zeros)
