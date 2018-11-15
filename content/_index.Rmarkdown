@@ -2,7 +2,7 @@
 title: Home
 ---
 
-<img src="/./_index_files/smiling_dbgranite.jpg" alt="Headshot" width="25%"style="float:right; margin:4px 4px 4px 4px;" />
+<img src="/img/cropped-PatrickBaylistHS.png" alt="Headshot" width="35%"style="float:right; margin:10px 10px 10px 10px;" />
 
 I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) and a member of the [Centre for Food, Resource and Environmental Economics](https://cfree.landfood.ubc.ca/) (CFREE). I study the economic impacts of and responses to climate change. 
 
