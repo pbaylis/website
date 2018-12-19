@@ -1,0 +1,37 @@
+---
+layout: post
+title:  "Things I forget: install git lfs and initialize in repo"
+date:   2018-11-04
+categories:
+  - programming
+tags:
+  - git
+  - lfs
+---
+
+
+
+<p><code>git lfs</code> is great for including (fairly) large files in git repositories. Since the entire history of files is saved, it prevents large files from blowing up the repo. I’m not sure why it isn’t installed by default with git. Anyway, I always forget how to use it.</p>
+<div id="installing-git-lfs" class="section level1">
+<h1>Installing <code>git lfs</code></h1>
+<p>Each computer accessing a repo with lfs enabled needs to have it installed, otherwise expected files may not appear and the user could (potentially) screw the repo up by deleting the wrong things. More instructions <a href="https://help.github.com/articles/installing-git-large-file-storage/">here</a>, but for OS X I just run:</p>
+<pre><code>brew install git-lfs
+git lfs install</code></pre>
+<p>Note that this only needs to be run once per computer, not per repo.</p>
+</div>
+<div id="enabling-git-lfs-on-a-repo-and-adding-files-to-it" class="section level1">
+<h1>Enabling git lfs on a repo and adding files to it</h1>
+<p>For each repo, I need to tell <code>git lfs</code> which files or kinds of files to track. Suppose I want to use lfs for any csv files:</p>
+<pre><code>git lfs track &#39;*.csv&#39;
+git add .gitattributes &quot;*.csv&quot;</code></pre>
+<p>The first sets a track pattern. The second line creates a gitattributes file that also stores the tracked patterns. I’m not certain why git doesn’t take care of this itself, though.</p>
+</div>
+<div id="checking-in-on-git-lfs" class="section level1">
+<h1>Checking in on <code>git lfs</code></h1>
+<p><code>git lfs ls-files</code>: Show a list of tracked files</p>
+<p>Sources:</p>
+<ul>
+<li><a href="https://help.github.com/articles/installing-git-large-file-storage/">Install LFS</a></li>
+<li><a href="https://github.com/git-lfs/git-lfs/wiki/Tutorial">LFS tutorial</a></li>
+</ul>
+</div>

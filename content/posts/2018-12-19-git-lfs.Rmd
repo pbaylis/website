@@ -1,0 +1,40 @@
+---
+layout: post
+title:  "Things I forget: install git lfs and initialize in repo"
+date:   2018-11-04
+categories:
+  - programming
+tags:
+  - git
+  - lfs
+---
+
+`git lfs` is great for including (fairly) large files in git repositories. Since the entire history of files is saved, it prevents large files from blowing up the repo. I'm not sure why it isn't installed by default with git. Anyway, I always forget how to use it.
+
+# Installing `git lfs`
+
+Each computer accessing a repo with lfs enabled needs to have it installed, otherwise expected files may not appear and the user could (potentially) screw the repo up by deleting the wrong things. More instructions [here](https://help.github.com/articles/installing-git-large-file-storage/), but for OS X I just run:
+
+    brew install git-lfs
+    git lfs install
+    
+Note that this only needs to be run once per computer, not per repo.
+
+# Enabling git lfs on a repo and adding files to it
+
+For each repo, I need to tell `git lfs` which files or kinds of files to track. Suppose I want to use lfs for any csv files:
+
+    git lfs track '*.csv'
+    git add .gitattributes "*.csv"
+    
+The first sets a track pattern. The second line creates a gitattributes file that also stores the tracked patterns. I'm not certain why git doesn't take care of this itself, though.
+
+# Checking in on `git lfs`
+
+`git lfs ls-files`: Show a list of tracked files
+
+
+Sources:
+
+- [Install LFS](https://help.github.com/articles/installing-git-large-file-storage/)
+- [LFS tutorial](https://github.com/git-lfs/git-lfs/wiki/Tutorial)
