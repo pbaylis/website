@@ -24,10 +24,10 @@ Note that this only needs to be run once per computer, not per repo.
 
 For each repo, I need to tell `git lfs` which files or kinds of files to track. Suppose I want to use lfs for any csv files:
 
-    git lfs track '*.csv'
-    git add .gitattributes "*.csv"
+    git lfs track '*.csv' '*.fst' '*.Rds' '*.gz' "*.zip"
+    git add .gitattributes '*.csv' '*.fst' '*.Rds' '*.gz' "*.zip"
     
-The first sets a track pattern. The second line creates a gitattributes file that also stores the tracked patterns. I'm not certain why git doesn't take care of this itself, though.
+First line tells lfs which patterns to track, second adds `.gitattributes` and all of the relevant files (if necessary) to the commit.
 
 # Checking in on `git lfs`
 

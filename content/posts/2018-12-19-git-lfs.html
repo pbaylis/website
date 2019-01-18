@@ -22,9 +22,9 @@ git lfs install</code></pre>
 <div id="enabling-git-lfs-on-a-repo-and-adding-files-to-it" class="section level1">
 <h1>Enabling git lfs on a repo and adding files to it</h1>
 <p>For each repo, I need to tell <code>git lfs</code> which files or kinds of files to track. Suppose I want to use lfs for any csv files:</p>
-<pre><code>git lfs track &#39;*.csv&#39;
-git add .gitattributes &quot;*.csv&quot;</code></pre>
-<p>The first sets a track pattern. The second line creates a gitattributes file that also stores the tracked patterns. I’m not certain why git doesn’t take care of this itself, though.</p>
+<pre><code>git lfs track &#39;*.csv&#39; &#39;*.fst&#39; &#39;*.Rds&#39; &#39;*.gz&#39; &quot;*.zip&quot;
+git add .gitattributes &#39;*.csv&#39; &#39;*.fst&#39; &#39;*.Rds&#39; &#39;*.gz&#39; &quot;*.zip&quot;</code></pre>
+<p>First line tells lfs which patterns to track, second adds <code>.gitattributes</code> and all of the relevant files (if necessary) to the commit.</p>
 </div>
 <div id="checking-in-on-git-lfs" class="section level1">
 <h1>Checking in on <code>git lfs</code></h1>
