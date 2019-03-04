@@ -4,6 +4,9 @@ title: Research
 
 ## Publications
 <!-- Very difficult to get pandoc-citeproc to do what I want, unfortunately -->
+- Frances C. Moore, Nick Obradovich, Flavio Lehner, and Patrick Baylis. "Rapidly Adjusting Perceptions of Temperature May Obscure Climate Change Signal." 2019. *Proceedings of the National Academy of Sciences*, ().
+  - [Paper](https://www.pnas.org/content/early/2019/02/15/1816541116)
+  - Selected media:  [New York Times](https://www.nytimes.com/2019/02/26/climate/what-is-extreme-weather.html),  [Washington Post Op-Ed (written by Fran Moore and Nick Obradovich, behind paywall)](https://www.washingtonpost.com/weather/2019/02/25/data-are-frogs-dont-boil-we-might/)
 - Marshall Burke, Felipe González, Patrick Baylis, Sam Heft-Neal, Ceren Baysan, Sanjay Basu and Solomon Hsiang. "Higher temperatures increase suicide rates in the United States and Mexico." 2018. *Nature Climate Change*, 8(8).
   - [Paper](http://em.rdcu.be/wf/click?upn=lMZy1lernSJ7apc5DgYM8fLeFU9SBVNVGySwNPJsu0A-3D_VU3-2B-2F8HBchm5dOaNevIAhP-2FsrdBAPzAm0rA-2B8dYvjp91uIGUxuZMmROi-2F6Eqk2dEeDOjay71-2FPLqxjXPntLgbnr7aL7PFwk89m5mkkKJA85bJ0q-2FF-2BV3rt1updqnxYlychJR-2BrxZPi0U9wjHq9p4AH3ys-2BYDzrFjajNsbSahaZFujVMoZaQz7eJu4lg-2FHO2m2SU87s2p5kcq4CTTitYYn3fyVEp8qKuhd5rvXuClipbHR5sl7hN-2FbCZbMdzmhS2OxAkqe4SuxwbogpRkFmJGaw-3D-3D)
   - Selected media:  [The Atlantic](https://www.theatlantic.com/science/archive/2018/07/high-temperatures-cause-suicide-rates-to-increase/565826/),  [The Guardian](https://www.theguardian.com/environment/2018/jul/23/rising-temperatures-linked-to-increased-suicide-rates),  [Reuters](https://www.reuters.com/article/us-usa-climatechange-suicide/rising-heat-linked-to-suicide-spikes-in-us-and-mexico-idUSKBN1KD1WR)
