@@ -30,16 +30,28 @@ Here's an [archive](/zip/autoscaling-archive.zip) with the code below, plus exam
 \usepackage{dcolumn} % Booktabs column spacing
 \usepackage{threeparttable} % Align column caption, table, and notes
 \usepackage{adjustbox} % Shrink stuff
-
 \usepackage{showframe} % Useful for debugging
+
+% Fancy fit image command with optional caption
+\makeatletter
+\newcommand{\fitimage}[2][\@nil]{
+  \begin{figure}
+    \begin{adjustbox}{width=0.9\textwidth, totalheight=\textheight-2\baselineskip-2\baselineskip,keepaspectratio}
+      \includegraphics{#2}
+    \end{adjustbox}
+    \def\tmp{#1}%
+   \ifx\tmp\@nnil
+      \else
+      \caption{#1}
+    \fi
+  \end{figure}
+}
+\makeatother
 
 \begin{document}
 
 \begin{frame}{Autoscaling image}
-	\begin{figure}
-		\caption{Autoscaling image}
-	  \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{myimage.png}
-	\end{figure}
+  \fitimage[Autoscaling image]{myimage.png}
 \end{frame}
 
 \begin{frame}{Autoscaling table}
