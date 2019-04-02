@@ -19,10 +19,9 @@ title: Research
 
 ## Works in progress
 
-- Patrick Baylis and Judson Boomhower. "Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters." 
-  - [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
-- Patrick Baylis. "Temperature and Temperament: Evidence from Twitter." Submitted.
-  - [Working paper](http://www.patrickbaylis.com/pdf/Baylis_TT.pdf)
+- Patrick Baylis and Judson Boomhower. "Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters." \[[SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)\] \[[Working paper (latest version)](http://www.patrickbaylis.com/pdf/BaylisBoomhower.pdf)\]
+
+- Patrick Baylis. "Temperature and Temperament: Evidence from Twitter." \[[Working paper](http://www.patrickbaylis.com/pdf/Baylis_TT.pdf)\]
   - Selected media:  [Popular Science](https://www.popsci.com/science-confirms-obvious-we-hate-being-hot),  [Washington Post](https://www.washingtonpost.com/news/wonk/wp/2016/01/07/clear-evidence-that-cold-days-are-better-than-hot-ones/?noredirect=on&utm_term=.1338bbea7602),  [Time](http://time.com/4172187/temperature-weather-hot-cold-preferences/),  [Weather Channel](https://weather.com/health/news/weather-makes-us-more-miserable),  [UC Newsroom](https://www.universityofcalifornia.edu/news/what-billion-tweets-tell-us-about-climate-change),  [Energy Institute Blog](https://energyathaas.wordpress.com/2015/12/07/heat-and-happiness/),  [G-FEED Blog](http://www.g-feed.com/2015/12/warming-makes-people-unhappy-evidence.html),  [Marginal Revolution Blog](https://marginalrevolution.com/marginalrevolution/2016/01/do-you-get-grumpy-over-seventy-degrees-fahrenheit.html)
-- Meredith Fowlie, Catherine Wolfram, C Anna Spurlock, Annika Todd, Patrick Baylis, and Peter Cappers. "Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Programs." Revise and resubmit.
-  - [NBER Working paper](http://conference.nber.org/confer/2015/SI2015/EEE/Cappers_Fowlie_Spurlock_Todd_Wolfram_Baylis.pdf)
+- Meredith Fowlie, Catherine Wolfram, C Anna Spurlock, Annika Todd, Patrick Baylis, and Peter Cappers. "Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Programs." Revise and resubmit.\[[NBER Working paper](http://conference.nber.org/confer/2015/SI2015/EEE/Cappers_Fowlie_Spurlock_Todd_Wolfram_Baylis.pdf)\]
+
