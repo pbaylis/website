@@ -13,3 +13,8 @@ title: "Useful links"
 ## Wildfires
 
 - https://wfdss.usgs.gov/wfdss/wfdss_data_downloads.shtml
+
+# UBC
+
+- [HRMS](https://paprod.adm.ubc.ca:8443/psp/paprod/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST): Salary and expense reimbursements (need to be on campus or on VPN).
+- [FSC](https://ssc.adm.ubc.ca/fsc/secure/home): Get classlists and submit grades.
