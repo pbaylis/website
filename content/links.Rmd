@@ -14,7 +14,17 @@ title: "Useful links"
 
 - https://wfdss.usgs.gov/wfdss/wfdss_data_downloads.shtml
 
+## Collections of datasets
+
+- Rebecca Thornton's [favorite data resources](https://www.rebeccathornton.net/my-favorite-data-resources/): Mostly development-related
+
 # UBC
 
 - [HRMS](https://paprod.adm.ubc.ca:8443/psp/paprod/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST): Salary and expense reimbursements (need to be on campus or on VPN).
 - [FSC](https://ssc.adm.ubc.ca/fsc/secure/home): Get classlists and submit grades.
+
+# Code
+
+## R
+
+- [https://seananderson.ca/2013/08/23/debugging-r/](Debugging R) (Sean Anderson)

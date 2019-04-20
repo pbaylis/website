@@ -1,0 +1,74 @@
+---
+title: "Econometrics for Dummies: GMM"
+date: '2019-04-16'
+categories:
+  - econometrics
+tags:
+  - gmm
+output:
+  blogdown::html_page:
+    toc: yes
+    fig_height: 3
+    fig_width: 4
+---
+
+I'm embarassed to admit that a lot "core" econometric concepts are vague to me. I (sometimes) remember a lecture or two on them in graduate school, but having never had need to implement them myself, I would be hard-pressed to describe cogently what they are, let alone code them up. To fill these gaps, this series will review some of these concepts in the simplest terms possible, since that -- for me -- is the best way to learn.
+
+GMM, or the Generalized Method of Moments, is one such concept. To better understand it, we'll need to start from some more basic principles that may or may not be familiar. First, we'll discuss moments, then the (ungeneralized) method of moments, and finally GMM itself.
+
+# Moments
+
+"Moments" are just fancy ways of describing the distibutions of random variables. You'll see shortly that you're already familiar with a couple of them. Given a random variable $X$ (and some unrestrictive assumptions about its distribution), the mathematical definition of a "raw moment" is:
+
+$$ E[X^n] $$
+The mean is actually the first raw moment, and the only raw moment we really use. We typically define it as $\mu = E[X]$. Beyond the mean, all of the other moments we use in practice are "central moments", which are in general given as and are the expectation of the $n$-exponentiated difference between $X$ and its mean $u$:
+
+$$ \mu_n = E[(X - \mu)^n] $$
+
+The most familiar central moment is the second central moment, which we call the variance. We often write the variance as $\sigma = E[(X - \mu)^2] = E[X^2] - E[X]^2$. You can get that second equality with a little bit of algebra.
+
+The subsequent central moments are called the "skewness" and "kurtosis". They can help describe more complex distributions. Note that, for example, the mean and variance and sufficient to describe any normally-distributed random variable. 
+
+# Method of Moments
+
+The (simple) method of moments is the oldest way to estimate population parameters from observed data. The idea is really simple: suppose you have a random variable from a known distribution with unknown parameters. To estimate those parameters, you just set the population moments equal to the sample moments. It asserts, based on the Law of Large Numbers, that given a set of draws $i = 1, \ldots, N$ from the random variable X, we can estimate the $n$th population moment with the $n$th sample moment as follows:
+
+$$ \frac{1}{N} \sum_{i=1}^N X_i^n = E[X^n] $$
+If we do this for as many moments as define our data-generating process (here, the distribution), we'll have $n$ equations with $n$ unknowns, which we can simply solve.
+
+## A trivial example 
+
+Here's a trivial example of how this works. Suppose we observe a set of random variables $X_1, \ldots, X_n$ drawn from a normal distribution with unknown mean $\mu$ and variance $\sigma^2$. We want to derive the estimators for these parameters using the method of moments. First, we can compute the population moments. We'll use the first moment about the origin and the second moment about the mean. These are 
+
+$$ E[X_i] = \mu $$
+$$ E[X^2] - E[X]^2 = \sigma^2 $$
+
+
+## A (slightly) less trivial example
+
+https://www.stat.berkeley.edu/~vigre/activities/bootstrap/2006/wickham_stati.pdf
+
+## Links
+
+- Method of moments [wiki](https://en.wikipedia.org/wiki/Method_of_moments_(statistics))
+- RandomServices [method of moments](http://www.randomservices.org/random/point/Moments.html)
+- Berkeley Statistics [notes](https://www.stat.berkeley.edu/~vigre/activities/bootstrap/2006/wickham_stati.pdf)
+
+# Generalized Method of Moments (GMM)
+
+One key to the method of moments estimator is that we have the same number of moment conditions as parameters to estimate. But what if we have _more_ moments than parameters, as is the case in a regression setting? GMM helps us combine all of these moments optimally. GMM minimizes the sum of squared distances between all of the moments used for estimation. If that sounds like OLS, that's because OLS is, in fact, a special case of GMM with a particular set of moment conditions. Instrumental Variables (IV) are also a special case of GMM. 
+
+## OLS as GMM
+
+## IV as GMM
+
+
+
+## Links
+
+- Penn State [STAT 414/415](https://newonlinecourses.science.psu.edu/stat414/node/193/)
+- StackExchange: [Difference between Method of Moments and GMM](https://stats.stackexchange.com/questions/287/what-is-the-difference-relationship-between-method-of-moments-and-gmm)
+- https://www.youtube.com/watch?v=pIIEmUEnjhY
+
+Next up... Maximum Likelihood Estimation!
+- Peter Zsohar's GMM [notes](http://www.ksh.hu/statszemle_archive/2012/2012_K16/2012_K16_150.pdf)
