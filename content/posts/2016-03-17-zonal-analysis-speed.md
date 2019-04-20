@@ -10,7 +10,7 @@ tags:
   - Python
 ---
 
-_Update (April 2018): R now has the `xelox` package which is much faster for this. Also, `fasterize` is a much faster rasterization method._
+_Update (April 2018): R now has the `velox` package which is much faster for this. Also, `fasterize` is a much faster rasterization method._
 
 Taking the average value of rasters by polygon is slow in R. Really slow. Using `extract` with a raster of more than 800k cells (PRISM weather data) and a shapefile of more than 3000 polygons (counties) takes a little over 500 seconds.
 
