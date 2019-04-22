@@ -27,4 +27,6 @@ title: "Useful links"
 
 ## R
 
-- [https://seananderson.ca/2013/08/23/debugging-r/](Debugging R) (Sean Anderson)
+- [Debugging R]([https://seananderson.ca/2013/08/23/debugging-r/]) (Sean Anderson)
+- [cowplot package](https://github.com/wilkelab/cowplot) (Clause Wilke)
+- [RMarkdown templates](https://bookdown.org/yihui/rmarkdown/document-templates.html#): Good starting point for how to create RMarkdown templates
