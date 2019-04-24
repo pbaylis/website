@@ -25,6 +25,10 @@ title: "Useful links"
 
 # Code
 
+## TeX
+
+- [TinyTex](https://yihui.name/tinytex/): TODO, add blog post on this since I will need commands to install new stuff.
+
 ## R
 
 - [Debugging R]([https://seananderson.ca/2013/08/23/debugging-r/]) (Sean Anderson)

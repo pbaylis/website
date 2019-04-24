@@ -86,6 +86,38 @@ Note that getting from the second to the third lines requires a few algebraic st
 
 ## OLS as an MOM estimator 
 
+Start with a data generating process that takes the following form:
+
+$$ y = \alpha + \beta x + u $$ 
+
+Note that we want to estimate both $\alpha$ and $\beta$, so we need _two_ moment conditions. We'll start with the (benign) assumption that $E[u] = 0$. This assumption is benign because we included the intercept, $\alpha$. 
+
+The other assumption we'll need is that $\text{Cov}(x, u) = 0$. This isn't so benign. This is an _unconfoundedness_ assumption, which basically asserts that this model doesn't suffer from any endogeneity problems. Since this is a blog post and not an econometrics class, that's as far as we'll go on that. 
+
+\begin{align*}
+E[u] &= 0 \\
+&= E[y - \alpha - \beta x] \\
+&= E[y] - E[\alpha] - E[\beta x] \\
+\alpha &= E[y] - \beta E[x]
+\end{align*}
+This is our estimator for $\alpha$, but we need to come up with an estimator for $\beta$ as well.
+
+To do this, we start with our second moment condition and the definition of covariance:
+\begin{align*}
+\text{Cov}(x,u) &= E[(x - E[x])(u - E[u])] \\
+&= E[xu - uE[x]] \\
+&= E[xu] - E[x]E[u] \\
+&= E[xu] \\
+&= E[x(y - \alpha - \beta x)] \\
+&= E[xy] - \alpha E[x] - \beta E[x^2] \\
+&= E[xy] - (E[y] - \beta E[x]) E[x] - \beta E[x^2] \\
+&= E[xy] - E[x]E[y] - \beta (E[x]^2 - E[x^2]) \\
+\beta &= \frac{E[xy] - E[x]E[y]}{E[x]^2 - E[x^2]} \\
+\end{align*}
+The above also uses that $E[u]  = 0$ and that $E[x]$ is a constant.  This should look familiar. This is the same result you can obtain from the first order conditions for OLS, but no calculus was required. From here, we simply put hats on $\alpha$ and $\beta$, replace the population expectations with sample expectations, and call it a day.
+
+Reference: http://www.nathanielhiggins.com/uploads/3/6/4/2/3642182/deriving-ols.pdf
+
 ## Single-IV as an MOM estimator
 
 ## Links

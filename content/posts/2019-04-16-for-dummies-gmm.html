@@ -82,6 +82,31 @@ Setting this equal to our expression above gives</p>
 </div>
 <div id="ols-as-an-mom-estimator" class="section level2">
 <h2>OLS as an MOM estimator</h2>
+<p>Start with a data generating process that takes the following form:</p>
+<p><span class="math display">\[ y = \alpha + \beta x + u \]</span></p>
+<p>Note that we want to estimate both <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, so we need <em>two</em> moment conditions. We’ll start with the (benign) assumption that <span class="math inline">\(E[u] = 0\)</span>. This assumption is benign because we included the intercept, <span class="math inline">\(\alpha\)</span>.</p>
+<p>The other assumption we’ll need is that <span class="math inline">\(\text{Cov}(x, u) = 0\)</span>. This isn’t so benign. This is an <em>unconfoundedness</em> assumption, which basically asserts that this model doesn’t suffer from any endogeneity problems. Since this is a blog post and not an econometrics class, that’s as far as we’ll go on that.</p>
+<p><span class="math display">\[\begin{align*}
+E[u] &amp;= 0 \\
+&amp;= E[y - \alpha - \beta x] \\
+&amp;= E[y] - E[\alpha] - E[\beta x] \\
+\alpha &amp;= E[y] - \beta E[x]
+\end{align*}\]</span>
+This is our estimator for <span class="math inline">\(\alpha\)</span>, but we need to come up with an estimator for <span class="math inline">\(\beta\)</span> as well.</p>
+<p>To do this, we start with our second moment condition and the definition of covariance:
+<span class="math display">\[\begin{align*}
+\text{Cov}(x,u) &amp;= E[(x - E[x])(u - E[u])] \\
+&amp;= E[xu - uE[x]] \\
+&amp;= E[xu] - E[x]E[u] \\
+&amp;= E[xu] \\
+&amp;= E[x(y - \alpha - \beta x)] \\
+&amp;= E[xy] - \alpha E[x] - \beta E[x^2] \\
+&amp;= E[xy] - (E[y] - \beta E[x]) E[x] - \beta E[x^2] \\
+&amp;= E[xy] - E[x]E[y] - \beta (E[x]^2 - E[x^2]) \\
+\beta &amp;= \frac{E[xy] - E[x]E[y]}{E[x]^2 - E[x^2]} \\
+\end{align*}\]</span>
+The above also uses that <span class="math inline">\(E[u] = 0\)</span> and that <span class="math inline">\(E[x]\)</span> is a constant. This should look familiar. This is the same result you can obtain from the first order conditions for OLS, but no calculus was required. From here, we simply put hats on <span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>, replace the population expectations with sample expectations, and call it a day.</p>
+<p>Reference: <a href="http://www.nathanielhiggins.com/uploads/3/6/4/2/3642182/deriving-ols.pdf" class="uri">http://www.nathanielhiggins.com/uploads/3/6/4/2/3642182/deriving-ols.pdf</a></p>
 </div>
 <div id="single-iv-as-an-mom-estimator" class="section level2">
 <h2>Single-IV as an MOM estimator</h2>
