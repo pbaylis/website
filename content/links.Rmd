@@ -31,6 +31,17 @@ title: "Useful links"
 
 ## R
 
-- [Debugging R]([https://seananderson.ca/2013/08/23/debugging-r/]) (Sean Anderson)
-- [cowplot package](https://github.com/wilkelab/cowplot) (Clause Wilke)
-- [RMarkdown templates](https://bookdown.org/yihui/rmarkdown/document-templates.html#): Good starting point for how to create RMarkdown templates
+- [Debugging R]([https://seananderson.ca/2013/08/23/debugging-r/]) (Sean Anderson): In short, use `browser()`.
+- [RMarkdown templates](https://bookdown.org/yihui/rmarkdown/document-templates.html#): Good starting point for how to create RMarkdown templates.
+- [R table-making principles](https://hughjonesd.github.io/huxtable/design-principles.html): Compares huxtable to everything else.
+
+### R Packages
+- [gghighlight](https://cran.r-project.org/web/packages/gghighlight/vignettes/gghighlight.html)
+- [cowplot](https://github.com/wilkelab/cowplot) (Clause Wilke)
+- [glue](https://github.com/tidyverse/glue): Easily combine strings.
+- [patchwork](https://github.com/thomasp85/patchwork): Easily lay out ggplot figures.
+- [huxtable](https://hughjonesd.github.io/huxtable/huxtable.html): Output formatted tables.
+
+# Conferences 
+
+- [List of environmental economics conferences](http://caseyjwichman.com/resources/) (Casey Wichman)

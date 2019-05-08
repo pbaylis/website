@@ -1,0 +1,22 @@
+---
+layout: post
+title:  "Things I forget: dynamically assign variable names in dplyr"
+date:   2019-05-04
+categories:
+  - programming
+tags:
+  - R
+  - RStudio
+---
+  
+Setting variable names dynamically is often a signal of bad programming, and I do it all of the time. Here's how to do it in `dplyr` 0.7 and later.
+
+
+```{r}
+multipetal <- function(df, n) {
+    varname <- paste("petal", n , sep=".")
+    mutate(df, !!varname := Petal.Width * n)
+}
+```
+
+Source: [SO post](https://stackoverflow.com/questions/26003574/dplyr-mutate-use-dynamic-variable-names)

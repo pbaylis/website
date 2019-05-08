@@ -139,6 +139,7 @@ One key to the method of moments estimator is that we have the same number of mo
 - Penn State [STAT 414/415](https://newonlinecourses.science.psu.edu/stat414/node/193/)
 - StackExchange: [Difference between Method of Moments and GMM](https://stats.stackexchange.com/questions/287/what-is-the-difference-relationship-between-method-of-moments-and-gmm)
 - https://www.youtube.com/watch?v=pIIEmUEnjhY
+- https://www.stata.com/meeting/germany10/germany10_drukker.pdf
 
 Next up... Maximum Likelihood Estimation!
 - Peter Zsohar's GMM [notes](http://www.ksh.hu/statszemle_archive/2012/2012_K16/2012_K16_150.pdf)
