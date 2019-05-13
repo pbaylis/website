@@ -1,0 +1,23 @@
+---
+layout: post
+title:  "Using BFG to clean up LFS repos"
+date:   2019-05-04
+categories:
+  - programming
+tags:
+  - R
+  - RStudio
+---
+  
+I'm frequently finding myself at the limits of my GitHub account. Here's how I use [BFG](https://rtyley.github.io/bfg-repo-cleaner/) to clear out space.
+
+One annoying this about this: there's no easy way to find out which of your repos are eating your LFS storage.
+
+The following code clones a bare repo, drops anything bigger than 10m in the history, and then 
+```{bash}
+git clone --mirror git://example.com/some-big-repo.git
+java -jar bfg.jar --strip-blobs-bigger-than 10M some-big-repo.git
+cd some-big-repo.git
+git reflog expire --expire=now --all && git gc --prune=now --aggressive
+git push
+```
