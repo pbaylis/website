@@ -43,6 +43,9 @@ title: "Useful links"
 - [patchwork](https://github.com/thomasp85/patchwork): Easily lay out ggplot figures.
 - [huxtable](https://hughjonesd.github.io/huxtable/huxtable.html): Output formatted tables.
 
+## Github
+- [Save git credentials](https://help.github.com/en/articles/caching-your-github-password-in-git)
+
 # Conferences 
 
 - [List of environmental economics conferences](http://caseyjwichman.com/resources/) (Casey Wichman)
