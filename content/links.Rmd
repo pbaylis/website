@@ -18,6 +18,11 @@ title: "Useful links"
 
 - Rebecca Thornton's [favorite data resources](https://www.rebeccathornton.net/my-favorite-data-resources/): Mostly development-related
 
+## Weather
+
+- NOAA [Global Surface Summary of the Day](https://catalog.data.gov/dataset/global-surface-summary-of-the-day-gsod)
+  - Derived from the [Integrated Surface Database](https://www.ncdc.noaa.gov/isd)
+
 # UBC
 
 - [HRMS](https://paprod.adm.ubc.ca:8443/psp/paprod/EMPLOYEE/EMPL/h/?tab=PAPP_GUEST): Salary and expense reimbursements (need to be on campus or on VPN).
