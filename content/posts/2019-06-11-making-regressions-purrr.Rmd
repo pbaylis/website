@@ -45,6 +45,6 @@ huxtable::huxreg(reg_output$fit)
 # ...Or shown all together in a single table.
 bind_rows(reg_output_tidy$fit_tidy, .id = "reg_id")
 
-# It's also straightforward to choose which regressions to display
+# It's also straightforward to display only a subset of the regressions.
 huxtable::huxreg(reg_output %>% filter(rhs == "exp + wks") %>% pull(fit))
 ```

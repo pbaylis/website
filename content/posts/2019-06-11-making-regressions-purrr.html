@@ -41,7 +41,7 @@ reg_output_tidy &lt;- cbind(reg_tibble, purrr::pmap_dfr(reg_tibble, reg_felm, ti
 stargazer::stargazer(reg_output$fit)</code></pre>
 <pre><code>## 
 ## % Table created by stargazer v.5.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-## % Date and time: Tue, Jun 11, 2019 - 10:52:30
+## % Date and time: Tue, Jun 11, 2019 - 10:54:27
 ## \begin{table}[!htbp] \centering 
 ##   \caption{} 
 ##   \label{} 
@@ -185,7 +185,7 @@ bind_rows(reg_output_tidy$fit_tidy, .id = &quot;reg_id&quot;)</code></pre>
 </tr>
 </table>
 
-<pre class="r"><code># It&#39;s also straightforward to choose which regressions to display
+<pre class="r"><code># It&#39;s also straightforward to display only a subset of the regressions.
 huxtable::huxreg(reg_output %&gt;% filter(rhs == &quot;exp + wks&quot;) %&gt;% pull(fit))</code></pre>
 <table class="huxtable" style="border-collapse: collapse; margin-bottom: 2em; margin-top: 2em; width: 50%; margin-left: auto; margin-right: auto;  ">
 <col><col><col><tr>
