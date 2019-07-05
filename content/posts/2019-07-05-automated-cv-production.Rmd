@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Automated reference and abstract creation - a work in p"
+title: "Automated reference and abstract creation"
 date: 2019-07-05
 output:
     bookdown::pdf_document2:
@@ -13,7 +13,7 @@ I don't enjoy updating my CV, and I _really_ don't enjoy updating multiple versi
 
 # Current version
 
-The current version of how I do this can be found in this GitHub [repo](https://github.com/pbaylis/baylis-CV). In short, it uses a makefile and multiple runs of `pandoc` (with custom templates) to create both my [CV](/pdf/Baylis_CV) (a PDF) and my [research](/research) page.
+The current version of how I do this can be found in this GitHub [repo](https://github.com/pbaylis/baylis-CV). In short, it uses a makefile and multiple runs of `pandoc` (with custom templates) to create both my [CV](/pdf/Baylis_CV.pdf) (a PDF) and my [research](/research) page.
 
 But I'm still not fully satisfied with it. What is it missing?
 
