@@ -7,6 +7,11 @@ title: "Useful links"
   - "a new kind of econometrics class that puts causality and programming skills first, before regression or anything else."
 - Grant McDermott's [EC607](https://github.com/uo-ec607/lectures), "Environmental Economics and Data Science"
   
+# Books
+
+- Clause O. Wilke on [Data Visualization](https://serialmentor.com/dataviz/)
+  - He has a [blog](https://serialmentor.com/virtualbooks/) on a variety of interesting subjects
+- Yihui Xie on [bookdown](https://bookdown.org/yihui/bookdown/)
   
 # Data
 
