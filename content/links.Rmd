@@ -60,3 +60,6 @@ title: "Useful links"
 
 - [List of environmental economics conferences](http://caseyjwichman.com/resources/) (Casey Wichman)
 
+# On writing 
+
+- [J.K. Galbraith](https://www.theatlantic.com/magazine/archive/1978/03/writing-typing-and-economics/305165/)
