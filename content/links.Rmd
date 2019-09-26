@@ -52,6 +52,7 @@ title: "Useful links"
 - [glue](https://github.com/tidyverse/glue): Easily combine strings.
 - [patchwork](https://github.com/thomasp85/patchwork): Easily lay out ggplot figures.
 - [huxtable](https://hughjonesd.github.io/huxtable/huxtable.html): Output formatted tables.
+- [qs](https://github.com/traversc/qs): Faster drop-resplacement for `saveRDS` and `readRDS`. Similar to FST, but can work on any type of object.
 
 ## Github
 - [Save git credentials](https://help.github.com/en/articles/caching-your-github-password-in-git)

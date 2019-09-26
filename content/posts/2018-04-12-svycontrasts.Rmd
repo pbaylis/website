@@ -1,0 +1,46 @@
+---
+layout: post
+title:  "Linear combinations of coefficients in R"
+date:   2018-04-12
+categories: 
+  - econometrics
+tags: 
+  - r
+  - lincom
+---
+
+Updated: 2019-09-26. 
+
+One of the few features I miss from Stata is the very-intuitive `lincom` command. Most of the time I recreate that functionality with `survey::svycontrast`. But, I always forget the syntax. This code demonstrates a minimum working example. 
+
+```{r survey, message = F, warning = F, error = F}
+library(survey)
+
+N <- 100
+df <- data.frame(x1 = rnorm(N), x2 = rnorm(N))
+df$y <- 1 + 3 * df$x1 - 2 * df$x2 + rnorm(N, 0, 0.5)
+
+fit <- lm(y ~ x1 + x2, data = df)
+```
+
+Having fit the model, we can pass unnamed vector with the right number of coefficients to get our desired linear combination:
+
+```{r result1}
+svycontrast(fit, c(0, 1, 1))
+```
+
+Or a named vector with any number of coefficients (as long as the names match). One "gotcha" to keep in mind: I have found that the latter syntax fails for some versions of `survey` and may be OS-dependent. 
+
+```{r result2}
+svycontrast(fit, c("x2" = 1, "x1" = 1))
+```
+
+Finally, note that it's also possible to do the same manually:
+
+```{r manual}
+vars <- c("x1", "x2")
+sum(coef(fit)[vars])
+sqrt(sum(vcov(fit)[vars, vars]))
+```
+
+Of course, it would be slightly more complicated to estimate a linear combination of estimators with coefficients $\neq$ 1. 
