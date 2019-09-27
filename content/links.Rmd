@@ -38,6 +38,7 @@ title: "Useful links"
 ## TeX
 
 - [TinyTex](https://yihui.name/tinytex/): TODO, add blog post on this since I will need commands to install new stuff.
+- [Paul Goldsmith-Pinkham's Beamer Tips](https://github.com/paulgp/beamer-tips)
 
 ## R
 
