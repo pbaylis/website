@@ -9,7 +9,7 @@ output:
         keep_tex: true
 ---
 
-I often need to document the statistical results I [estimate](posts/2019-06-11-making-regressions-purrr/) in table format. I have tried many, many things over the years, and none of my solutions are perfect, including the one I'm about to describe. But, it is now... pretty good. 
+I often need to document the statistical results I [estimate](/posts/2019-06-11-making-regressions-purrr/) in table format. I have tried many, many things over the years, and none of my solutions are perfect, including the one I'm about to describe. But, it is now... pretty good. 
 
 First, I define a function that takes a list of fitted models (`models`) and some other variables and outputs a list of pieces that I can create a table with. See below for the function definition.
 
@@ -67,7 +67,7 @@ latex_output <- c(pieces$header,
 write(latex_output, "model-tabular.tex")
 ```
 
-Next, I use the LaTeX `threeparttable` package (also used in this [post](posts/2018-10-11-beamer-resizing/)) to display the table. Here's a minimum example. 
+Next, I use the LaTeX `threeparttable` package (also used in this [post](/posts/2018-10-11-beamer-resizing/)) to display the table. Here's a minimum example. 
 
 ```
 \documentclass{article}

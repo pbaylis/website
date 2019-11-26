@@ -11,7 +11,7 @@ output:
 
 
 
-<p>I often need to document the statistical results I <a href="posts/2019-06-11-making-regressions-purrr/">estimate</a> in table format. I have tried many, many things over the years, and none of my solutions are perfect, including the one I’m about to describe. But, it is now… pretty good.</p>
+<p>I often need to document the statistical results I <a href="/posts/2019-06-11-making-regressions-purrr/">estimate</a> in table format. I have tried many, many things over the years, and none of my solutions are perfect, including the one I’m about to describe. But, it is now… pretty good.</p>
 <p>First, I define a function that takes a list of fitted models (<code>models</code>) and some other variables and outputs a list of pieces that I can create a table with. See below for the function definition.</p>
 <pre class="r"><code>library(stargazer)
 
@@ -60,7 +60,7 @@ latex_output &lt;- c(pieces$header,
 
 # Write to file
 write(latex_output, &quot;model-tabular.tex&quot;)</code></pre>
-<p>Next, I use the LaTeX <code>threeparttable</code> package (also used in this <a href="posts/2018-10-11-beamer-resizing/">post</a>) to display the table. Here’s a minimum example.</p>
+<p>Next, I use the LaTeX <code>threeparttable</code> package (also used in this <a href="/posts/2018-10-11-beamer-resizing/">post</a>) to display the table. Here’s a minimum example.</p>
 <pre><code>\documentclass{article}
 
 \usepackage{booktabs} % Nice-looking tables
