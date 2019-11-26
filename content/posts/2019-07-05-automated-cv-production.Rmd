@@ -7,7 +7,10 @@ output:
         citation_package: biblatex
         latex_engine: xelatex
         keep_tex: true
+draft: true
 ---
+
+NOTE TO SELF: This is in draft mode right now because I just update my CV automatically. I can make it look nicer and show exactly what I want. Automated updating has not proven to be worth the effort.
 
 I don't enjoy updating my CV, and I _really_ don't enjoy updating multiple versions of my CV. To miinimize some of this pain, I'm always on the lookout for ways to automate this process. This post covers my current process and alternatives I'm considering. This is a work in progress, so I don't have a better version of the current process yet, but I've written this post in part for myself so that I can remember what I've tried (since I inevitably forget about this project whenever more compelling tasks come along and won't return to it until 3-4 months later).
 
