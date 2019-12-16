@@ -21,9 +21,9 @@ title: "Research"
 - Temperature and Temperament: Evidence from Twitter (*R&R at the Journal of Public Economics*)
   - [Working paper](http://www.patrickbaylis.com/pdf/Baylis_TT.pdf)
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*) 
-  - [Working paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
+  - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
 - Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Under review*) 
-  - [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf), [Working paper (latest version)](http://www.patrickbaylis.com/pdf/BaylisBoomhower.pdf)
+  - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf), [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
   - Selected media:  [Popular Science](https://www.popsci.com/science-confirms-obvious-we-hate-being-hot),  [Washington Post](https://www.washingtonpost.com/news/wonk/wp/2016/01/07/clear-evidence-that-cold-days-are-better-than-hot-ones/?noredirect=on&utm_term=.1338bbea7602),  [Time](http://time.com/4172187/temperature-weather-hot-cold-preferences/),  [Weather Channel](https://weather.com/health/news/weather-makes-us-more-miserable),  [UC Newsroom](https://www.universityofcalifornia.edu/news/what-billion-tweets-tell-us-about-climate-change),  [Energy Institute Blog](https://energyathaas.wordpress.com/2015/12/07/heat-and-happiness/),  [G-FEED Blog](http://www.g-feed.com/2015/12/warming-makes-people-unhappy-evidence.html),  [Marginal Revolution Blog](https://marginalrevolution.com/marginalrevolution/2016/01/do-you-get-grumpy-over-seventy-degrees-fahrenheit.html)
 
 

@@ -1,0 +1,47 @@
+---
+layout: post
+title: "Scoring texts for the presence of phrases"
+date: 2019-12-05
+output:
+    bookdown::pdf_document2:
+        citation_package: biblatex
+        latex_engine: xelatex
+        keep_tex: true
+---
+
+
+
+<p>In my text analysis work, I frequently score texts for the presence or absence of various ``keywords’’. Because I work with some large corpora (collections of texts), for example the billions of tweets in my <a href="/pdf/Baylis_TT.pdf">job market paper</a>, this can be a time-consuming task. I have previously done most of this in Python, but right now I’m also interested in doing it quickly in R for ad hoc analyses.</p>
+<p>In this post I test two different methods for detecting words: a simpler `grepl’-based approach that using a regex search to identify any texts with at least one of the matching words, and slightly more involved approach first tokenizes (i.e., breaks up sentences into their component word ‘tokens’) the texts and then searches through those tokens to see if any match the given keywords.</p>
+<pre class="r"><code>library(tidyverse)
+
+# Load 50 sample tweets
+example_tweets &lt;- read_csv(&quot;tweet-examples.csv&quot;) %&gt;% pull(tweet50) 
+# Simulate a corpus of 250,000 tweets
+corpus &lt;- rep(example_tweets, 5000) 
+
+# Create the vector of ten words to search for
+keywords &lt;- c(&quot;money&quot;, &quot;beer&quot;, &quot;friends&quot;, &quot;fhdjasl&quot;, &quot;dfjha&quot;, &quot;dshjfsa&quot;, &quot;fdjh&quot;, &quot;vjhd&quot;, &quot;cvmna&quot;, &quot;dfhda&quot;)
+
+# Score using grepl approach ----
+# We only want to match on distinct words, so we use the word boundaries approach and paste all of the words together with |
+score_grepl &lt;- function(texts, keywords) {
+    sapply(texts, function(x) grepl(sprintf(&quot;\\b(%s)\\b&quot;, paste0(keywords, collapse = &quot;|&quot;)), x), USE.NAMES = F)
+}
+
+system.time(score_grepl(corpus, keywords[1])) # About 2.85s
+system.time(score_grepl(corpus, keywords)) # About 9.5s
+system.time(score_grepl(corpus, rep(keywords, 10))) # About 120s
+
+# Score with tokenizer appraoch using tokenizers package ----
+library(tokenizers)
+# Note that this is a bit more sophisiticated than just using grepl, since we ask it to strip out punctuation and urls.
+score_tokenizers &lt;- function(texts, keywords) {
+    tkns &lt;- tokenize_tweets(texts, strip_punct = TRUE, strip_url = T)
+    sapply(tkns, function(x) any(keywords %in% x), USE.NAMES = F)
+}
+
+system.time(score_tokenizers(corpus, keywords[1])) # About 5s
+system.time(score_tokenizers(corpus, keywords)) # About 5s
+system.time(score_tokenizers(corpus, rep(keywords, 10))) # About 6s</code></pre>
+<p>What did I learn here? If I’m only interested in detecting a small number of keywords, a simple <code>grepl</code> based approach is fine. But if I want to search for more than 5-10 keywords, tokenizing first is better (I also test a tokenizing approach that uses the <code>quanteda</code> package, but do not see any notable differences in performance). Note that this would also be true for creating multiple scores from the same set of texts.</p>
