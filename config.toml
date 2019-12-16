@@ -29,13 +29,9 @@ footnotereturnlinkcontents = "↩"
     url = "/pdf/Baylis_CV.pdf"
     weight = 4
 [[menu.main]]
-    name = "Office hours"
-    url = "/office-hours/"
-    weight = 5
-[[menu.main]]
     name = "Posts"
     url = "/posts/"
-    weight = 6
+    weight = 5
 
 [params]
     description = "The professional web home of Patrick Baylis."
