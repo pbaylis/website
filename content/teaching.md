@@ -6,7 +6,7 @@ permalink: /teaching/
 
 - ECON 371: Economics of the environment. [Syllabus](/pdf/ECON371-syllabus.pdf).
 - ECON 494: Seminar in environmental economics. [Syllabus](/pdf/econ494-syllabus.pdf).
-- ECON 573: Graduate environmental economics. [Syllabus](/pdf/econ573_syllabus.pdf).
+- ECON 573: Graduate environmental economics. [Syllabus](/pdf/ECON573-syllabus.pdf).
 
 <!--
 ## Prior
