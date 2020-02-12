@@ -42,6 +42,7 @@ title: "Useful links"
 
 ## R
 
+- [Library of Statistical Techniques (LOST)](https://lost-stats.github.io/)
 - [Debugging R]([https://seananderson.ca/2013/08/23/debugging-r/]) (Sean Anderson): In short, use `browser()`.
 - [RMarkdown templates](https://bookdown.org/yihui/rmarkdown/document-templates.html#): Good starting point for how to create RMarkdown templates.
 - [R table-making principles](https://hughjonesd.github.io/huxtable/design-principles.html): Compares huxtable to everything else.
