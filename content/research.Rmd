@@ -18,7 +18,7 @@ title: "Research"
 
 ## Working papers
 
-- Temperature and Temperament: Evidence from Twitter (*R&R at the Journal of Public Economics*)
+- Temperature and Temperament: Evidence from Twitter (*Accepted at the Journal of Public Economics*)
   - [Working paper](http://www.patrickbaylis.com/pdf/Baylis_TT.pdf)
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*) 
   - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
