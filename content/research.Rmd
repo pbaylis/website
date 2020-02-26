@@ -3,6 +3,9 @@ title: "Research"
 ---
 
 ## Publications
+
+- Temperature and Temperament: Evidence from Twitter (*Accepted at the Journal of Public Economics*)
+  - [Working paper](http://www.patrickbaylis.com/pdf/Baylis_TT.pdf)
 - Rapidly Declining Remarkability of Temperature Anomalies May Obscure Public Perception of Climate Change (with Frances C. Moore, Nick Obradovich, and Flavio Lehner, *Proceedings of the National Academy of Sciences*, 2019)
   - [Paper](https://www.pnas.org/content/early/2019/02/15/1816541116)
   - Selected media:  [New York Times](https://www.nytimes.com/2019/02/26/climate/what-is-extreme-weather.html),  [Washington Post (op-ed by Moore and Obradovich)](https://www.washingtonpost.com/weather/2019/02/25/data-are-frogs-dont-boil-we-might/)
@@ -18,8 +21,6 @@ title: "Research"
 
 ## Working papers
 
-- Temperature and Temperament: Evidence from Twitter (*Accepted at the Journal of Public Economics*)
-  - [Working paper](http://www.patrickbaylis.com/pdf/Baylis_TT.pdf)
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*) 
   - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
 - Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Under review*) 
