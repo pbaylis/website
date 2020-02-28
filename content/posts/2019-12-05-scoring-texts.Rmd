@@ -2,11 +2,10 @@
 layout: post
 title: "Scoring texts for the presence of phrases"
 date: 2019-12-05
-output:
-    bookdown::pdf_document2:
-        citation_package: biblatex
-        latex_engine: xelatex
-        keep_tex: true
+categories:
+  - programming
+tags:
+  - text
 ---
 
 In my text analysis work, I frequently score texts for the presence or absence of various ``keywords''. Because I work with some large corpora (collections of texts), for example the billions of tweets in my [job market paper](/pdf/Baylis_TT.pdf), this can be a time-consuming task. I have previously done most of this in Python, but right now I'm also interested in doing it quickly in R for ad hoc analyses. 

@@ -2,18 +2,18 @@
 layout: post
 title: "How to plot a specification curve"
 date: 2020-02-28
-output:
-    bookdown::pdf_document2:
-        citation_package: biblatex
-        latex_engine: xelatex
-        keep_tex: true
+categories:
+  - programming
+tags:
+  - R
+  - tidyverse
 ---
 
 Like many researchers, I often want to plot a range of coefficient estimates to figure out if the results I'm finding are robust to other sensible specification and functional form choices. This kind of estimate is called a sensitivity curve ([Simonsohn, Simmons, and Nelson 2015](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2694998)), and I [am](https://twitter.com/ArielOrtizBobea/status/1233224906709618689) [far](https://twitter.com/hhsievertsen/status/1188780383736909825) [from](https://twitter.com/deaneckles/status/1171175422219866112) [the](https://twitter.com/icymi_r/status/1208660197763362816) [first](https://twitter.com/JoachimGassen/status/1122410367915823104) [to](https://twitter.com/Bachl/status/1200325153902780417) [do](https://twitter.com/JoachimGassen/status/1203326365715619840) [it](https://twitter.com/thaddunning/status/1146505592682504194). In fact, there are even a couple packages available: [Joachim Gassen's `rdfanalysis`](https://github.com/joachim-gassen/rdfanalysis) and [Philipp Masur's `specr`](https://github.com/masurp/specr) (I haven't used either, yet).
 
-I wanted to roll my own, though. Since my code is fairly simple (less than 60 lines include comments and generous spacing) and uses the [`tidyverse`](https://www.tidyverse.org/), it may be helpful to other people too. First, here's the output.
+I wanted to roll my own, though. Since my code is fairly simple (less than 60 lines including comments and generous spacing) and uses the [`tidyverse`](https://www.tidyverse.org/), it may be helpful to other people too. First, here's the output. It's certainly not the prettiest version of a specification curve, but it gets the job done.
 
-![](/static/img/specification-curve.png)
+![](/img/specification-curve.png)
 
 Second, here's the code (also available as a [gist](https://gist.github.com/pbaylis/dbb0202786412afe80c42e19afec5284)) that creates it.
 
