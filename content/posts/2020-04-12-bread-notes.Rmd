@@ -5,17 +5,17 @@ date: 2020-04-12
 categories:
   - food
 tags:
-  - brad
+  - bread
   - sourdough
 ---
 
-And now for something completely different... like many people and also many economists, I have found myself with a lot of time at home in the recent couple of months. Having been making sourdough for a few years now, it's been fun to share a few of the tips and tricks I've picked up along the way with people I know who have recently started. I love the process of working with a live culture to produce something edible. And bread is one of those rare items that, despite various economies of scale, you can actually create a better product than you can buy at any store, since the quality of bread declines precipitously in time. But, as a home baker you have to approach many of the challenges of bread-making differently than someone with a commercial oven would. Figuring out how to get an open, moist crumb, a strong crust, and that delightful sourdough flavor out of a conventional of is an ongoing adventure. The notes that follow document some of what I've learned along the way. A But first, a picture of the final product.
+![Country loaf (2014)](/img/sourdough-2014.JPG)
 
-![](/img/sourdough-2014.JPG)
+And now for something completely different... bread! I love the process of working with a live culture to produce something edible. And bread is one of those rare items that, despite various economies of scale, you can actually create a better product than you can buy at any store, since the quality of bread declines precipitously in time and with transport. But, as a home baker you have to approach many of the challenges of bread-making differently than someone with a commercial oven would. Figuring out how to get an open, moist crumb, a strong crust, and that delightful sourdough flavor out of a conventional oven is an ongoing adventure. 
 
-# Bread notes
+I first started baking in 2014 as an escape from grad school ennui. Since then, and especially in last couple months, it's been fun to share a few of the tips and tricks I've picked up along the way with friends who are just getting into baking. The notes that follow document some of what I've learned along the way. Of course, they're a work in progress and I'm learning more every time I bake. But maybe you'll find them useful. And if you, [send me a picture](mailto:patrick.baylis@ubc.ca) of your bread! I'd love to see it. 
 
-Last updated: April 7, 2020
+**Last updated April 12, 2020.**
 
 ## The Starter
 
