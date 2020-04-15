@@ -39,6 +39,7 @@ The notes that follow document some of what I've learned along the way. Of cours
 ## Folding (and bulk fermentation / first rise)
 
 - Folding is the equivalent of kneading for sourdough. Both accomplish the same goal: encouraging the development of a strong, flexible gluten structure in the dough. But kneading is more appropriate with artificial yeasts, since they ferment so aggressively. For natural yeasts, folding is gentler and still allows for proper structure formation.
+- There are people who think that [folding is not necessary](https://breadtopia.com/sourdough-technique-experiment-no-knead-vs-the-works/), or at least has minimal impacts on the dough. They may be right. 
 - Gluten and starch are the main parts of flour.
 - Gluten, which is basically chains of proteins + water, forms when flour and water mix.
 - Folding helps the dough develop strong, flexible gluten chains.
@@ -49,7 +50,10 @@ The notes that follow document some of what I've learned along the way. Of cours
 - The dough tends to go from lumpy and shaggy to smooth and almost shiny. It should stretch but not rip.
 - It is possible to overmix: this can lead to a sudden, total breakdown of the gluten.
 - In the process I use, the dough is effectively conducting its first rise during this time. For other types of bread, the folding and first rise are separate steps.
-- [Turning the dough](https://youtu.be/30CLbYT7Ruk?t=550)
+- [Stretch and fold demonstration I](https://youtu.be/3_5x70h14VQ?t=67)
+- [Stretch and fold demonstration II](https://youtu.be/30CLbYT7Ruk?t=550)
+- After folding, I let the dough finish rising for an hour at least, and maybe a few hours more, to get more fermentation going.
+- This [video](https://www.youtube.com/watch?v=7rsnmv5FvKE) has a good description of the whole sourdough process, including how to know when to finish the first rise.
 
 ## Shaping
 
@@ -77,6 +81,7 @@ The notes that follow document some of what I've learned along the way. Of cours
 - I let the dough proof in the fridge for at least 12 hours before baking. Sometimes, if I want an especially sour flavor, I let it proof for 18 or 24 hours. This overproofs the dough a bit and it doesn't rise as well, but I slightly prefer the more-sour flavor.
 
 ## Baking
+
 
 - I bake the dough in a cast iron dutch oven, using the smaller part of the dutch oven (what would normally be the lid) as the base. The larger part of the dutch oven (what would normally be the base) is the top. The purpose of this is to preserve moisture for the first part of the bake. There are other techniques one could use, such as including a pan of water for the first part of the bake. But this is the easiest for me.
 - I preheat the oven to 500 with the dutch oven inside.
