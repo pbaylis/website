@@ -101,15 +101,21 @@ The notes that follow document some of what I've learned along the way. Of cours
 | Whole wheat flour | 100 grams |
 | Salt | 20 grams |
 
+- You can find the NYT version of this recipe [here](https://cooking.nytimes.com/recipes/1016277-tartines-country-bread).
+
 ### Modifications
 
 - I currently make a whole wheat country loaf. This has 600 grams of whole wheat and 400 grams of white. It doesn't rise quite as well but the flavor is better and it's better for you.
 - I usually only make one loaf at a time. So I halve everything above.
 - I don't do a preferment or a poolish (yet), but am planning to try it soon.
 
-## Sources
+## Resources
 
-I used a variety of sources for this.
+**Videos**
+
+- [Nice walkthrough of one baker's process](https://www.youtube.com/watch?v=BJEHsvW2J6M)
+
+**Books**
 
 - *Tartine Bread*, by Chad Robertson
   - I learned to bake sourdough from this book. Their starter method and their country loaf recipe are still my rough templates. The book is definitely long-winded and a bit pretentious, but there's no arguing with the quality of their product (if you're ever in San Francisco, stopping by the Tartine bakery or manufactory is a must).
