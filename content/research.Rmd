@@ -2,6 +2,15 @@
 title: "Research"
 ---
 
+## Working papers
+
+- Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone) 
+  - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979)
+- Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*) 
+  - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
+- Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Under review*) 
+  - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf), [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
+
 ## Publications
 
 - Temperature and Temperament: Evidence from Twitter (*Journal of Public Economics*, 2020)
@@ -19,12 +28,5 @@ title: "Research"
 - Climate Change is Projected to Have Severe Impacts on the Frequency and Intensity of Peak Electricity Demand Across the United States (with Max Auffhammer and Catherine H. Hausman, *Proceedings of the National Academy of Sciences*, 2017)
   - [Paper](http://www.pnas.org/content/114/8/1886.full)
   - Selected media:  [New York Times](https://www.nytimes.com/interactive/2017/06/22/climate/95-degree-day-maps.html),  [ARS Technica](https://arstechnica.com/science/2017/02/us-electric-grid-isnt-ready-to-handle-our-future-climate/)
-
-## Working papers
-
-- Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*) 
-  - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
-- Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Under review*) 
-  - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf), [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
 
 

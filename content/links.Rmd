@@ -49,6 +49,8 @@ title: "Useful links"
 - [Why we shouldn't use dual axes (except for linear transformations)](https://blog.datawrapper.de/dualaxis/) (Lisa Charlotte Rost)
 
 ### R Packages
+- [{disk.frame}](https://diskframe.com/articles/intro-disk-frame.html): Manipulate larger-than-memory datasets (similar to Spark, Dask, JuliaDB)
+- [pacman](http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html) - Package manager for R
 - [fixest](https://cran.r-project.org/web/packages/fixest/vignettes/fixest_walkthrough.html): Fast(est?) fixed effect estimation, includes non-linear approaches.
 - [gghighlight](https://cran.r-project.org/web/packages/gghighlight/vignettes/gghighlight.html)
 - [cowplot](https://github.com/wilkelab/cowplot) (Clause Wilke)
