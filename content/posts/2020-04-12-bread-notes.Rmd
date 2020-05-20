@@ -9,19 +9,47 @@ tags:
   - sourdough
 ---
 
-![Country loaf (2014)](/img/sourdough-2014.JPG)
+And now for something completely different... sourdough! I first began baking as an escape from grad school ennui. Since then, and especially in last couple months, it's been fun to share a few of the tips and tricks I've picked up along the way with friends who are just getting into baking. The notes that follow document some of what I've learned. Of course, they're a work in progress and I'm learning more every time I bake. But maybe you'll find them useful. I've split this post up into two major sections: the first section, "**Forget the details, I just want to make bread!**", walks you through the steps of making sourdough as quickly as possible. The second section, "**Gimme allll the details**", does just that.
 
-And now for something completely different... bread! I first started baking in 2014 as an escape from grad school ennui. Since then, and especially in last couple months, it's been fun to share a few of the tips and tricks I've picked up along the way with friends who are just getting into baking. I love the process of working with a live culture to produce something edible. And bread is one of those rare items that, despite various economies of scale, you can actually create a better product than you can buy at any store, since the quality of bread declines precipitously in time and with transport. But, as a home baker you have to approach many of the challenges of bread-making differently than someone with a commercial oven would. Figuring out how to get an open, moist crumb, a strong crust, and that delightful sourdough flavor out of a conventional oven is an ongoing adventure. 
+If you find these notes useful, [send me a picture](https://twitter.com/pbaylis) of your bread! I'd love to see it. 
 
-The notes that follow document some of what I've learned along the way. Of course, they're a work in progress and I'm learning more every time I bake. But maybe you'll find them useful. And if you do, [send me a picture](https://twitter.com/pbaylis) of your bread! I'd love to see it. 
+# Forget the details, I just want to make bread!
 
-**Last updated April 30, 2020.**
+1. **Get some starter and the rest of the ingredients**. The easy way to get starter is to borrow from someone who already has a healthy one. The less easy (but not that difficult) way is to make your own. See the "starting a starter" subsection below.
+
+These are the ingredients you'll need (makes one loaf of bread):
+
+| Ingredient | Amount |
+| ---- | ----- |
+| Water | 350 + 25 grams |
+| Starter | 100 grams |
+| Unbleached flour | 450 grams |
+| Whole wheat flour | 50 grams |
+| Salt | 10 grams |
+
+2. **Mix your ingredients** (except 25g of water and the salt). Wait 30 minutes. Mix in the 25g of water and salt. 
+
+3. **Fold / Bulk Fermentation**. For the next 4 hours, you'll "turn" the dough every 30 minutes. To turn the dough, reach underneath, pull it up (stretching it out), and rotate it (example video [here](https://www.youtube.com/watch?v=3_5x70h14VQ&t=77)) Do this a few times. While you're doing this, the dough will also be expanding (this is the bulk fermentation). 
+
+4. **Shaping**. After the bulk fermentation is the complete, you'll shape the dough. This means you'll form it into a ball shape and pull it across your tabletop to create tension in the dough (example video [here](http://www.TODO.com)). Wait 30 minutes, and do it again.
+
+5. **Second rise**. Put the shaped dough into some kind of bowl lined with a floured linen cloth. Wrap it with a towel or two to limit dehydration, and put it into your refrigerator for 12-18 hours. This is the second rise.
+
+6. **Bake**. Put your cast-iron dutch oven (or whatever you're using to bake --- it should have a top) into the oven and let it heat up with the oven at 500 degrees. Then, remove the pull the dough from the fridge, remove the bottom of the dutch oven from the oven and carefully roll the dough into it. Slice the top of the dough with a razor to let steam escape, and put it back into the oven with the top on. **Lower the oven temperature to 450 degrees**, and bake for 15 minutes. Open the oven, remove the top, and bake for another 20 minutes. Turn off the heat, crack the oven about 6 inches, and wait 30 minutes to set the crust. Then pull it out and FEAST.
+
+# Gimme allll the details
+
+<center>
+![](/img/sourdough-2014.JPG){ width=50% }
+</center>
+
+I love the process of working with a live yeast culture to produce something edible. And bread is one of those rare items that defies typical economies of scale: with a little work you can produce a better, cheaper product than you can buy at almost any grocery store. But, as a home baker you have to approach many of the challenges of bread-making differently than someone with a commercial oven would. Figuring out how to get an open, moist crumb, a strong crust, and that delightful sourdough flavor out of conventional tools is a neverending journey. These tips document that journey.
 
 ## Starting a starter
 
 - To start a starter, mix 50/50 whole wheat and white flour together. You're going to use a bunch of this mixture, so you might as well put together a lot of it. Tartine suggests five pounds.
 - Mix a handful of flour blend with water with your hands in a clear bowl (plastic or glass). It should have the thickness of a thick batter -- no lumps. Leave it for 2-3 days.
-- If you have bubbles, you're ready for the next stage. If you don't have bubbles, wait anotehr day or two. It's fine if there's a crust -- just remove it.
+- If you have bubbles, you're ready for the next stage. If you don't have bubbles, wait another day or two. It's fine if there's a crust -- just remove it.
 - Now you're going to start feeding it. Discard most of the culture, and add the flour mix and water in about equal weights (50 grams each or so). You want a thick batter still. You'll do this for a couple weeks or so. Initially the starter will be fairly stinky. That should get better and it should smell more sweet/ripe later on. You want to feed it every 24 hours or so.
 - You'll know the starter is ready when the smell is more yeast-like and when it ferments predictably. This means that it should rise 6-8 hours after you feed it and be larger in size. Then, you're ready to mix.
 - Whole grain or rye flours are better for getting started. This is because they have more enzymes available for helping the yeast to break down the carbohydrates. As the starter becomes healthier I move toward more AP flour. More whole grain or rye in the mix leads to a richer sour flavor.
