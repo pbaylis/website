@@ -32,6 +32,10 @@ footnotereturnlinkcontents = "↩"
     name = "Posts"
     url = "/posts/"
     weight = 5
+[[menu.main]]
+    name = "Sourdough"
+    url = "/posts/2020-04-12-bread-notes/"
+    weight = 6
 
 [params]
     description = "The professional web home of Patrick Baylis."

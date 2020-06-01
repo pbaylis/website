@@ -9,15 +9,19 @@ tags:
   - sourdough
 ---
 
-And now for something completely different... sourdough! I first began baking as an escape from grad school ennui. Since then, and especially in last couple months, it's been fun to share a few of the tips and tricks I've picked up along the way with friends who are just getting into baking. The notes that follow document some of what I've learned. Of course, they're a work in progress and I'm learning more every time I bake. But maybe you'll find them useful. I've split this post up into two major sections: the first section, "**Forget the details, I just want to make bread!**", walks you through the steps of making sourdough as quickly as possible. The second section, "**Gimme allll the details**", does just that.
+And now for something completely different... sourdough! I first began baking as an escape from grad school ennui.  Since then, and especially in last couple months, it's been fun to share a few of the tips and tricks I've picked up along the way with friends who are just getting into baking. 
 
-If you find these notes useful, [send me a picture](https://twitter.com/pbaylis) of your bread! I'd love to see it. 
+<center>
+![](/img/sourdough-2014.JPG){ width=50% }
+</center>
 
-# Forget the details, I just want to make bread!
+The notes that follow document some of what I've learned. Of course, they're a work in progress and I'm learning more every time I bake. But maybe you'll find them useful. I've split this post up into two sections: "**TL;DR**" walks you through the essential steps to making sourdough. If you want more, "**More detail, please**" delivers with some extra flavor, so to speak. 
 
-1. **Get some starter and the rest of the ingredients**. The easy way to get starter is to borrow from someone who already has a healthy one. The less easy (but not that difficult) way is to make your own. See the "starting a starter" subsection below.
+# TL;DR
 
-These are the ingredients you'll need (makes one loaf of bread):
+1. **Get some starter and the rest of the ingredients**. The easy way to get sourdough starter is to borrow from someone who already has a healthy one. The less easy (but not that difficult) way is to make your own. See the "starting a starter" in the detail section if you want to try. 
+
+Once you get some starter, you'll need the following ingredients (makes one loaf):
 
 | Ingredient | Amount |
 | ---- | ----- |
@@ -27,23 +31,28 @@ These are the ingredients you'll need (makes one loaf of bread):
 | Whole wheat flour | 50 grams |
 | Salt | 10 grams |
 
-2. **Mix your ingredients** (except 25g of water and the salt) until fully combined in a large bowl that you can cover with saran wrap or a lid. Cover it and wait 30 minutes. Mix in the 25g of water and salt. 
+2. **Mix your ingredients** (except 25g of water and the salt) until fully combined in a large bowl that you can cover with plastic wrap or a lid. Cover and wait 30 minutes. Mix in the 25g of water and salt. 
 
-3. **Fold / Bulk Fermentation**. For the next 4 hours, you'll "turn" the dough every 30 minutes. To turn the dough, reach underneath, pull it up (stretching it out), fold it over itself, and rotate it (example video [here](https://www.youtube.com/watch?v=3_5x70h14VQ&t=77)) Do this a few times (covering the dough in between). Note that during this process, the dough will become smoother and begin to expand, which is why this step is also called the bulk fermentation. 
-
+3. **Fold / Bulk Fermentation**. For the next 4 hours, you'll "turn" the dough every 30 minutes. To turn the dough, reach underneath, pull it up (stretching it out), fold it over itself, rotate, and repeat (example video [here](https://www.youtube.com/watch?v=3_5x70h14VQ&t=77)). Do this a few times (covering the dough in between). During this process, the dough will become smoother and begin to expand, which is why this step is also the bulk fermentation. 
 4. **Shaping**. After the bulk fermentation is complete, you'll shape the dough. This means you'll form it into a ball shape and pull it across your tabletop to create tension in the dough (example video [here](https://www.youtube.com/watch?v=VuIT0RJDdZ8&feature=youtu.be&t=22)). Wait 30 minutes (cover the dough), and do it again.
 
 5. **Second rise**. Put the shaped dough into some kind of bowl lined with a floured linen cloth. Wrap it with a towel or two to limit dehydration, and put it into your refrigerator for 12-18 hours. This is the second rise.
 
-6. **Bake**. Put your cast-iron dutch oven (or whatever you're using to bake --- it should have a top) into the oven and let it heat up with the oven at 500 degrees. Then, remove the pull the dough from the fridge, remove the bottom of the dutch oven from the oven and carefully roll the dough into it. Slice the top of the dough with a razor to let steam escape, and put it back into the oven with the top on. **Lower the oven temperature to 450 degrees**, and bake for 15 minutes. Open the oven, remove the top, and bake for another 20 minutes. Turn off the heat, crack the oven about 6 inches, and wait 30 minutes to set the crust. Then pull it out and FEAST.
+6. **Bake**. Put your cast-iron dutch oven (or whatever you're using to bake --- it should have a top) into the oven and let it heat up with the oven at 500 degrees. Then, pull the dough from the fridge, remove the bottom of the dutch oven from the oven and carefully roll the dough into it. Slice the top of the dough with a razor to let steam escape, and put it back into the oven with the top on. **Lower the oven temperature to 450 degrees**, and bake for 15 minutes. Open the oven, remove the top, and bake for another 20 minutes. Turn off the heat, crack the oven about 6 inches, and wait 30 minutes to set the crust. Then pull it out and FEAST.
+
+How'd it go? If you found these notes useful, [send me a picture](https://twitter.com/pbaylis) of your bread! I'd love to see it. Want more details? Read on!
 
 # Gimme allll the details
 
-<center>
-![](/img/sourdough-2014.JPG){ width=50% }
-</center>
-
 I love the process of working with a live yeast culture to produce something edible. And bread is one of those rare items that defies typical economies of scale: with a little work you can produce a better, cheaper product than you can buy at almost any grocery store. But, as a home baker you have to approach many of the challenges of bread-making differently than someone with a commercial oven would. Figuring out how to get an open, moist crumb, a strong crust, and that delightful sourdough flavor out of conventional tools is a neverending journey. These tips document that journey.
+
+## Timing
+
+Making bread timing work for you is one of the key aspects to ensuring that this becomes a sustainable habit. 
+
+- I've found that starting around 5pm lets me get to bed on time and allows me to bake either the next morning (for a less sour loaf) or the next afternoon (for a more sour loaf). 
+- Alternatively, if you want to have a sour loaf in the morning, I would consider starting the morning before and letting it set from noon until 8am the next day.  
+- Once you get used to the pattern of the bread, you can play with the timing to get it to fit your schedule. For instance, you can accelerate the process by letting the dough spend more time outside of the refrigerator, and vice versa. 
 
 ## Starting a starter
 
@@ -138,19 +147,11 @@ I love the process of working with a live yeast culture to produce something edi
 - I usually only make one loaf at a time. So I halve everything above.
 - I don't do a preferment or a poolish (yet), but am planning to try it soon.
 
-## Resources
+## My favorite bread books
 
-**Videos**
-
-- [Nice walkthrough of one baker's process](https://www.youtube.com/watch?v=BJEHsvW2J6M)
-
-**Books**
-
-- *Tartine Bread*, by Chad Robertson
-  - I learned to bake sourdough from this book. Their starter method and their country loaf recipe are still my rough templates. The book is definitely long-winded and a bit pretentious, but there's no arguing with the quality of their product (if you're ever in San Francisco, stopping by the Tartine bakery or manufactory is a must).
-- *bread science: the chemistry and craft of making bread*, by Emily Buehler
+- [*Flour, Water, Salt, Yeast*](https://kensartisan.com/flour-water-salt-yeast), Ken Forkish
+  - Forkish's treatise covers all kinds of bread, both naturally leavened and non. If I had to recommend a single book, it would be this one for both its variety and accessibility.
+- [*Tartine Bread*](https://www.goodreads.com/book/show/8185785-tartine-bread), by Chad Robertson
+  - I learned to bake sourdough from this book. Their starter method and their country loaf recipe are still my rough templates. The book is definitely verbose and, let's be real, a bit pretentious, but there's no arguing with the quality of their product (if you're ever in San Francisco, stopping by the Tartine bakery or manufactory is a must). They've written at least two more books since
+- [*bread science: the chemistry and craft of making bread*](https://www.goodreads.com/en/book/show/23981874), by Emily Buehler
   - Very useful to get down to the basic chemistry of bread-baking. The later chapters are more generally accessible and provide useful guidance on almost all stages of the baking process. Not specifically focused on sourdough, though.
-- *Understanding Baking: The Art and Science of Baking*, by Joseph Amendola and Nicole Rees
-  - A handful of useful high-level notes here, but most of the book is focused on other baking products.
-- *Classic Sourdoughs: A Home Baker's Handbook*, by Ed Wood and Jean Wood
-  - Some high-level notes, but not a main resource for me. Many different sourdough recipes, including some no-knead recipes that I haven't tried.
