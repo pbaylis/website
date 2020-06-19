@@ -21,6 +21,7 @@ title: "Research"
   - Selected media:  [New York Times](https://www.nytimes.com/2019/02/26/climate/what-is-extreme-weather.html),  [Washington Post (op-ed by Moore and Obradovich)](https://www.washingtonpost.com/weather/2019/02/25/data-are-frogs-dont-boil-we-might/)
 - Higher Temperatures Increase Suicide Rates in the United States and Mexico (with Marshall Burke, Felipe González, Sam Heft-Neal, Ceren Baysan, Sanjay Basu, and Solomon Hsiang, *Nature Climate Change*, 2018)
   - [Paper](http://em.rdcu.be/wf/click?upn=lMZy1lernSJ7apc5DgYM8fLeFU9SBVNVGySwNPJsu0A-3D_VU3-2B-2F8HBchm5dOaNevIAhP-2FsrdBAPzAm0rA-2B8dYvjp91uIGUxuZMmROi-2F6Eqk2dEeDOjay71-2FPLqxjXPntLgbnr7aL7PFwk89m5mkkKJA85bJ0q-2FF-2BV3rt1updqnxYlychJR-2BrxZPi0U9wjHq9p4AH3ys-2BYDzrFjajNsbSahaZFujVMoZaQz7eJu4lg-2FHO2m2SU87s2p5kcq4CTTitYYn3fyVEp8qKuhd5rvXuClipbHR5sl7hN-2FbCZbMdzmhS2OxAkqe4SuxwbogpRkFmJGaw-3D-3D)
+  - [Comment](https://www.nature.com/articles/s41558-020-0791-3) and our [Response](https://www.nature.com/articles/s41558-020-0792-2.epdf?sharing_token=0jD1JVoPl_7PZVgyUP74aNRgN0jAjWel9jnR3ZoTv0NEKVNoLOaLnn7fOjqRFq6Ji_BTSafl_-HrlVWUiE75uV0Ff9kc-ZK36llJ35pH6NM7OdBr3Ufc8aDRTgsD5CxJwZP5g19DfXFIRAgyfv2G712uxwREei87BGfGcUNLSFg%3D)
   - Selected media:  [The Atlantic](https://www.theatlantic.com/science/archive/2018/07/high-temperatures-cause-suicide-rates-to-increase/565826/),  [The Guardian](https://www.theguardian.com/environment/2018/jul/23/rising-temperatures-linked-to-increased-suicide-rates),  [Reuters](https://www.reuters.com/article/us-usa-climatechange-suicide/rising-heat-linked-to-suicide-spikes-in-us-and-mexico-idUSKBN1KD1WR)
 - Weather Impacts Expressed Sentiment (with Nick Obradovich, Yury Kryvasheyeu, Haohui Chen, Lorenzo Coviello, Esteban Moro, Manuel Cebrian, and James H. Fowler, *PLoS One*, 2018)
   - [Paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0195750)
@@ -29,4 +30,6 @@ title: "Research"
   - [Paper](http://www.pnas.org/content/114/8/1886.full)
   - Selected media:  [New York Times](https://www.nytimes.com/interactive/2017/06/22/climate/95-degree-day-maps.html),  [ARS Technica](https://arstechnica.com/science/2017/02/us-electric-grid-isnt-ready-to-handle-our-future-climate/)
 
+## Other projects
 
+- Along with an amazing group of faculty members and graduate students at the VSE, I helped develop the [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/), designed to assist policymakers as they make decisions around when and how to open different sectors of the Canadian economy. The code is available [here](https://github.com/pbaylis/vse-risk-tool).
