@@ -1,0 +1,49 @@
+---
+layout: post
+title: "Overlaying a raster and shapefile"
+date: 2020-07-03
+categories:
+  - R
+tags:
+  - spatial
+  - sf
+---
+
+I'm often overlaying rasters with shapefiles in order to get, for example, the average weather for Indonesia. I've foudnn that it's immensely important that I __map my data__ when I'm doing this sort of thing, to make sure that I'm not making any boneheaded mistakes (e.g., using the wrong projection). Here's an example of a map like that, where the color of the cells indicates whether or not we have data there, plus the code I used to create it.
+
+![](/img/map.png)
+
+```{r, eval = F}
+library(tidyverse)
+library(sf)
+library(raster)
+library(cowplot)
+
+# Load UDEL raster data
+# Source: ftp://ftp.cdc.noaa.gov/Datasets/udel.airt.precip/precip.mon.ltm.v501.nc
+rast <- raster("precip.mon.ltm.v501.nc")
+
+# Load Indonesia shapefile, tranform to raster CRS, and simplify for performance
+# Source: https://gadm.org/download_country_v3.html
+poly <- readRDS("IDN_adm1.sf.rds") %>% 
+  st_transform(proj4string(rast)) %>%
+  st_simplify(0.01, preserveTopology = TRUE)
+
+# Crop global raster to extent of polygon
+rast <- crop(rast, extent(poly))
+
+rast_df <- as.data.frame(rast, xy = TRUE)
+names(rast_df)[3] <- "value"
+
+# Make a plot with the shapefile and boxes for the raster cells, where gray cells indicate no data.
+p <- ggplot(data = rast_df) + 
+  geom_sf(data = poly, fill = NA, colour = "blue", size = 0.25) + 
+  geom_tile(data = rast_df %>% filter(is.na(value)), mapping = aes(x = x, y = y), size = 0.25, fill = NA, color = alpha("gray", 0.25)) +
+  geom_tile(data = rast_df %>% filter(!is.na(value)), mapping = aes(x = x, y = y), size = 0.25, fill = NA, color = alpha("red", 0.5)) +
+  theme_map()
+
+save_plot("map.png", plot = p)
+```
+
+
+
