@@ -23,15 +23,8 @@ fit &lt;- lm(y ~ x1 + x2, data = df)</code></pre>
 <p>Having fit the model, we can pass unnamed vector with the right number of coefficients to get our desired linear combination:</p>
 <pre class="r"><code>svycontrast(fit, c(0, 1, 1))</code></pre>
 <pre><code>##          contrast     SE
-## contrast   1.1205 0.0683</code></pre>
+## contrast   1.0199 0.0703</code></pre>
 <p>Or a named vector with any number of coefficients (as long as the names match). One “gotcha” to keep in mind: I have found that the latter syntax fails for some versions of <code>survey</code> and may be OS-dependent.</p>
 <pre class="r"><code>svycontrast(fit, c(&quot;x2&quot; = 1, &quot;x1&quot; = 1))</code></pre>
 <pre><code>##          contrast     SE
-## contrast   1.1205 0.0683</code></pre>
-<p>Finally, note that it’s also possible to do the same manually:</p>
-<pre class="r"><code>vars &lt;- c(&quot;x1&quot;, &quot;x2&quot;)
-sum(coef(fit)[vars])</code></pre>
-<pre><code>## [1] 1.120517</code></pre>
-<pre class="r"><code>sqrt(sum(vcov(fit)[vars, vars]))</code></pre>
-<pre><code>## [1] 0.06832892</code></pre>
-<p>Of course, it would be slightly more complicated to estimate a linear combination of estimators with coefficients <span class="math inline">\(\neq\)</span> 1.</p>
+## contrast   1.0199 0.0703</code></pre>

@@ -2,6 +2,7 @@
 layout: post
 title:  "Dealing with a lack of support in fixed effect-dummy variable combinations"
 date:   2017-02-03
+draft: true
 categories:
   - econometrics 
 tags: 

@@ -2,6 +2,7 @@
 layout: post
 title:  "Work process and Dropbox organization"
 date:   2015-09-08
+draft: true
 categories:
   - productivity
 ---

@@ -35,12 +35,3 @@ Or a named vector with any number of coefficients (as long as the names match). 
 svycontrast(fit, c("x2" = 1, "x1" = 1))
 ```
 
-Finally, note that it's also possible to do the same manually:
-
-```{r manual}
-vars <- c("x1", "x2")
-sum(coef(fit)[vars])
-sqrt(sum(vcov(fit)[vars, vars]))
-```
-
-Of course, it would be slightly more complicated to estimate a linear combination of estimators with coefficients $\neq$ 1. 

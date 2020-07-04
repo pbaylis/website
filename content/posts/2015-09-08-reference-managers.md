@@ -2,6 +2,7 @@
 layout: post
 title:  "Reference manager showdown"
 date:   2015-09-08
+draft: true
 categories: 
   - writing
 tags:
