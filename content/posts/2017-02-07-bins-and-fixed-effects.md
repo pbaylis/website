@@ -2,6 +2,7 @@
 layout: post
 title:  "Bins and fixed effects"
 date:   2017-02-07
+draft: true
 categories: 
   - econometrics
 tags:
