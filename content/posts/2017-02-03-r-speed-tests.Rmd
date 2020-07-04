@@ -85,4 +85,4 @@ system.time(in.dt2 <- fread("dt2_dt.csv")) # 1.0
 So `data.table` is about three times as fast at writing and two times at fast at reading.
 
 ### Write CSV (fwrite vs write_csv)
-Unsubstantiated claims: `fwrite` is faster. Not sure what the deal with `write_csv` is.
+Unsubstantiated claim: `fwrite` is faster. Not sure what the deal with `write_csv` is.

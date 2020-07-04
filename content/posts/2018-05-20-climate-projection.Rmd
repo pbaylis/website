@@ -14,17 +14,11 @@ output:
     fig_width: 4
 ---
 
-TODO: 
-
-- How to constrain basis spline to be flat outside of range of data?
-- Add citations
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# Introduction
-Code to conduct a climate projection exercise. The idea is to combine a dose-response function $f(T)$ (also known as a damage function) with an estimate of the projected shift in the distribution of climate $\Delta g(T)$. Specifically, damages are:
+Many climate-society papers project the impacts of predicted climate change on the outcome of interest (guilty!). This post include code to conduct this kind of "climate projection exercise". The idea is to combine a dose-response function $f(T)$ (i.e., a damage function) with an estimate of the projected shift in the distribution of climate $\Delta g(T)$. Specifically, damages are:
 $$ \int^T f(t) \Delta g(t) dt $$
 
 However, we'll be estimating this integral numerically, because $f(T)$ is annoying to integrate analytically and $g(T)$ will be projected numerically. More on that later. First, import some packages
@@ -69,7 +63,7 @@ dt[, T_future := T + rnorm(N, 5, 5)]
 width <- 1 # Set interval for prediction: lower values = more precision (diminishing returns here)
 s <- seq(min(dt[, list(T, T_future)]), max(dt[, list(T, T_future)]), width) 
 
-# TODO: Should I use hist rather than density? Density might be smarter.
+# Could use a histogram instead of a PDF here
 densities <- data.table(s = s, 
                         cur_density = approxfun(density(dt$T))(s),
                         fut_density = approxfun(density(dt$T_future))(s))
@@ -87,6 +81,7 @@ ggplot(data = melt(densities, id.vars = "s"), aes(x = s, y = value, colour = var
 
 ```{r predict0, cache = T}
 Xp <- ns(s, knots = knots, Boundary.knots = boundary, intercept=intercept)
+colnames(Xp) <- paste0("X", colnames(Xp))
 ```
 
 ## Predict from felm output with `svycontrast`
@@ -132,7 +127,7 @@ g <- densities$diff_density
 sum(f * g * width)
 ```
 
-Note that the interpretation of this sum is that it is the amount of damage _at the given observational unit_ for this amount of climate change. So if this is a regression of, say, daily crimes in a county on temperature, then the implication is the given amount of climate change will result in this many more crimes per county per day on average. Of course, this relies on the usual assumptions about the extrapolation of the results from weather regressions to climate effects -- for discussions on that point, see AUFFHAMMER, HSIANG, ETC.
+Note that the interpretation of this sum is that it is the amount of damage _at the given observational unit_ for this amount of climate change. So if this is a regression of, say, daily crimes in a county on temperature, then the implication is the given amount of climate change will result in this many more crimes per county per day on average. Of course, this relies on the usual assumptions about the extrapolation of the results from weather regressions to climate effects.
 
 Substitute in different damage functions $f(T)$ to show, for example, how different choices of fixed effects change the output. Substitute in different climate projections $\Delta g(T)$ to show damages by region, over time, by region over time, et cetera.
 

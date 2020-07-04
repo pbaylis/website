@@ -1,0 +1,36 @@
+---
+layout: post
+title:  "RD gotchas"
+date:   2015-03-05
+draft: true
+categories:
+  - econometrics
+tags: 
+  - RD
+---
+
+
+
+<div id="beware-the-bins" class="section level1">
+<h1>Beware the bins</h1>
+<ul>
+<li>The graphical approach of RD (as advocated by M. Anderson in ARE213) is nice, but it’s not a strict analogue of regression</li>
+<li>Have to be careful when the bins can contain whole groups of demeaned observation
+<ul>
+<li>e.g.: a regression with multiple pre- and post- observations with unit FE where assignment to treatment was on a per-unit basis</li>
+<li>Taking the mean of a bunch of sets of demeaned observations = 0</li>
+</ul></li>
+<li>If I want to display the regression analogue, just use the residual variation from all RHS variables except for f(X), the function of the running var, and T, the treatment assignment (which is a function of X - if X &gt;= threshold)</li>
+</ul>
+</div>
+<div id="intuition" class="section level1">
+<h1>Intuition</h1>
+<ul>
+<li>Still, this was a nice opportunity for me to think through some of the implications of RD.</li>
+<li>Nothing special about RD. It’s just declaring that assignment within a certain range is as good as random, but also including the running variable to acknowledge that the slight change in the running variable could affect the outcome and must be controlled for</li>
+<li><em>Specification is the same</em> as it is for any randomized treatment assignment, except that we include the running variable
+<ul>
+<li>Form can be flexible - so we can interact with treatment indicator to account for different slopes on either side, make it nonlinear, etc.</li>
+</ul></li>
+</ul>
+</div>

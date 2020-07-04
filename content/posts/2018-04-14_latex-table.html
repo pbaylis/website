@@ -1,0 +1,143 @@
+---
+layout: post
+title:  "Latex tables again"
+date:   2018-04-14
+draft: true
+categories: 
+  - writing
+tags:
+  - latex
+  - stargazer
+  - R
+---
+
+
+
+<p>Some example R code from a real project to produce nice-looking latex tables for binned regressions. Not everything can be automated, but this generates nice-looking labels for a binned regression and a reasonable layout. <code>baylisR</code> is needed for this.</p>
+<pre class="r"><code># Tables
+library(stargazer)
+library(data.table)
+library(baylisR)
+
+rm(list=ls())
+
+DB &lt;- &quot;~/Dropbox&quot;
+# DB &lt;- &quot;/data1/Dropbox&quot;
+IN &lt;- file.path(DB, &quot;01_Work/01_Current/01_MoodTemp/02_Data&quot;)
+IN_GH &lt;- &quot;/home/pbaylis/github/temperature-sentiment/build/input/&quot;
+IN_EST &lt;- file.path(DB, &quot;01_Work/01_Current/01_MoodTemp/03_Results/04_Estimates&quot;)
+OUT &lt;- file.path(&quot;/home/pbaylis/github/temperature-sentiment/analysis/output&quot;)
+OUT_PROD &lt;- file.path(&quot;/home/pbaylis/github/temperature-sentiment/paper/results&quot;)
+
+# Main regression table  ----
+felm.list &lt;- readRDS(file.path(IN_EST, &quot;reg_cbsa.Rds&quot;))
+
+felms &lt;- list(felm.list$all_vader_s_bins3_c_m_y_d_h,
+              felm.list$all_vader_s_bins3_c_date,
+              felm.list$all_afinn_s_bins3_c_m_y_d_h,
+              felm.list$all_afinn_s_bins3_c_date)
+
+create_nice_numbered_labels &lt;- function(felms, pattern = &quot;tmax&quot;) {
+  # Assume bins are consistent across felms
+  pattern = &quot;tmax&quot;
+  felm &lt;- felms[[1]]
+  var_names &lt;- grep(pattern, names(coefficients(felm)), value = T)
+
+  matched &lt;- str_match(var_names, &quot;\\(([-Inf0-9]*),([-Inf0-9 ]*)&quot;)
+
+  cutpoints_min &lt;- as.numeric(matched[, 2])
+  cutpoints_max &lt;- as.numeric(matched[, 3])
+
+  lbls &lt;- sprintf(&quot;$T \\in (%g, %g] $&quot;, cutpoints_min, cutpoints_max)
+  lbls &lt;- sub(&quot;\\\\in \\(-Inf, ([0-9]*)?\\]&quot;, &quot;\\\\leq \\1&quot;, lbls)
+  lbls &lt;- sub(&quot;\\\\in \\(([0-9]*)?, Inf\\]&quot;, &quot;&gt; \\1&quot;, lbls)
+}
+
+
+meat &lt;- stargazerw(felms, fragment = T, table.layout = &quot;t&quot;,
+                   keep = &quot;tmax&quot;,
+                    covariate.labels = paste0(&quot;\\hspace{1em}&quot;, create_nice_numbered_labels(felms)))
+
+ncol &lt;- length(felms)
+firstline &lt;- sprintf(&quot;\\begin{tabular}{l %s}&quot;, paste0(rep(&quot;D{.}{.}{-3}&quot;, ncol), collapse = &quot; &quot;))
+lastline &lt;- &quot;\\end{tabular}&quot;
+
+out &lt;- c(firstline,
+         &quot;\\toprule&quot;,
+         paste0(&quot;&amp;&quot;, latex_special_row(sprintf(&quot;(%g)&quot;, 1:ncol)), collapse = &quot; &quot;),
+         &quot;\\midrule&quot;,
+         sprintf(&quot;\\multicolumn{%g}{l}{Maximum daily temperature $T$} \\vspace{0.5em} \\\\ &quot;, ncol+1),
+         meat,
+         &quot;\\midrule&quot;,
+         latex_special_row(c(&quot;Month FE&quot;, &quot;Yes&quot;, &quot;&quot;), align=&quot;l&quot;),
+         latex_special_row(c(&quot;Year FE&quot;, &quot;Yes&quot;, &quot;&quot;), align=&quot;l&quot;),
+         latex_special_row(c(&quot;DOW, Hol FE&quot;, &quot;Yes&quot;, &quot;&quot;), align=&quot;l&quot;),
+         latex_special_row(c(&quot;Date FE&quot;, &quot;&quot;, &quot;Yes&quot;), align=&quot;l&quot;),
+         &quot;\\bottomrule&quot;,
+         lastline)
+
+write(out, &quot;~/Desktop/table_test/table_test.tex&quot;)</code></pre>
+<p>Container code:</p>
+<pre class="latex"><code>\documentclass[12pt]{scrartcl}
+\usepackage{threeparttable}
+\usepackage{dcolumn} % For booktabs column spacing
+\usepackage{booktabs}
+
+\newenvironment{notes}[1][Note]{\begin{minipage}[t]{\linewidth}\normalsize{\itshape#1: }}{\end{minipage}}
+
+\begin{document}
+
+\begin{table}
+    \centering
+    \begin{threeparttable}
+    \caption{Table title}
+    \label{tab:lbl}
+        \input{table_test}
+    \begin{notes}
+            * p $&lt;$ 0.1, ** p $&lt;$ 0.05, *** p $&lt;$ 0.01. All regressions include CBSA fixed effects and controls for precipitation.
+        \end{notes}
+    \end{threeparttable}
+\end{table}
+
+\end{document}</code></pre>
+<p>And finally, what the code produces:</p>
+<pre class="latex"><code>\begin{tabular}{l D{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3} D{.}{.}{-3}}
+\toprule
+&amp;\multicolumn{1}{c}{(1)} &amp; \multicolumn{1}{c}{(2)} &amp; \multicolumn{1}{c}{(3)} &amp; \multicolumn{1}{c}{(4)} \\
+\midrule
+\multicolumn{5}{l}{Maximum daily temperature $T$} \vspace{0.5em} \\
+ \hspace{1em}$T \leq 0 $ &amp; -0.056^{***} &amp; -0.084^{***} &amp; -0.072^{***} &amp; -0.093^{***} \\
+  &amp; (0.014) &amp; (0.015) &amp; (0.014) &amp; (0.016) \\
+  \hspace{1em}$T \in (0, 3] $ &amp; -0.049^{***} &amp; -0.073^{***} &amp; -0.059^{***} &amp; -0.080^{***} \\
+  &amp; (0.013) &amp; (0.013) &amp; (0.012) &amp; (0.013) \\
+  \hspace{1em}$T \in (3, 6] $ &amp; -0.039^{***} &amp; -0.060^{***} &amp; -0.051^{***} &amp; -0.069^{***} \\
+  &amp; (0.011) &amp; (0.011) &amp; (0.010) &amp; (0.012) \\
+  \hspace{1em}$T \in (6, 9] $ &amp; -0.024^{**} &amp; -0.039^{***} &amp; -0.031^{***} &amp; -0.047^{***} \\
+  &amp; (0.011) &amp; (0.010) &amp; (0.010) &amp; (0.011) \\
+  \hspace{1em}$T \in (9, 12] $ &amp; -0.013^{*} &amp; -0.026^{***} &amp; -0.021^{***} &amp; -0.032^{***} \\
+  &amp; (0.008) &amp; (0.008) &amp; (0.007) &amp; (0.009) \\
+  \hspace{1em}$T \in (12, 15] $ &amp; 0.004 &amp; -0.012^{***} &amp; -0.005 &amp; -0.016^{**} \\
+  &amp; (0.005) &amp; (0.004) &amp; (0.005) &amp; (0.006) \\
+  \hspace{1em}$T \in (15, 18] $ &amp; -0.000 &amp; -0.004 &amp; -0.003 &amp; -0.008^{*} \\
+  &amp; (0.004) &amp; (0.003) &amp; (0.004) &amp; (0.004) \\
+  \hspace{1em}$T \in (18, 21] $ &amp; 0.006^{*} &amp; 0.002 &amp; 0.011^{***} &amp; 0.005^{*} \\
+  &amp; (0.003) &amp; (0.002) &amp; (0.003) &amp; (0.003) \\
+  \hspace{1em}$T \in (24, 27] $ &amp; 0.001 &amp; 0.005^{**} &amp; 0.001 &amp; 0.003 \\
+  &amp; (0.004) &amp; (0.003) &amp; (0.004) &amp; (0.003) \\
+  \hspace{1em}$T \in (27, 30] $ &amp; -0.002 &amp; 0.011^{***} &amp; 0.002 &amp; 0.010^{***} \\
+  &amp; (0.005) &amp; (0.003) &amp; (0.005) &amp; (0.004) \\
+  \hspace{1em}$T \in (30, 33] $ &amp; -0.009^{*} &amp; 0.011^{***} &amp; -0.006 &amp; 0.010^{***} \\
+  &amp; (0.005) &amp; (0.003) &amp; (0.006) &amp; (0.004) \\
+  \hspace{1em}$T \in (33, 36] $ &amp; -0.017^{***} &amp; 0.009^{**} &amp; -0.015^{*} &amp; 0.009^{*} \\
+  &amp; (0.007) &amp; (0.004) &amp; (0.008) &amp; (0.005) \\
+  \hspace{1em}$T \in (36, 39] $ &amp; -0.022^{***} &amp; 0.009 &amp; -0.019^{**} &amp; 0.003 \\
+  &amp; (0.007) &amp; (0.006) &amp; (0.008) &amp; (0.007) \\
+  \hspace{1em}$T &gt; 39 $ &amp; -0.053^{***} &amp; -0.037^{***} &amp; -0.048^{***} &amp; -0.036^{***} \\
+  &amp; (0.013) &amp; (0.010) &amp; (0.012) &amp; (0.010) \\
+\midrule
+\multicolumn{1}{l}{Month FE} &amp; \multicolumn{1}{c}{Yes} &amp; \multicolumn{1}{c}{} \\
+\multicolumn{1}{l}{Year FE} &amp; \multicolumn{1}{c}{Yes} &amp; \multicolumn{1}{c}{} \\
+\multicolumn{1}{l}{DOW, Hol FE} &amp; \multicolumn{1}{c}{Yes} &amp; \multicolumn{1}{c}{} \\
+\multicolumn{1}{l}{Date FE} &amp; \multicolumn{1}{c}{} &amp; \multicolumn{1}{c}{Yes} \\
+\bottomrule
+\end{tabular}</code></pre>

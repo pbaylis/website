@@ -53,4 +53,4 @@ Different things happen if the other variables were dropped. Ultimately, the fix
 
 ---
 
-Another puzzle I haven't figured out. If I estimate a model with fixed effects that take out the level of, say, region, can I still plot compare response functions for different regions? I mean... all \\( \beta_1 \\) introduces is a mean shift.
+Another puzzle I haven't figured out. If I estimate a model with fixed effects that take out the level of, say, region, can I still compare response functions for different regions? I mean... all \\( \beta_1 \\) introduces is a mean shift.

@@ -1,0 +1,44 @@
+---
+layout: post
+title:  "Fast Zonal Statistics"
+date:   2016-03-17
+draft: true
+categories: 
+  - econometrics
+tags:
+  - spatial
+  - R
+  - Python
+---
+
+
+
+<p><em>Update (April 2018): R now has the <code>velox</code> package which is much faster for this. Also, <code>fasterize</code> is a much faster rasterization method.</em></p>
+<p>Taking the average value of rasters by polygon is slow in R. Really slow. Using <code>extract</code> with a raster of more than 800k cells (PRISM weather data) and a shapefile of more than 3000 polygons (counties) takes a little over 500 seconds.</p>
+<p>The <a href="http://pythonhosted.org/rasterstats/"><code>rasterstats</code></a> package in Python offers a faster solution, but can be tricky to install, particularly in Windows:</p>
+<ul>
+<li><p>Install <a href="pip%20install%20GDAL-1.11.2-cp27-none-win32.whl">Anaconda Python</a> (trying to upgrade <code>pip</code> broke it, so I just reinstalled Ananconda)</p></li>
+<li><p>Install <code>gdal 1.11.4</code> (not 2.0), <code>fiona</code>, <code>rasterio</code>, and <code>Shapely</code></p>
+<ul>
+<li>May need to install some from <a href="http://www.lfd.uci.edu/~gohlke/pythonlibs/">binaries</a> if using Windows</li>
+</ul></li>
+<li><p>Install <code>rasterstats</code></p></li>
+</ul>
+<p>Sample code to run zonal statistics and save the result to CSV.</p>
+<pre class="python"><code>import csv
+from rasterstats import zonal_stats
+
+# GLOBALS
+RAST = &#39;E:/prism/data/zipped/PRISM_tmin_stable_4kmD1_20150531_bil.bil&#39;
+POLY = &#39;E:/prism/data/census/gz_2010_us_050_00_20m/gz_2010_us_050_00_20m.shp&#39;
+
+# Run zonal_stats
+stats = zonal_stats(POLY, RAST, stats=[&#39;count&#39;, &#39;mean&#39;, &#39;min&#39;, &#39;max&#39;], all_touched=True, geojson_out=True)
+
+# Save to CSV
+keys = stats[0][&#39;properties&#39;].keys()
+with open(&#39;E:/prism/out.csv&#39;, &#39;wb&#39;) as output_file:
+    dict_writer = csv.DictWriter(output_file, keys)
+    dict_writer.writeheader()
+    for row in stats:
+        dict_writer.writerow(dict((k, v.encode(&#39;utf-8&#39;)) if isinstance(v, basestring) else (k,v) for k, v in row[&#39;properties&#39;].iteritems()))</code></pre>
