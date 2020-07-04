@@ -2,6 +2,7 @@
 layout: post
 title:  "Latex tables again"
 date:   2018-04-14
+draft: true
 categories: 
   - writing
 tags:
