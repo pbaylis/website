@@ -6,7 +6,7 @@
 
 {{ .Content }}
 
-{{if not .IsHome }}
+<!-- {{if not .IsHome }}
 <ul>
   {{ range (where .Data.Pages "Section" "!=" "") }}
   <li>
@@ -15,6 +15,20 @@
   </li>
   {{ end }}
 </ul>
+{{ end }} -->
+
+{{ $paginator := .Paginate .Data.Pages }}
+
+{{if not .IsHome }}
+<ul>
+  {{ range $paginator.Pages }}
+  <li>
+    <!-- <span class="date">{{ .Date.Format "2006/01/02" }}</span> -->
+    <a href="{{ .URL }}">{{ .Title }}</a>
+  </li>
+  {{ end }}
+</ul>
+{{ template "_internal/pagination.html" . }}
 {{ end }}
 
 {{ partial "footer.html" . }}
