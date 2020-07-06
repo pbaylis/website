@@ -1,27 +1,28 @@
 ---
-title: "Research"
+title: Research
+author: Patrick Baylis
+slug: research
 ---
 
 ## Working papers
 
 - Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone) 
-  - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979)
-- Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*) 
-  - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
+  - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979) 
+- Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*)
+    - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
 - Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Under review*) 
-  - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf), [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
+  - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf) $\cdot$ [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
 
 ## Publications
 
 - Temperature and Temperament: Evidence from Twitter (*Journal of Public Economics*, 2020)
-  - [Paper](https://www.sciencedirect.com/science/article/abs/pii/S0047272720300256) | [Pre-print](/pdf/Baylis_TT_Paper_and_Appendix_20191223.pdf)
+  - [Paper](https://www.sciencedirect.com/science/article/abs/pii/S0047272720300256) $\cdot$ [Pre-print](/pdf/Baylis_TT_Paper_and_Appendix_20191223.pdf)
   - Selected media:  [Popular Science](https://www.popsci.com/science-confirms-obvious-we-hate-being-hot),  [Washington Post](https://www.washingtonpost.com/news/wonk/wp/2016/01/07/clear-evidence-that-cold-days-are-better-than-hot-ones/?noredirect=on&utm_term=.1338bbea7602),  [Time](http://time.com/4172187/temperature-weather-hot-cold-preferences/),  [Weather Channel](https://weather.com/health/news/weather-makes-us-more-miserable),  [UC Newsroom](https://www.universityofcalifornia.edu/news/what-billion-tweets-tell-us-about-climate-change),  [Energy Institute](https://energyathaas.wordpress.com/2015/12/07/heat-and-happiness/),  [G-FEED](http://www.g-feed.com/2015/12/warming-makes-people-unhappy-evidence.html),  [Marginal Revolution](https://marginalrevolution.com/marginalrevolution/2016/01/do-you-get-grumpy-over-seventy-degrees-fahrenheit.html)
 - Rapidly Declining Remarkability of Temperature Anomalies May Obscure Public Perception of Climate Change (with Frances C. Moore, Nick Obradovich, and Flavio Lehner, *Proceedings of the National Academy of Sciences*, 2019)
   - [Paper](https://www.pnas.org/content/early/2019/02/15/1816541116)
   - Selected media:  [New York Times](https://www.nytimes.com/2019/02/26/climate/what-is-extreme-weather.html),  [Washington Post (op-ed by Moore and Obradovich)](https://www.washingtonpost.com/weather/2019/02/25/data-are-frogs-dont-boil-we-might/)
 - Higher Temperatures Increase Suicide Rates in the United States and Mexico (with Marshall Burke, Felipe González, Sam Heft-Neal, Ceren Baysan, Sanjay Basu, and Solomon Hsiang, *Nature Climate Change*, 2018)
-  - [Paper](http://em.rdcu.be/wf/click?upn=lMZy1lernSJ7apc5DgYM8fLeFU9SBVNVGySwNPJsu0A-3D_VU3-2B-2F8HBchm5dOaNevIAhP-2FsrdBAPzAm0rA-2B8dYvjp91uIGUxuZMmROi-2F6Eqk2dEeDOjay71-2FPLqxjXPntLgbnr7aL7PFwk89m5mkkKJA85bJ0q-2FF-2BV3rt1updqnxYlychJR-2BrxZPi0U9wjHq9p4AH3ys-2BYDzrFjajNsbSahaZFujVMoZaQz7eJu4lg-2FHO2m2SU87s2p5kcq4CTTitYYn3fyVEp8qKuhd5rvXuClipbHR5sl7hN-2FbCZbMdzmhS2OxAkqe4SuxwbogpRkFmJGaw-3D-3D)
-  - [Comment](https://www.nature.com/articles/s41558-020-0791-3) and our [Response](https://www.nature.com/articles/s41558-020-0792-2.epdf?sharing_token=0jD1JVoPl_7PZVgyUP74aNRgN0jAjWel9jnR3ZoTv0NEKVNoLOaLnn7fOjqRFq6Ji_BTSafl_-HrlVWUiE75uV0Ff9kc-ZK36llJ35pH6NM7OdBr3Ufc8aDRTgsD5CxJwZP5g19DfXFIRAgyfv2G712uxwREei87BGfGcUNLSFg%3D)
+  - [Paper](http://em.rdcu.be/wf/click?upn=lMZy1lernSJ7apc5DgYM8fLeFU9SBVNVGySwNPJsu0A-3D_VU3-2B-2F8HBchm5dOaNevIAhP-2FsrdBAPzAm0rA-2B8dYvjp91uIGUxuZMmROi-2F6Eqk2dEeDOjay71-2FPLqxjXPntLgbnr7aL7PFwk89m5mkkKJA85bJ0q-2FF-2BV3rt1updqnxYlychJR-2BrxZPi0U9wjHq9p4AH3ys-2BYDzrFjajNsbSahaZFujVMoZaQz7eJu4lg-2FHO2m2SU87s2p5kcq4CTTitYYn3fyVEp8qKuhd5rvXuClipbHR5sl7hN-2FbCZbMdzmhS2OxAkqe4SuxwbogpRkFmJGaw-3D-3D) $\cdot$ [Comment](https://www.nature.com/articles/s41558-020-0791-3) $\cdot$ [Response](https://www.nature.com/articles/s41558-020-0792-2.epdf?sharing_token=0jD1JVoPl_7PZVgyUP74aNRgN0jAjWel9jnR3ZoTv0NEKVNoLOaLnn7fOjqRFq6Ji_BTSafl_-HrlVWUiE75uV0Ff9kc-ZK36llJ35pH6NM7OdBr3Ufc8aDRTgsD5CxJwZP5g19DfXFIRAgyfv2G712uxwREei87BGfGcUNLSFg%3D)
   - Selected media:  [The Atlantic](https://www.theatlantic.com/science/archive/2018/07/high-temperatures-cause-suicide-rates-to-increase/565826/),  [The Guardian](https://www.theguardian.com/environment/2018/jul/23/rising-temperatures-linked-to-increased-suicide-rates),  [Reuters](https://www.reuters.com/article/us-usa-climatechange-suicide/rising-heat-linked-to-suicide-spikes-in-us-and-mexico-idUSKBN1KD1WR)
 - Weather Impacts Expressed Sentiment (with Nick Obradovich, Yury Kryvasheyeu, Haohui Chen, Lorenzo Coviello, Esteban Moro, Manuel Cebrian, and James H. Fowler, *PLoS One*, 2018)
   - [Paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0195750)

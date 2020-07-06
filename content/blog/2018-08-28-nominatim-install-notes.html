@@ -1,0 +1,88 @@
+---
+title: "Nominatim for offline geocoding"
+date: '2018-08-28'
+output:
+  blogdown::html_page:
+    toc: yes
+    fig_height: 3
+    fig_width: 4
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#nominatim-installation">Nominatim installation</a><ul>
+<li><a href="#modifications-to-installation-procedure">Modifications to installation procedure</a></li>
+<li><a href="#postgresql-configuration">Postgresql configuration</a></li>
+</ul></li>
+<li><a href="#script-to-call-nominatim-python">Script to call Nominatim (python)</a><ul>
+<li><a href="#search-hierarchy">Search hierarchy</a></li>
+<li><a href="#parallelization">Parallelization</a></li>
+</ul></li>
+<li><a href="#other-useful-references">Other useful references</a></li>
+</ul>
+</div>
+
+<p>I needed to geocode around 20 million addresses. Normally I could just pay geocod.io to do this for me, but because of the contractual confidentiality requirements around these addresses, it had to be done offline. So I went hunting for an offline geocoder and decided to go with Nominatim, though a blog post I found after I had mostly completed the install suggested that there may be better options: according to this helpful <a href="https://danpelota.com/blog/geocoder-showdown-part-3/">blog</a>, Nominatim is most accurate <em>within the range of addresses it geocodes</em>, but it doesn’t geocode many addresses.</p>
+<div id="nominatim-installation" class="section level1">
+<h1>Nominatim installation</h1>
+<p>I built Nominatim 3.2.0 on my Ubuntu 18.04 system following these <a href="http://nominatim.org/release-docs/latest/appendix/Install-on-Ubuntu-18/">instructions</a>. I didn’t <em>intend</em> to install Nominatim on a fresh system, but since I accidentally wiped out my old OS remotely (oops), that is what happened.</p>
+<div id="modifications-to-installation-procedure" class="section level2">
+<h2>Modifications to installation procedure</h2>
+<p>The tutorial is quite good, but there are a few things that I had to figure out and/or do differently:</p>
+<ul>
+<li>It wasn’t totally obvious when to switch over to nominatim user, but it seems clear that the import should be done while logged in to that account.</li>
+<li>Also had to set a password with <code>sudo passwd nominatim</code> before I could log into the account to install</li>
+<li>The Apache configuration instructions are a little premature, need to actually install Nominatim first</li>
+<li>I installed osmium to merge files (<code>sudo apt-get install osmium-tool</code>)
+<ul>
+<li>`osmium merge file1.pbf file2.pbf file3.pbf…</li>
+</ul></li>
+<li>Modified the code to set up the Apache webserver to point to the correct Nominatim directory</li>
+<li>Skipped special key phrases</li>
+<li>Note that TIGER setup script (and some other scripts) need to be run from within the <code>build/</code> directory</li>
+<li>Did not install any update capability (I want a static db)</li>
+</ul>
+<p>Also, a useful hint: If you screw up the database import or just want to redo it, you can drop the database using <code>dropdb nominatim</code>.</p>
+</div>
+<div id="postgresql-configuration" class="section level2">
+<h2>Postgresql configuration</h2>
+<p>My server has 24 cores, 128GB memory, and a 500GB SSD. These are the settings in <code>/etc/postgresql/10/main/postgresql.conf</code> that I used:</p>
+<pre class="bash"><code>shared_buffers (4GB)
+maintenance_work_mem (16GB)
+work_mem (50MB)
+effective_cache_size (24GB)
+synchronous_commit = off
+checkpoint_timeout = 10min
+checkpoint_completion_target = 0.9
+fsync (off) -- (for import only, then set to on)
+full_page_writes (off) -- (for import only, then set to on)</code></pre>
+</div>
+</div>
+<div id="script-to-call-nominatim-python" class="section level1">
+<h1>Script to call Nominatim (python)</h1>
+<p>The underlying address data (and Nominatim itself) is not perfect. To try to account for possible missing responses, I resend queries as necessary until some response is obtained. The script I use in python and uses <a href="https://geopy.readthedocs.io/en/stable/">geopy</a>, pointed at my local Nominatim install.</p>
+<div id="search-hierarchy" class="section level2">
+<h2>Search hierarchy</h2>
+<p>Note that Nominatim will return no result if it has an excess of information. For example, 729 Oneida Pl., Madison WI 53713 returns no result (bad ZIP), but 729 Oneida Pl., Madison WI works. Search hierarchy:</p>
+<ol style="list-style-type: decimal">
+<li>NUMBER, ADDRESS, CITY, STATE, ZIP</li>
+<li>NUMBER, ADDRESS, ZIP</li>
+<li>NUMBER, ADDRESS, CITY, STATE</li>
+<li>ZIP</li>
+<li>CITY, STATE</li>
+</ol>
+<p>Note also that if you feed it a bad number (e.g., 600 Oneida Pl., Madison WI 53711, which does not exist) it will pick the centroid of the street.</p>
+</div>
+<div id="parallelization" class="section level2">
+<h2>Parallelization</h2>
+<p>Parallelizing the code provides a HUGE boost to performance. I use the <code>multiprocessing</code> Python package, which makes it relatively straightforward. Since I’m already using <a href="https://pandas.pydata.org">pandas</a> in the code, I tried to use <a href="https://github.com/jmcarpenter2/swifter">swifter</a> to simplify the code, but I wasn’t able to get it to work.</p>
+</div>
+</div>
+<div id="other-useful-references" class="section level1">
+<h1>Other useful references</h1>
+<ul>
+<li><a href="https://andrewwhitby.com/2014/12/18/nominatim-on-ec2/" class="uri">https://andrewwhitby.com/2014/12/18/nominatim-on-ec2/</a></li>
+<li><a href="https://blog.bigbinary.com/2018/08/21/setting-up-a-high-performance-geocoder.html" class="uri">https://blog.bigbinary.com/2018/08/21/setting-up-a-high-performance-geocoder.html</a></li>
+</ul>
+</div>

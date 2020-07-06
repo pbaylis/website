@@ -1,0 +1,69 @@
+---
+layout: post
+title:  "Estimating high dimensional fixed effects models in Julia"
+date:   2017-01-19
+categories:
+  - programming
+tags:
+  - R
+  - Julia
+---
+
+
+
+<p><strong>Update (April 2018): Julia has changed quite a bit since I originally wrote this. <code>FixedEffectsModels.jl</code> still exists, but I still frequently run into strange errors when estimating. As of now, I still resort to sampling and running large regressions in <code>lfe::felm</code> in <code>R</code></strong>.</p>
+<p>I’m trying to use <a href="http://julialang.org/">Julia</a>, and specifically <a href="https://github.com/matthieugomez/FixedEffectModels.jl">FixedEffectsModels.jl</a>, to run fixed effects regressions more quickly. There are complications:</p>
+<ul>
+<li>What is the quickest way to transfer from R to Julia?
+<ul>
+<li>CSV or feather?</li>
+</ul></li>
+<li>How to create factors with the preferred level dropped?</li>
+</ul>
+<p>First, I create some fake data in R and export it as both as CSV and as feather.</p>
+<pre class="r"><code># create some fake data
+n &lt;- 10000000
+dt &lt;- data.table(x=rnorm(n),
+                 t=rnorm(n, 30, 5),
+                 g=floor(runif(n, 0, 10)))
+dt[, y:=2 - 3*x + sin(2*t) + cos(3*g) + rnorm(n, 0, 0.1)]
+dt[, t_cut:=cut(t, c(-Inf, 20, 30, 40, Inf))]
+dt[, t_cut:=relevel(t_cut, 2)] # reorder to omit 20-30
+dt[, t_cut_n:=as.numeric(t_cut)] # convert to numeric for export to Julia
+
+write_feather(dt[ ,list(y, x, t_cut_n, g)], &quot;data.feather&quot;))
+
+dt[, `:=`(g=factor(g))] # convert g to factor for felm
+felm.out &lt;- felm(y ~ x + t_cut | g | 0 | g, data=dt)</code></pre>
+<p>Important: right now, FixedEffectModels.jl uses DataArrays.jl, a deprecated package that deals poorly with factor variables and with NA values. Until it incorporates <a href="https://github.com/JuliaData/CategoricalArrays.jl">CategoricalArrays.jl</a> (which handles both nicely), I have to be careful with what I pass from R. In particular, I can’t pass data.frames with NA values or with factor variables. Instead, I have to pass a substitute categorical variable that is actually just an integer. This can be done in R fairly easily, as long as I run <code>relevel</code> first. Then, I can run this:</p>
+<pre class="julia"><code>using DataFrames, FixedEffectModels, Feather
+
+# Import data via feather
+@time feather_data = Feather.read(&quot;data.feather&quot;, nullable=false)
+
+# Pool data
+@time feather_data[:t_cut_n] = pool(feather_data[:t_cut_n])
+@time feather_data[:gPooled] = pool(feather_data[:g])
+
+# Regress
+@time reg(y ~ x + t_cut_n |&gt; gPooled, feather_data, VcovCluster([:gPooled]))</code></pre>
+<div id="old-version-of-this-post" class="section level2">
+<h2>OLD VERSION OF THIS post</h2>
+<p>I had heard about <a href="http://julialang.org/">Julia</a> at various points, usually by people in the data science/<a href="https://www.kaggle.com/">Kaggle</a> sphere, but didn’t know much about it. However, for my JMP I need to run a few very big regressions, on the order of a billion observations with multiple dimensions of many-leveled fixed effects. <code>reghdfe</code>(<a href="https://github.com/sergiocorreia/reghdfe" class="uri">https://github.com/sergiocorreia/reghdfe</a>) and <code>lfe</code>(<a href="https://cran.r-project.org/web/packages/lfe/index.html" class="uri">https://cran.r-project.org/web/packages/lfe/index.html</a>) are the weapons of choice in Stata and R, respectively, for these kinds of models but someone while poking around on the internet I ran across <a href="https://github.com/matthieugomez/FixedEffectModels.jl"><code>FixedEffectModels.jl</code></a>. Click that link and compare the speeds. The graph is killer, and it’s not some rigged example - real world experience bears it out.</p>
+<p>Suddenly learning Julia became a lot more interesting. I figured, heck, I know Python and R - how hard could it be? It’s actually pretty hard. Julia is meant to be easy to code in (like Python) but fast as hell (like C). And it IS easy to code in, sort of. But there are some gotchas to learning a relatively recent language:</p>
+<ul>
+<li>Sparse documentation: the size and depth of both the official <a href="http://docs.julialang.org/en/release-0.4/manual/">Julia documentation</a>, the StackOverflow tag, and the Julia boards are just smaller than Python. In Python, any question you can think of has been asked many, many times, and it’s easy to find. In Julia, your question may have been asked but it’s gonna be hard to find it, and there’s no guarantee it’s been asked at all.</li>
+<li>Changing functionality: Julia has changed a lot, so pulling up old documentation or answered questions is actually a problem. For example, there used to be an <code>sqldf</code> function in the <code>SQLite</code> package that automatically converted the result set into a DataFrame. No longer, so far as I know.</li>
+<li>Typing: Typing is a lot trickier than it is in Python or R. <code>typeof()</code> is super valuable, and the typing conventions make sense, but it’s a lot to learn. Julia is also very picky about <code>Null</code> and <code>NA</code> values.</li>
+<li>“Naturalness”: In both Python in R, once you achieve a certain level of comfort you can type things that you think will work and, generally, they will. This is not also true in Julia. Many things DO work intuitively, but having gotten used to the vectorized nature of R in particular I expect certain actions (changing an entire column, for example) to be easy.</li>
+</ul>
+<p>A big part of the issue is that I’m facing is not in getting <code>FixedEffectModels.jl</code> to work, it’s just getting my huge dataset formatted in a way that I can run the darn thing. In principle I could use <a href="https://github.com/WizardMac/DataRead.jl">DataRead.jl</a>, but I haven’t figured out how to compile ReadStat on a PC (the server I’m using). So instead I’m limited to either importing via cleaned CSV or SQLite database. SQLite is much faster but I have to redo all of the cleaning, while CSV is painfully slow and runs out of memory because Julia gets the types wrong (see: “Naturalness”). So now I’m learning how to import the data through SQLite in chunks, type it properly, and merge in the datasets I use in my Stata cleaning process. All before I get to run a single regression. And three weeks before my JMP needs to be done.</p>
+<p>But Julia is a nice tool to have, and it seems to have some momentum. The community appears to be tremendous.</p>
+<p>More notes (I feel like I’m learning a ton about language design):</p>
+<ul>
+<li>Arrays that accept NAs are nice, but a devil’s bargain. Typed arrays are both faster and consume MUCH less memory, since Any arrays need to contain a pointer for each unit, plus the data itself must be stored somewhere.</li>
+<li>If your date is in a fixed format, a custom (read: dumb) parser is way better than the smart parser provided in Julia.</li>
+<li>Pay close attention your types, if you care about memory allocation. Strings are huge. Floats are remarkably small (and <a href="http://floating-point-gui.de/">so cool!</a>). Int choices can be important.</li>
+<li>God help you if you have an NA hiding in your arrays. The <code>@data</code> macro is pretty much worthless. The folks working on Julia is still figuring out how to deal with NA values. DataArrays, which CAN (in general) handle NAs even when typed, have trouble important NA values. I ended up getting around a problem by temporarily converting all NAs in an Array{Any} variable to a real number so that I could convert it to a DataArray{Float16} before re-adding the NAs. The Nullable package is supposed to be a fix for this.</li>
+</ul>
+</div>

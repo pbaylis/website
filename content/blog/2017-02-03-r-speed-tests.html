@@ -1,0 +1,84 @@
+---
+layout: post
+title:  "R performance tests"
+date:   2017-02-03
+categories:
+  - programming
+tags:
+  - R
+  - performance
+---
+
+
+
+<p><strong>Update (July 2020): These tests are quite dated at this point, YMMV. Software changes quickly!</strong></p>
+<div id="r-date-conversion-speed-test-as.idate-vs-fast_strptime" class="section level2">
+<h2>R date conversion speed test (as.IDate vs fast_strptime)</h2>
+<pre class="r"><code>require(data.table)
+require(lubridate)
+
+n &lt;- 10000000
+x &lt;- rep(&quot;2014-01-01&quot;, n)
+
+system.time(r1 &lt;- as.IDate(x, format=&quot;%Y%m%d&quot;))
+system.time(r2 &lt;- as.IDate(parse_date_time(x, orders=&quot;%Y%m%d&quot;, exact=T)))
+system.time(r3 &lt;- as.IDate(fast_strptime(x, format=&quot;%Y%m%d&quot;)))</code></pre>
+<p>Winner: <code>fast_strptime</code> by a factor of two over the <code>IDate</code> parser (which is also the <code>Date</code> parser?).</p>
+</div>
+<div id="pattern-matching-grep-vs-str" class="section level2">
+<h2>Pattern matching (grep vs str)</h2>
+<p>What’s the fastest way to match strings? This code compares <code>grep</code> to <code>stri_detect_*</code> (from the <code>stringi</code> package), considering both fixed and regex matching.</p>
+<pre><code>library(microbenchmark)
+library(stringi)
+library(ggplot2)
+
+R &lt;- 100000
+g &lt;- replicate(R, paste0(sample(c(letters[1:5],&quot; &quot;), 10, replace=TRUE),
+                               collapse=&quot;&quot;))
+
+m &lt;- microbenchmark(
+  grep(&quot; &quot;, g ),
+  stri_detect_regex(g, &quot; &quot;),
+  grep(&quot; &quot;, g, perl=TRUE),
+  grep(&quot; &quot;, g, fixed=TRUE),
+  stri_detect_fixed(g, &quot; &quot;)
+)
+autoplot(m)</code></pre>
+<div class="figure">
+<img src="/assets/img/pattern_matching_benchmark.png" alt="png" />
+<p class="caption">png</p>
+</div>
+<p>Results are similar for <code>gsub</code>. For a comparison of <code>stringi</code> to <code>stringr</code>, see <a href="https://rud.is/b/2017/02/06/strung-out-on-string-ops-a-brief-comparison-of-stringi-and-stringr/">here</a>.</p>
+<p>See also <a href="https://stackoverflow.com/questions/19458724/how-do-i-speed-up-text-searches-in-r">here</a> for improving grep performance.</p>
+<div id="read-csv-fread-vs-read_csv" class="section level3">
+<h3>Read CSV (fread vs read_csv)</h3>
+<p>I use <code>fread</code> (from the <code>data.table</code> package) for my day-to-day data munging in R, but occasionally <code>read_csv</code> (from the <code>readr</code> package) is more useful, for example when CSVs are formatted in a tricky way or when I’d prefer to have dates read in automatically. It’s helpful to know what kind of performance tradeoff I’m making. Following code tests timings on reading both character and numeric vectors. Timings in comments in seconds.</p>
+<pre><code>library(data.table)
+library(readr)
+library(stringi)
+
+# Create test dataframes
+n &lt;- 10000000
+df1 &lt;- data.frame(x=stri_rand_strings(n, 5, &#39;[A-Z]&#39;))
+df1$x &lt;-as.character(df1$x)
+df2 &lt;- data.frame(x=round(rnorm(n), 3))
+
+dt1 &lt;- data.table(df1)
+dt2 &lt;- data.table(df2)
+
+system.time(write_csv(df1, &quot;dt1_df.csv&quot;)) # 3.8
+system.time(write_csv(df2, &quot;dt2_df.csv&quot;)) # 3.1
+system.time(fwrite(dt1, &quot;dt1_dt.csv&quot;)) # 0.6
+system.time(fwrite(dt2, &quot;dt2_dt.csv&quot;)) # 1.3
+
+system.time(in.df1 &lt;- read_csv(&quot;dt1_df.csv&quot;)) # 4.9
+system.time(in.df2 &lt;- read_csv(&quot;dt2_df.csv&quot;)) # 2.2
+system.time(in.dt1 &lt;- fread(&quot;dt1_dt.csv&quot;)) # 2.7
+system.time(in.dt2 &lt;- fread(&quot;dt2_dt.csv&quot;)) # 1.0</code></pre>
+<p>So <code>data.table</code> is about three times as fast at writing and two times at fast at reading.</p>
+</div>
+</div>
+<div id="write-csv-fwrite-vs-write_csv" class="section level2">
+<h2>Write CSV (fwrite vs write_csv)</h2>
+<p>Unsupported anecdotal claim: <code>fwrite</code> is faster.</p>
+</div>

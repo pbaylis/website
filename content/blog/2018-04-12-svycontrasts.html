@@ -1,0 +1,30 @@
+---
+layout: post
+title:  "Linear combinations of coefficients in R"
+date:   2018-04-12
+categories: 
+  - econometrics
+tags: 
+  - r
+  - lincom
+---
+
+
+
+<p>Updated: 2019-09-26.</p>
+<p>One of the few features I miss from Stata is the very-intuitive <code>lincom</code> command. Most of the time I recreate that functionality with <code>survey::svycontrast</code>. But, I always forget the syntax. This code demonstrates a minimum working example.</p>
+<pre class="r"><code>library(survey)
+
+N &lt;- 100
+df &lt;- data.frame(x1 = rnorm(N), x2 = rnorm(N))
+df$y &lt;- 1 + 3 * df$x1 - 2 * df$x2 + rnorm(N, 0, 0.5)
+
+fit &lt;- lm(y ~ x1 + x2, data = df)</code></pre>
+<p>Having fit the model, we can pass unnamed vector with the right number of coefficients to get our desired linear combination:</p>
+<pre class="r"><code>svycontrast(fit, c(0, 1, 1))</code></pre>
+<pre><code>##          contrast     SE
+## contrast   1.1668 0.0771</code></pre>
+<p>Or a named vector with any number of coefficients (as long as the names match). One “gotcha” to keep in mind: I have found that the latter syntax fails for some versions of <code>survey</code> and may be OS-dependent.</p>
+<pre class="r"><code>svycontrast(fit, c(&quot;x2&quot; = 1, &quot;x1&quot; = 1))</code></pre>
+<pre><code>##          contrast     SE
+## contrast   1.1668 0.0771</code></pre>
