@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Productivity and organization notes"
+author: Patrick Baylis
 date:   2015-09-08
 categories:
   - productivity

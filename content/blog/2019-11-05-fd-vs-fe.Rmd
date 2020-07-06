@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "FD vs FE and new tidyr commands"
+author: Patrick Baylis
 date: 2019-11-05
 categories:
   - econometrics

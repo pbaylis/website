@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Fast Zonal Statistics"
+author: Patrick Baylis
 date:   2016-03-17
 categories: 
   - econometrics

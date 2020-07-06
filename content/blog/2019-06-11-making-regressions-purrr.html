@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Making regressions purrr"
+author: Patrick Baylis
 date:   2019-06-11
 categories:
   - programming
@@ -46,7 +47,7 @@ reg_tibble$fit &lt;- purrr::pmap(reg_tibble, reg_felm)
 stargazer::stargazer(reg_tibble$fit)</code></pre>
 <pre><code>## 
 ## % Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
-## % Date and time: Mon, Jul 06, 2020 - 08:49:42
+## % Date and time: Mon, Jul 06, 2020 - 11:16:22
 ## \begin{table}[!htbp] \centering 
 ##   \caption{} 
 ##   \label{} 

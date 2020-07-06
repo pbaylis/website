@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "A list of gists"
+author: Patrick Baylis
 date:   2019-05-16
 categories:
   - programming

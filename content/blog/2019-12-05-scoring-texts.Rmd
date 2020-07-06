@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Scoring texts for the presence of phrases"
+author: Patrick Baylis
 date: 2019-12-05
 categories:
   - programming

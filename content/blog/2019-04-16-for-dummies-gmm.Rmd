@@ -1,5 +1,6 @@
 ---
 title: "Econometrics for Dummies: GMM"
+author: Patrick Baylis
 date: '2019-04-16'
 draft: true
 categories:

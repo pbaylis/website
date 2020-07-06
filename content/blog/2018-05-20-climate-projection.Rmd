@@ -1,6 +1,7 @@
 ---
 title: Climate Projection Sandbox
-date: '2018-05-20'
+date: "2018-05-20"
+author: Patrick Baylis
 categories:
   - econometrics
 tags:

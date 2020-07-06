@@ -1,6 +1,7 @@
 ---
 layout: post
 title:  "Making regressions purrr"
+author: Patrick Baylis
 date:   2019-06-11
 categories:
   - programming
