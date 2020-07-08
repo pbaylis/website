@@ -319,3 +319,16 @@ table thead th { border-bottom: 1px solid #ddd; }
 th, td { padding: 5px; }
 
 thead, tfoot, tr:nth-child(even) { background: #eee } 
+
+/* button */
+
+.btn-outline-primary {
+    color: #4582EC;
+    border-color: #4582EC;
+}
+
+.btn-outline-primary:hover {
+    color: #FFFFFF;
+    background-color: #4582EC;
+    border-color: #4582EC;
+}
