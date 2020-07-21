@@ -4,7 +4,7 @@ author: Patrick Baylis
 slug: research
 ---
 
-## Working papers
+## Working papers and work in progress
 
 - Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone) 
   - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979) 
@@ -12,6 +12,7 @@ slug: research
     - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
 - Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Under review*) 
   - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf) $\cdot$ [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
+- Temperature and Historical U.S. Migration (with Nick Obradovich, draft available upon request)
 
 ## Publications
 
