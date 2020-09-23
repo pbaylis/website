@@ -51,6 +51,7 @@ slug: links
 - [Why we shouldn't use dual axes (except for linear transformations)](https://blog.datawrapper.de/dualaxis/) (Lisa Charlotte Rost)
 
 ### R Packages
+- [gtsummary](https://github.com/ddsjoberg/gtsummary): Publication-ready summary statistics, tidy-style.
 - [tmap](https://github.com/mtennekes/tmap): Create decent maps quickly. Probably not a full replacement for publication-quality maps with ggplot2, though.
 - [modelsummary](https://github.com/vincentarelbundock/modelsummary/#installation): the stargazer killer?
 - [datadrivencv](http://nickstrayer.me/datadrivencv/): reduce the burden of maintaining a CV

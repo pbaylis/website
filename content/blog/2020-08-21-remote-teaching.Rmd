@@ -23,9 +23,9 @@ This short post led a wide-ranging thread with lots of great input from people w
     - I originally planned for 10-15 minutes, but [\@JenniferRaynor_](https://twitter.com/jenniferraynor_) and [\@hagertynw](https://twitter.com/hagertynw)
 convinced me to try to go shorter.
     - [\@RichardTol](https://twitter.com/RichardTol) has made an amazing set of videos (his and others) available [here](https://github.com/rtol/Environmental-Economics/wiki/Videos).
-2. Weekly discussion quizzes
-    - These were going to be for completion only, but [\@MarinaAdshade](https://twitter.com/MarinaAdshade)'s comment (below) convinced me that they should be worth more and assessed for correctness.
-    - I am a bit concerned that the grading load may be onerous for my TA, so I'm considering how to balance that.
+2. Weekly discussion quizzes and problem sets
+    - [\@MarinaAdshade](https://twitter.com/MarinaAdshade)'s comment (below) convinced me that it's better to have more, lower-risk assessments, so I'm trying to figure out how to work that into the course without adding too much load for the TA.
+    - Right now, I am leaning towards keeping the quizzes completion-only but adding one or two more problem sets (for a total of five throughout the term). Alternatively, I could drop the problem sets entirely and incorporate their content into the discussion quizzes, with some questions assessed for completion only and some for correctness.
     - [\@mattsclancy](https://twitter.com/mattsclancy) pointed me towards [LearnItFast.io](https://learnitfast.io/), which I like the look of but won't be able to get around to this year. See his [thread](https://twitter.com/mattsclancy/status/1271555608060329984) for more.
 3. Weekly meeting for workshopping & questions
     - [\@mrobj](https://twitter.com/mikejrob) is planning to use this time for breakout rooms and experiments. That's an endeavor for another year for me, but feels like an exciting idea that could work even in non-pandemic years.
