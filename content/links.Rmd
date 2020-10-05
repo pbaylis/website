@@ -51,9 +51,9 @@ slug: links
 - [Why we shouldn't use dual axes (except for linear transformations)](https://blog.datawrapper.de/dualaxis/) (Lisa Charlotte Rost)
 
 ### R Packages
-- [gtsummary](https://github.com/ddsjoberg/gtsummary): Publication-ready summary statistics, tidy-style.
+- [modelsummary](https://github.com/vincentarelbundock/modelsummary/#installation): Publication-ready summary statistics, tidy-style.
+- [gt](https://gt.rstudio.com/): RStudio's new package for table-making.
 - [tmap](https://github.com/mtennekes/tmap): Create decent maps quickly. Probably not a full replacement for publication-quality maps with ggplot2, though.
-- [modelsummary](https://github.com/vincentarelbundock/modelsummary/#installation): the stargazer killer?
 - [datadrivencv](http://nickstrayer.me/datadrivencv/): reduce the burden of maintaining a CV
 - [{disk.frame}](https://diskframe.com/articles/intro-disk-frame.html): Manipulate larger-than-memory datasets (similar to Spark, Dask, JuliaDB)
 - [pacman](http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html) - Package manager for R
@@ -62,8 +62,7 @@ slug: links
 - [cowplot](https://github.com/wilkelab/cowplot) (Clause Wilke)
 - [glue](https://github.com/tidyverse/glue): Easily combine strings.
 - [patchwork](https://github.com/thomasp85/patchwork): Easily lay out ggplot figures.
-- [huxtable](https://hughjonesd.github.io/huxtable/huxtable.html): Output formatted tables.
-- [qs](https://github.com/traversc/qs): Faster drop-resplacement for `saveRDS` and `readRDS`. Similar to FST, but can work on any type of object.
+- [qs](https://github.com/traversc/qs): Faster drop-resplacement for `saveRDS` and `readRDS`. Similar to FST, but can work on any type of object. Make sure to reload the relevant package (e.g., `sf`), though, or you'll get weird errors.
 
 ## Github
 - [Save git credentials](https://help.github.com/en/articles/caching-your-github-password-in-git)

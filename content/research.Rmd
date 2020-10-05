@@ -6,7 +6,9 @@ slug: research
 
 ## Working papers and work in progress
 
-- Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone) 
+- The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman)
+    - [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
+- Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone, *Accepted at COVID Economics*) 
   - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979) 
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*)
     - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
@@ -31,7 +33,3 @@ slug: research
 - Climate Change is Projected to Have Severe Impacts on the Frequency and Intensity of Peak Electricity Demand Across the United States (with Max Auffhammer and Catherine H. Hausman, *Proceedings of the National Academy of Sciences*, 2017)
   - [Paper](http://www.pnas.org/content/114/8/1886.full)
   - Selected media:  [New York Times](https://www.nytimes.com/interactive/2017/06/22/climate/95-degree-day-maps.html),  [ARS Technica](https://arstechnica.com/science/2017/02/us-electric-grid-isnt-ready-to-handle-our-future-climate/)
-
-## Other projects
-
-- Along with an amazing group of faculty members and graduate students at the VSE, I helped develop the [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/), designed to assist policymakers as they make decisions around when and how to open different sectors of the Canadian economy. The code is available [here](https://github.com/pbaylis/vse-risk-tool).
