@@ -7,7 +7,7 @@ slug: research
 ## Working papers and work in progress
 
 - The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman)
-    - [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
+    - [NBER Working Paper](https://www.nber.org/papers/w27881.pdf) $\cdot$ [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
 - Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone, *Accepted at COVID Economics*) 
   - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979) 
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *R&R at the Review of Economic Studies*)

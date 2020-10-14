@@ -20,6 +20,8 @@ slug: links
 ## Wildfires
 
 - https://wfdss.usgs.gov/wfdss/wfdss_data_downloads.shtml
+- https://earthdata.nasa.gov/learn/toolkits/wildfires
+- https://fam.nwcg.gov/fam-web/weatherfirecd/index.htm
 
 ## Collections of datasets
 
