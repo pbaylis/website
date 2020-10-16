@@ -13,7 +13,7 @@ hasCJKLanguage = true
 # googleAnalytics = "UA-00000000-1"
 # disqusShortname = "your-disqus-shortname"
 
-ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
 
 [params]
 pagetitle = "Patrick Baylis"
