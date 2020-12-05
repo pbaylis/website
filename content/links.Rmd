@@ -51,8 +51,11 @@ slug: links
 - [RMarkdown templates](https://bookdown.org/yihui/rmarkdown/document-templates.html#): Good starting point for how to create RMarkdown templates.
 - [R table-making principles](https://hughjonesd.github.io/huxtable/design-principles.html): Compares huxtable to everything else.
 - [Why we shouldn't use dual axes (except for linear transformations)](https://blog.datawrapper.de/dualaxis/) (Lisa Charlotte Rost)
+- [Projection wizard](https://projectionwizard.org/)
 
 ### R Packages
+- [etable](https://cran.r-project.org/web/packages/fixest/vignettes/exporting_tables.html) - Another table making package! booktabs out of the box? built by fixest author? Is this (finally) the death of stargazer?
+- [torch](https://blogs.rstudio.com/ai/posts/2020-09-29-introducing-torch-for-r/) - torch connectors for R. Will this be the year I learn to deep learn? Maybe.
 - [modelsummary](https://github.com/vincentarelbundock/modelsummary/#installation): Publication-ready summary statistics, tidy-style.
 - [gt](https://gt.rstudio.com/): RStudio's new package for table-making.
 - [tmap](https://github.com/mtennekes/tmap): Create decent maps quickly. Probably not a full replacement for publication-quality maps with ggplot2, though.
@@ -76,4 +79,6 @@ slug: links
 # On writing 
 
 - [J.K. Galbraith](https://www.theatlantic.com/magazine/archive/1978/03/writing-typing-and-economics/305165/)
+
+
 
