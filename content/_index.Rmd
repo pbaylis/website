@@ -17,3 +17,5 @@ Some of my recent [work](/research/) includes estimating the impact of temperatu
 My favorite projects use large datasets, natural language processing, spatial information, or all three; as a result, I do most of my data work in [R](https://www.r-project.org)/[RStudio](https://www.rstudio.com) and [Python](https://www.python.org). When not in front of my computer, you might find me [running](http://www.patrickbaylis.com/img/IMG_0613.jpg), [baking sourdough](/blog/2020-04-12-bread-notes/), [throwing a frisbee](http://www.patrickbaylis.com/img/frisbee-montage.jpg), or attemping to [train our new puppy](http://www.patrickbaylis.com/img/IMG_7286.jpg), Junie.
 
 Before I joined UBC, I was a postdoctoral fellow at the [Stanford Center on Food Security and the Environment](http://fse.fsi.stanford.edu/), a graduate student in [Agricultural and Resource Economics at UC-Berkeley](http://areweb.berkeley.edu), and a research assistant at the [Energy Institute at Haas](https://ei.haas.berkeley.edu).
+
+If you'd like to schedule a meeting with me, you can do so [here](https://calendly.com/patrick-baylis/office-hours).
