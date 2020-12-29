@@ -1,12 +1,11 @@
 ---
+title: "Linear combinations of coefficients in R"
 layout: post
-title:  "Linear combinations of coefficients in R"
-date:   2018-04-12
-categories: 
-  - coding
-tags: 
-  - r
-  - prediction
+date: '2018-04-12'
+categories: coding
+tags:
+- r
+- prediction
 ---
 
 
@@ -22,13 +21,13 @@ df$y &lt;- 1 + 3 * df$x1 - 2 * df$x2 + rnorm(N, 0, 0.5)
 fit &lt;- lm(y ~ x1 + x2, data = df)</code></pre>
 <p>Having fit the model, we can pass unnamed vector with the right number of coefficients to get our desired linear combination:</p>
 <pre class="r"><code>svycontrast(fit, c(0, 1, 1))</code></pre>
-<pre><code>##          contrast    SE
-## contrast  0.97891 0.073</code></pre>
+<pre><code>##          contrast     SE
+## contrast   1.1028 0.0698</code></pre>
 <p>Or a named vector with any number of coefficients (as long as the names match). Or a list of named vectors. One “gotcha” to keep in mind: I have found that the latter syntax fails for some versions of <code>survey</code> and may be OS-dependent.</p>
 <pre class="r"><code>svycontrast(fit, list(c(&quot;x2&quot; = 1, &quot;x1&quot; = 1), c(&quot;x2&quot; = 4, &quot;x1&quot; = 2)))</code></pre>
 <pre><code>##      contrast     SE
-## [1,]  0.97891 0.0730
-## [2,] -2.15988 0.2267</code></pre>
+## [1,]   1.1028 0.0698
+## [2,]  -1.6700 0.2171</code></pre>
 <p>If you want an easy way to pass <code>svycontrast</code> a <code>data.frame</code> of where each row is a different linear combination (and each column a different variable), below is how you do that. This is usually if you want to produce similar behavior to, say, running <code>predict</code> on a fitted model but A) the predict call for that model doesn’t return standard errors (as with <code>felm</code> or <code>fixest</code>) and/or B) you only want to linearly combine <em>some</em> of the variables (equivalent to setting all other coefficients = 0). In either case, this will work:</p>
 <pre class="r"><code>svycontrast_df &lt;- function(fit, newdata) {
   # Call surveyconstrast with a data frame 
@@ -46,8 +45,7 @@ newdata &lt;- data.frame(x1 = seq(-3, 3, 1))
 newdata$x2 &lt;- newdata$x^2
 svycontrast_df(fit, newdata)</code></pre>
 <pre><code>## $est
-## [1] -27.6429204 -14.3109156  -5.0966088   0.0000000   0.9789109  -2.1598763
-## [7]  -9.4163614
+## [1] -26.561671 -13.832224  -4.978334   0.000000   1.102778  -1.670001  -8.318336
 ## 
 ## $se
-## [1] 0.52731851 0.25424990 0.08359704 0.00000000 0.07302769 0.22671488 0.48308222</code></pre>
+## [1] 0.42107169 0.19615572 0.06153634 0.00000000 0.06976139 0.21706338 0.45437814</code></pre>

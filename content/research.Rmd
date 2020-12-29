@@ -12,7 +12,7 @@ slug: research
   - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979) 
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *Conditionally accepted at the Review of Economic Studies*)
     - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
-- Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Submitted*) 
+- Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Revise and resubmit at AEJ: Applied Economics*) 
   - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf) $\cdot$ [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
 <!-- - Temperature and Historical U.S. Migration (with Nick Obradovich, draft available upon request) -->
 

@@ -1,12 +1,11 @@
 ---
+title: "Linear combinations of coefficients in R"
 layout: post
-title:  "Linear combinations of coefficients in R"
-date:   2018-04-12
-categories: 
-  - coding
-tags: 
-  - r
-  - prediction
+date: '2018-04-12'
+categories: coding
+tags:
+- r
+- prediction
 ---
 
 Updated: 2020-12-05
