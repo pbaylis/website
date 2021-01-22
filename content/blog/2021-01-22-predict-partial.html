@@ -1,0 +1,80 @@
+---
+title: "Partial predictions"
+layout: post
+date: '2021-01-22'
+categories: coding
+tags:
+- r
+- prediction
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p>In climate economics and in other settings, we often would like to estimate a <strong>response function</strong>, or the outcome as a function of some covariate, i.e., <span class="math inline">\(y = f(T)\)</span>. Most of the time, <span class="math inline">\(T\)</span> stands for temperature. Figure 3 in <a href="https://science.sciencemag.org/content/353/6304/aad9837">Carleton and Hsiang (2016)</a> documents a bunch of different response functions from the literature.</p>
+<div class="figure">
+<img src="https://science.sciencemag.org/content/sci/353/6304/aad9837/F4.large.jpg?width=800&amp;height=600&amp;carousel=1" alt="" />
+<p class="caption">Carleton and Hsiang (2016), Figure 3</p>
+</div>
+<p>These models, however, usually include lots of controls, including fixed effects. Consider the following (fairly generic) estimating equation:</p>
+<p><span class="math display">\[y_{it} = f(T; \beta) + \phi_i + \varepsilon_{it}\]</span>
+This model includes unit fixed effects (<span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_t\)</span>}). We include these usually it’s only reasonable to interpret the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(f(T)\)</span> as causal <strong>if</strong> we have accounted for potential confounding factors in the cross-sectional and time-series relationships between climate and the outcome. Put another way, it wouldn’t make much sense to attribute the difference between the GDP per capita of Switzerland and the GDP per capita of Mexico to the differences in climate alone, so instead we control for those countries’ average characteristics using fixed effects and estimate the causal relationship using only <strong>residual variation</strong> in temperature and the outcome. That is to say, we zoom in on years when Switzerland was, say, exceptionally warm and compare its GDP per capita to years when it was exceptionally cold, and then do the same for Mexico.</p>
+<p>Computationally, this could mean including a large set of fixed effects, so estimating these models via ordinary least-squares (OLS) using dummy variables is a nonstarter for settings with thousands of fixed effects, computationally speaking. Instead, we use programs such as <a href="https://lrberge.github.io/fixest/"><code>fixest</code></a> (there are many others, but <code>fixest</code> is the best one I know of, right now), which use fancy mathematical tricks to alleviate the computational burden.</p>
+<p>One of the most intuitive ways to consider the relationships we estimate, particularly when <span class="math inline">\(f(T)\)</span> is non-linear, is to just plot it, with standard errors included. That’s where we run into some issues. Unlike the base R function <code>lm</code>, <code>fixest</code> does not have a native prediction function that can supply standard errors. This is for a good reason: strictly speaking, predicting the outcome <span class="math inline">\(y\)</span> <strong>requires</strong> that we observe the variance-covariance matrix (call it the “vcov”) for all of the terms, including the fixed effects. But one of the side effects of the mathematical tricks we use is that we can no longer obtain the full vcov.</p>
+<p>So, we’re basically sunk if we want to plot <span class="math inline">\(\hat{y}\)</span> with standard errors included. But what if we’re just interested in the relationship between <span class="math inline">\(T\)</span> and <span class="math inline">\(y\)</span>, holding all the other controls constant? I.e., what if we just want to plot the response function <span class="math inline">\(f(T)\)</span>? In that case, and assuming a linear-in-parameters model<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, we only need the vcov for the coefficients related to the variable we’re allowing to change, in this case <span class="math inline">\(T\)</span>.</p>
+<p>To see how this works, consider that a response function is really just the expected value of the outcome across a range of <span class="math inline">\(T\)</span> (say, 0 to 40) minus <span class="math inline">\(\hat{y}\)</span> at a single value of <span class="math inline">\(T\)</span> (say, 20 C). That is, for T = 40, the expected value of</p>
+<p><span class="math display">\[E[y_{it}|T=40] - E[y_{it}|T = 20] = f(T=40; \hat{\beta}) + \phi_i - f(T=20; \hat{\beta}) - \phi_i = f(T=40; \hat{\beta}) - f(T=20; \hat{\beta})\]</span></p>
+<p>As you can see, the fixed effects drop out, so for this linear-in-parameters model at least we don’t need the entire vcov to generate standard errors for each point on the response curve. So far as I know, though, there’s no easy way to run this kind of prediction without a bit of wrangling. Typically, I’ve used <code>survey::svycontrast</code> to do this sort of thing (see <a href="https://www.patrickbaylis.com/blog/2018-04-12-svycontrasts/">here</a>), but it always felt a bit fiddly. So the following code lets us do this kind of partial prediction easily, by just passing the variables we want to predict over.</p>
+<pre class="r"><code>library(fixest)
+library(ggplot2)
+library(cowplot)
+
+N &lt;- 100
+df &lt;- data.frame(x1 = rnorm(N), x2 = rnorm(N))
+df$y &lt;- 1 + 3 * df$x1 - 2 * df$x2 + rnorm(N, 0, 0.5)
+
+fit &lt;- feols(y ~ x1 + x2, data = df)
+
+predict_partial &lt;- function(fit, newdata) {
+    # Compute XB for Xs provided in newdata
+    # Note: Will not work for variables created via on the fly via formula (e.g., x:y, I(x^2), x^y) 
+    X &lt;- as.matrix(newdata[, names(newdata) %in% names(coef(fit))])
+    
+    # Get indices of variables that we&#39;ll use from the fit
+    i &lt;- which(names(coef(fit)) %in% colnames(X))
+    B &lt;- coef(fit)[i]
+    sigma &lt;- vcov(fit)[i, i]
+    
+    # Compute 
+    est &lt;- as.vector(X %*% B)
+    se &lt;- apply(X, MARGIN = 1, FUN = get_se, sigma = sigma)
+    # There is maybe a smarter matrix algebra way to do this? 
+    
+    list(est = est, se = se)
+}
+
+get_se &lt;- function(r, sigma) {
+    # Compute linear combination, helper function for predict_partial
+    # Given numeric vector r (the constants) and vcov sigma (the ), compute SE 
+    r &lt;- matrix(r, nrow = 1)
+    sqrt(r %*% sigma %*% t(r))
+}
+
+newdata &lt;- data.frame(x1 = seq(-3, 3, 1))
+newdata$x2 &lt;- newdata$x^2
+
+plot_df &lt;- cbind(newdata, as.data.frame(predict_partial(fit, newdata)))
+
+ggplot(plot_df, aes(x = x1, y = est)) + 
+    geom_line() +
+    geom_line(aes(y = est - se * 1.96), linetype = &quot;dashed&quot;) + 
+    geom_line(aes(y = est + se * 1.96), linetype = &quot;dashed&quot;) + 
+    theme_cowplot()</code></pre>
+<p><img src="/blog/2021-01-22-predict-partial_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>This bears more explanation, but I’m out of time for the day.</p>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I’m not actually sure we need to assume this, but someone smarter than me can work out the math of what we could do in the non-linear-in-parameters case.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
