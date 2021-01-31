@@ -28,7 +28,7 @@ knitr::opts_knit$set(message = F, warning = F)
 whp &lt;- raster(&quot;~/Desktop/fire-maps/whp2020_GeoTIF/whp2020_cnt_conus.tif&quot;)</code></pre>
 <div id="butte-county-ca" class="section level2">
 <h2>Butte County, CA</h2>
-<p>For this “analysis”, I’m going to focus on Butte County, which is a bit north of Sacramento in northern California and contains a number of small towns that have, sadly, <a href="https://www.sfchronicle.com/california-wildfires/article/At-Station-62-shelter-from-the-firestorm-15576500.php">been hard-hit</a> by wildfire in the last few decades. The most recent example of this was the devastating 2018 Camp Fire. To focus on Butte, I load a county <a href="https://catalog.data.gov/dataset/2015-cartographic-boundary-file-state-county-for-united-states-1-20000000">shapefile</a> — notice how easy sf makes it to quickly filter to Butte and to reproject to match the WHP raster. It also interfaces very well with ggplot2, part of the <a href="https://www.tidyverse.org/">tidyverse</a> that we loaded early.</p>
+<p>For this “analysis”, I’m going to focus on Butte County, which is a bit north of Sacramento in northern California and contains a number of small towns that have, sadly, <a href="https://www.sfchronicle.com/california-wildfires/article/At-Station-62-shelter-from-the-firestorm-15576500.php">been hard-hit</a> by wildfire in the last few decades. The most recent example of this was the devastating 2018 Camp Fire. To focus on Butte, I load a county <a href="https://catalog.data.gov/dataset/2015-cartographic-boundary-file-state-county-for-united-states-1-20000000">shapefile</a> — notice how easy sf makes it to quickly filter to Butte and to reproject to match the WHP raster. It also interfaces very well with ggplot2, part of the <a href="https://www.tidyverse.org/">tidyverse</a> that we loaded earlier.</p>
 <pre class="r"><code>butte &lt;- st_read(&quot;~/Desktop/fire-maps/cb_2015_us_county_20m&quot;, quiet = T) %&gt;%
   filter(GEOID == &quot;06007&quot;) %&gt;%
   st_transform(proj4string(whp))
@@ -38,7 +38,7 @@ ggplot(butte) + geom_sf()</code></pre>
 </div>
 <div id="wildfire-hazard-potential-in-butte" class="section level2">
 <h2>Wildfire Hazard Potential in Butte</h2>
-<p>The next step is to crop the WHP raster to butte. This, too, is easy, since raster now plays nicely with sf. We can then plot the result.</p>
+<p>The next step is to crop the WHP raster to Butte. This, too, is easy, since raster now plays nicely with sf. We can then plot the result.</p>
 <pre class="r"><code>whp &lt;- crop(whp, butte)
 plot(whp)</code></pre>
 <p><img src="/blog/2021-01-31-fire-maps_files/figure-html/crop-whp-1.png" width="672" /></p>

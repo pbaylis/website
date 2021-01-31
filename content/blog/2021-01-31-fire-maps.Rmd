@@ -31,7 +31,7 @@ whp <- raster("~/Desktop/fire-maps/whp2020_GeoTIF/whp2020_cnt_conus.tif")
 
 ## Butte County, CA
 
-For this "analysis", I'm going to focus on Butte County, which is a bit north of Sacramento in northern California and contains a number of small towns that have, sadly, [been hard-hit](https://www.sfchronicle.com/california-wildfires/article/At-Station-62-shelter-from-the-firestorm-15576500.php) by wildfire in the last few decades. The most recent example of this was the devastating 2018 Camp Fire. To focus on Butte, I load a county [shapefile](https://catalog.data.gov/dataset/2015-cartographic-boundary-file-state-county-for-united-states-1-20000000) --- notice how easy sf makes it to quickly filter to Butte and to reproject to match the WHP raster. It also interfaces very well with ggplot2, part of the [tidyverse](https://www.tidyverse.org/) that we loaded early.
+For this "analysis", I'm going to focus on Butte County, which is a bit north of Sacramento in northern California and contains a number of small towns that have, sadly, [been hard-hit](https://www.sfchronicle.com/california-wildfires/article/At-Station-62-shelter-from-the-firestorm-15576500.php) by wildfire in the last few decades. The most recent example of this was the devastating 2018 Camp Fire. To focus on Butte, I load a county [shapefile](https://catalog.data.gov/dataset/2015-cartographic-boundary-file-state-county-for-united-states-1-20000000) --- notice how easy sf makes it to quickly filter to Butte and to reproject to match the WHP raster. It also interfaces very well with ggplot2, part of the [tidyverse](https://www.tidyverse.org/) that we loaded earlier.
 
 ```{r butte}
 butte <- st_read("~/Desktop/fire-maps/cb_2015_us_county_20m", quiet = T) %>%
@@ -43,7 +43,7 @@ ggplot(butte) + geom_sf()
 
 ## Wildfire Hazard Potential in Butte
 
-The next step is to crop the WHP raster to butte. This, too, is easy, since raster now plays nicely with sf. We can then plot the result.
+The next step is to crop the WHP raster to Butte. This, too, is easy, since raster now plays nicely with sf. We can then plot the result.
 
 ```{r crop-whp}
 whp <- crop(whp, butte)
