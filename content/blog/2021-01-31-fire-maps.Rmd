@@ -77,9 +77,9 @@ perims_butte <- perims %>%
   st_crop(butte)
 ```
 
-You'll see that there are a few more lines of code before we crop. Sometimes shapefiles will have one error or another that need to be resolved before we can do operations like cropping. In this case, there are two issues: one is that there's a funny polygon type in the original shapefile, and two is that a small number of these polygons are invalid. Without going deep into these issues, we fix the first by "casting" the funny polygon to a multi-polygon type that `sf` knows how to handle, and the second by using a function to patch invalid polygons. Once we've done that, we can again reproject to match our other spatial projects and crop to Butte.
+You'll see that there are a few more lines of code before we crop. Sometimes shapefiles will have one error or another that need to be resolved before we can do operations like cropping. In this case, there are two issues: one is that there's a funny polygon type in the original shapefile, and two is that a small number of these polygons are invalid. Without going deep into these issues, we fix the first by "casting" the funny polygon to a multi-polygon type that `sf` knows how to handle, and the second by using a function to patch invalid polygons. Once we've done that, we can again reproject to match our other spatial objects and crop to Butte.
 
-The next step is to count the number of overlapping fire areas in the county. Here we'll use a neat (an not very well-documented) trick: `st_intersection`, an `sf` function, can figure out where polygons overlap and how many of them overlap in each place. This is a little time-consuming, but once it's done we can arrange the overlaps by their number (from least to most) and plot with `ggplot2`.
+The next step is to count the number of overlapping fire areas in the county. Here we'll use a neat (and frankly not very well-documented) trick: `st_intersection`, an `sf` function, can figure out where polygons overlap and how many of them overlap in each place. This is a little time-consuming, but once it's done we can sort the overlaps by their number (from least to most) and plot with `ggplot`.
 
 ```{r count-overlaps, message = F, warning = F}
 perims_butte_overlaps <- st_intersection(perims_butte) %>% 
