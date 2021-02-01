@@ -11,9 +11,9 @@ tags:
 
 I like making maps and thinking about wildfires. For a recent [project](https://www.nber.org/system/files/working_papers/w26550/w26550.pdf) examining the implicit subsidy of wildfire suppression (joint with the inimitable [Judson Boomhower](https://www.judsonboomhower.com/)), we used Wildfire Hazard Potential (WHP for short) [maps](https://www.firelab.org/project/wildfire-hazard-potential) from the U.S. Forest Service as a measure how likely various areas were to catch on fire.
 
-Today, I got to thinking: how much do these WHP maps predict actual wildfire? And, can I make some maps to help visualize this? I should say here that I am guilty of loving maps, possibly too much, and one of my favorite packages in R is [sf](https://github.com/r-spatial/sf/), which has --- in my view --- absolutely revolutionized spatial analysis in R. I don't think enough people know just how __easy__ sf makes this kind of mapping. Let's dig in.
+Today, I got to thinking: how much do these WHP maps predict actual wildfire? And, can I make some maps to help visualize this? I should say here that I am guilty of loving maps, possibly too much, and one of my favorite packages in R is [`sf`](https://github.com/r-spatial/sf/), which has --- in my view --- absolutely revolutionized spatial analysis in R. I don't think enough people know just how __easy__ `sf` makes this kind of mapping. Let's dig in.
 
-First, some preliminaries: load sf and a number of other helper packages. Using the raster package, I load the WHP raster downloaded from the link above. (Note: to run this code yourself, you'll need to download the relevant files and put them in a directory where the code can access them.)
+First, some preliminaries: load `sf` and a number of other helper packages. Using the `raster` package, I load the WHP raster downloaded from the link above. (Note: to run this code yourself, you'll need to download the relevant files and put them in a directory where the code can access them.)
 
 ```{r setup, message = F, warning = F}
 library(tidyverse)
@@ -31,7 +31,7 @@ whp <- raster("~/Desktop/fire-maps/whp2020_GeoTIF/whp2020_cnt_conus.tif")
 
 ## Butte County, CA
 
-For this "analysis", I'm going to focus on Butte County, which is a bit north of Sacramento in northern California and contains a number of small towns that have, sadly, [been hard-hit](https://www.sfchronicle.com/california-wildfires/article/At-Station-62-shelter-from-the-firestorm-15576500.php) by wildfire in the last few decades. The most recent example of this was the devastating 2018 Camp Fire. To focus on Butte, I load a county [shapefile](https://catalog.data.gov/dataset/2015-cartographic-boundary-file-state-county-for-united-states-1-20000000) --- notice how easy sf makes it to quickly filter to Butte and to reproject to match the WHP raster. It also interfaces very well with ggplot2, part of the [tidyverse](https://www.tidyverse.org/) that we loaded earlier.
+For this "analysis", I'm going to focus on Butte County, which is a bit north of Sacramento in northern California and contains a number of small towns that have, sadly, [been hard-hit](https://www.sfchronicle.com/california-wildfires/article/At-Station-62-shelter-from-the-firestorm-15576500.php) by wildfire in the last few decades. The most recent example of this was the devastating 2018 Camp Fire. To focus on Butte, I load a county [shapefile](https://catalog.data.gov/dataset/2015-cartographic-boundary-file-state-county-for-united-states-1-20000000) --- notice how easy `sf` makes it to quickly filter to Butte and to reproject to match the WHP raster. It also interfaces very well with `ggplot2`, part of the [`tidyverse`](https://www.tidyverse.org/) that we loaded earlier.
 
 ```{r butte}
 butte <- st_read("~/Desktop/fire-maps/cb_2015_us_county_20m", quiet = T) %>%
@@ -43,14 +43,14 @@ ggplot(butte) + geom_sf()
 
 ## Wildfire Hazard Potential in Butte
 
-The next step is to crop the WHP raster to Butte. This, too, is easy, since raster now plays nicely with sf. We can then plot the result.
+The next step is to crop the WHP raster to Butte. This, too, is easy, since `raster` now plays nicely with `sf`. We can then plot the result.
 
 ```{r crop-whp}
 whp <- crop(whp, butte)
 plot(whp)
 ```
 
-But, we'd rather do our raster plotting using ggplot. This is easy as well --- we simply convert the raster to a data.frame (often called "fortifying" the raster) and add it to our original Butte County plot.
+But, we'd rather do our raster plotting using ggplot. This is easy as well --- we simply convert the raster to a `data.frame` (often called "fortifying" the raster) and add it to our original Butte County plot.
 
 ```{r plot-whp}
 whp_df <- as.data.frame(whp, xy=TRUE)
@@ -65,7 +65,7 @@ ggplot(butte) +
 
 ## History of wildfires in Butte County
 
-The next step is to see where wildfires have occurred and re-occurred in Butte over the years. To do this, we'll load another data source: historic [fire perimeters](https://frap.fire.ca.gov/frap-projects/fire-perimeters/) from CAL FIRE. This history runs all the way back to 1878 until the present day, although data sparsity varies over that time period. Still, we should be able to use it to get a rough sense for where, historically, fires have occurred. We'll load the perimeters and, like the WHP raster, crop to Butte County.
+The next step is to see where wildfires have occurred and re-occurred in Butte over the years. To do this, we'll load another data source: historic [fire perimeters](https://frap.fire.ca.gov/frap-projects/fire-perimeters/) from CAL FIRE. This history runs all the way back to 1878 until the present day, although data sparsity varies over that time period. Still, we should be able to use it to get a rough sense for where, historically, fires have occurred. We'll load the perimeters and, like the WHP raster, crop them to Butte County.
 
 ```{r load-perims, message = F, warning = F, results = F}
 perims <- st_read("~/Desktop/fire-maps/fire19_1.gdb/", layer = "firep19_1")
@@ -77,9 +77,9 @@ perims_butte <- perims %>%
   st_crop(butte)
 ```
 
-You'll see that there's a few more lines of code in there before we crop. Sometimes shapefiles will have one error or another that need to be resolved before we can do operations like cropping. In this case, there's a couple issues: one is that there's a funny polygon type in the original shapefile, and two is that a small number of these polygons are invalid. Without going deep into these issues, we fix them by first "casting" the funny polygon to a multi-polygon type that sf knows how to handle, and second by using a function to fix invalid polygons. Once we've done that, we can again reproject to match our other spatial projects and crop to Butte.
+You'll see that there are a few more lines of code before we crop. Sometimes shapefiles will have one error or another that need to be resolved before we can do operations like cropping. In this case, there are two issues: one is that there's a funny polygon type in the original shapefile, and two is that a small number of these polygons are invalid. Without going deep into these issues, we fix the first by "casting" the funny polygon to a multi-polygon type that `sf` knows how to handle, and the second by using a function to patch invalid polygons. Once we've done that, we can again reproject to match our other spatial projects and crop to Butte.
 
-The next step is to count the number of overlapping fire areas in the county. Here we'll use a neat trick: `st_intersection`, an sf function, can figure out where polygons overlap and how many of them overlap in each place. This is a little time-consuming, but once it's done we can arrange the overlaps by their number (from least to most) and plot with ggplot.
+The next step is to count the number of overlapping fire areas in the county. Here we'll use a neat (an not very well-documented) trick: `st_intersection`, an `sf` function, can figure out where polygons overlap and how many of them overlap in each place. This is a little time-consuming, but once it's done we can arrange the overlaps by their number (from least to most) and plot with `ggplot2`.
 
 ```{r count-overlaps, message = F, warning = F}
 perims_butte_overlaps <- st_intersection(perims_butte) %>% 
@@ -107,4 +107,6 @@ ggplot(butte) +
   theme_map()
 ```
 
-That's it! You can see that, in Butte County at least, there **is** a relationship between hazard potential and actual historical fire. But it's not especially strong. Some low hazard potential areas have been hit by fires many times over. But some high potential areas have never been hit. This is consistent with what fire managers will tell you: wildfires are incredibly unpredictable, and even the best fire models really struggle to anticipate which areas will burn. 
+You can see that, in Butte County at least, there does appear to be a relationship between hazard potential and actual historical fire. But it's not especially strong. Some low hazard potential areas have been hit by fires many times over, and some high potential areas have never been hit. This is consistent with what fire managers will tell you: wildfires are incredibly unpredictable, and even the best fire models really struggle to anticipate which areas will burn. Moreover, it's worth keeping in mind that WHP isn't **designed** to exactly predict expected fire locations. As the [website](https://www.firelab.org/project/wildfire-hazard-potential) notes, "*our specific objective with the WHP map is to depict the relative potential for wildfire that would be difficult for suppression resources to contain*." 
+
+That's it for now. Hopefully this has given you a sense for some of the capability --- and relative simplicity! --- of spatial work in R. Happy mapping!
