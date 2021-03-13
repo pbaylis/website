@@ -1,0 +1,11 @@
+---
+title: "Test"
+layout: post
+date: '2021-03-31'
+categories: raster, maps
+tags:
+- r
+- maps
+---
+
+TEST POST. 
