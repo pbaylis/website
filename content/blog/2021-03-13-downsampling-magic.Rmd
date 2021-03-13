@@ -1,7 +1,7 @@
 ---
 title: "The magic of downsampling"
 layout: post
-date: '2021-03-31'
+date: 2021-03-31
 categories: raster, maps
 tags:
 - r
@@ -20,7 +20,7 @@ library(sf) # Spatial work
 library(cowplot) # theme_map
 library(rnaturalearth) # World shapefile
 
-knitr::opts_knit$set(message = F, warning = F, cache = T)
+knitr::opts_knit$set(message = F, warning = F)
 
 theme_set(theme_map()) # We're only going to be making maps, so just set the theme here.
 ```
