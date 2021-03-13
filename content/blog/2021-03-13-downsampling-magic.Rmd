@@ -10,6 +10,7 @@ tags:
 
 It's time for another mapping post! For a recent project, I wanted to plot some **very** highly resolved raster data with ``ggplot2``, but I ran into a hiccup. In case it's useful to someone else, here's what I learned.
 
+
 First, some setup:
 
 ```{r setup, message = F, warning = F}
