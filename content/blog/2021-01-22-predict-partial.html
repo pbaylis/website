@@ -11,6 +11,7 @@ tags:
 <script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
+<p>Update (2021-03-04): I’ve improved the function, and it can now handle any (?) kind of formula you can throw at it.</p>
 <p>In climate economics and in other settings, we often would like to estimate a <strong>response function</strong>, or the outcome as a function of some covariate, i.e., <span class="math inline">\(y = f(T)\)</span>. Most of the time, <span class="math inline">\(T\)</span> stands for temperature. Figure 3 in <a href="https://science.sciencemag.org/content/353/6304/aad9837">Carleton and Hsiang (2016)</a> documents a bunch of different response functions from the literature.</p>
 <div class="figure">
 <img src="https://science.sciencemag.org/content/sci/353/6304/aad9837/F4.large.jpg?width=800&amp;height=600&amp;carousel=1" alt="" />
@@ -24,57 +25,96 @@ This model includes unit fixed effects (<span class="math inline">\(\phi_i\)</sp
 <p>So, we’re basically sunk if we want to plot <span class="math inline">\(\hat{y}\)</span> with standard errors included. But what if we’re just interested in the relationship between <span class="math inline">\(T\)</span> and <span class="math inline">\(y\)</span>, holding all the other controls constant? I.e., what if we just want to plot the response function <span class="math inline">\(f(T)\)</span>? In that case, and assuming a linear-in-parameters model<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>, we only need the vcov for the coefficients related to the variable we’re allowing to change, in this case <span class="math inline">\(T\)</span>.</p>
 <p>To see how this works, consider that a response function is really just the expected value of the outcome across a range of <span class="math inline">\(T\)</span> (say, 0 to 40) minus <span class="math inline">\(\hat{y}\)</span> at a single value of <span class="math inline">\(T\)</span> (say, 20 C). That is, for T = 40, the expected value of</p>
 <p><span class="math display">\[E[y_{it}|T=40] - E[y_{it}|T = 20] = f(T=40; \hat{\beta}) + \phi_i - f(T=20; \hat{\beta}) - \phi_i = f(T=40; \hat{\beta}) - f(T=20; \hat{\beta})\]</span></p>
-<p>As you can see, the fixed effects drop out, so for this linear-in-parameters model at least we don’t need the entire vcov to generate standard errors for each point on the response curve. So far as I know, though, there’s no easy way to run this kind of prediction without a bit of wrangling. Typically, I’ve used <code>survey::svycontrast</code> to do this sort of thing (see <a href="https://www.patrickbaylis.com/blog/2018-04-12-svycontrasts/">here</a>), but it always felt a bit fiddly. So the following code lets us do this kind of partial prediction easily, by just passing the variables we want to predict over.</p>
+<p>As you can see, the fixed effects drop out, so for this linear-in-parameters model at least we don’t need the entire vcov to generate standard errors for each point on the response curve. So far as I know, though, there’s no easy way to run this kind of prediction without a bit of wrangling. Typically, I’ve used <code>survey::svycontrast</code> to do this sort of thing (see <a href="https://www.patrickbaylis.com/blog/2018-04-12-svycontrasts/">here</a>), but it always felt a bit fiddly. So the following code lets us do this kind of partial prediction easily, by just passing the variables we want to predict over.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <pre class="r"><code>library(fixest)
 library(ggplot2)
 library(cowplot)
 
-N &lt;- 100
-df &lt;- data.frame(x1 = rnorm(N), x2 = rnorm(N))
-df$y &lt;- 1 + 3 * df$x1 - 2 * df$x2 + rnorm(N, 0, 0.5)
-
-fit &lt;- feols(y ~ x1 + x2, data = df)
-
-predict_partial &lt;- function(fit, newdata) {
-    # Compute XB for Xs provided in newdata
-    # Note: Will not work for variables created via on the fly via formula (e.g., x:y, I(x^2), x^y) 
-    X &lt;- as.matrix(newdata[, names(newdata) %in% names(coef(fit))])
+predict_partial &lt;- function(object, newdata, se.fit = FALSE,
+                            interval = &quot;none&quot;,
+                            level = 0.95){
+    if(missing(newdata)) {
+        stop(&quot;predict_partial requires newdata and predicts for all group effects = 0.&quot;)
+    }
     
-    # Get indices of variables that we&#39;ll use from the fit
-    i &lt;- which(names(coef(fit)) %in% colnames(X))
-    B &lt;- coef(fit)[i]
-    sigma &lt;- vcov(fit)[i, i]
+    object &lt;- fit_feols; newdata &lt;- newdata; se.fit = T; interval = &quot;confidence&quot;; level = 0.95
     
-    # Compute 
-    est &lt;- as.vector(X %*% B)
-    se &lt;- apply(X, MARGIN = 1, FUN = get_se, sigma = sigma)
-    # There is maybe a smarter matrix algebra way to do this? 
+    # Extract terms object, removing response variable 
+    tt &lt;- terms(object)
+    Terms &lt;- delete.response(tt)
     
-    list(est = est, se = se)
+    # Remove intercept
+    attr(Terms, &quot;intercept&quot;) &lt;- 0
+    
+    X &lt;- model.matrix(Terms, data = newdata)
+    
+    if (class(object) == &quot;fixest&quot;) {
+        B &lt;- as.numeric(coef(object))
+        df &lt;- attributes(vcov(fit_feols, attr = T))$dof.K
+    } else if (class(object) %in% c(&quot;lm&quot;, &quot;felm&quot;)) { 
+        B &lt;- as.numeric(object$coef)
+        df &lt;- object$df.residual
+    } else {
+        stop(&quot;class(object) should be lm, fixest, or felm.&quot;)
+    }
+    
+    fit &lt;- data.frame(fit = as.vector(X %*% B))
+    
+    if(se.fit | interval != &quot;none&quot;) {
+        sig &lt;- vcov(object)
+        se &lt;- apply(X, MARGIN = 1, FUN = get_se, sig = sig)
+    }
+    
+    if(interval == &quot;confidence&quot;){
+        t_val &lt;- qt((1 - level) / 2 + level, df = df)
+        fit$lwr &lt;- fit$fit - t_val * se
+        fit$upr &lt;- fit$fit + t_val * se
+    } else if (interval == &quot;prediction&quot;){
+        stop(&quot;interval = \&quot;prediction\&quot; not yet implemented&quot;)
+    }
+    if(se.fit){
+        return(list(fit=fit, se.fit = se))
+    } else {
+        return(fit)
+    }
 }
 
-get_se &lt;- function(r, sigma) {
+get_se &lt;- function(r, sig) {
     # Compute linear combination, helper function for predict_partial
-    # Given numeric vector r (the constants) and vcov sigma (the ), compute SE 
+    # Given numeric vector r (the constants) and vcov sig (the ), compute SE 
     r &lt;- matrix(r, nrow = 1)
-    sqrt(r %*% sigma %*% t(r))
+    sqrt(r %*% sig %*% t(r))
 }
 
-newdata &lt;- data.frame(x1 = seq(-3, 3, 1))
-newdata$x2 &lt;- newdata$x^2
+N &lt;- 100
+data &lt;- data.frame(x = rnorm(N), group = rep(c(&quot;A&quot;, &quot;B&quot;), times = N/2))
+data$y &lt;- 1 + 3 * data$x - 2 * data$x^2 + rnorm(N, 0, 0.5) + as.numeric(data$group == &quot;A&quot;) * 3
 
-plot_df &lt;- cbind(newdata, as.data.frame(predict_partial(fit, newdata)))
+fit_feols &lt;- feols(y ~ x + I(x^2) | group, data = data)
 
-ggplot(plot_df, aes(x = x1, y = est)) + 
+newdata &lt;- data.frame(x = seq(-3, 3, 0.1))
+preds &lt;- predict_partial(fit_feols, newdata, se.fit = T, interval = &quot;confidence&quot;)
+
+plot_df &lt;- cbind(newdata, preds$fit)
+
+ggplot(plot_df, aes(x = x, y = fit)) + 
     geom_line() +
-    geom_line(aes(y = est - se * 1.96), linetype = &quot;dashed&quot;) + 
-    geom_line(aes(y = est + se * 1.96), linetype = &quot;dashed&quot;) + 
+    geom_line(aes(y = lwr), linetype = &quot;dashed&quot;) + 
+    geom_line(aes(y = upr), linetype = &quot;dashed&quot;) + 
     theme_cowplot()</code></pre>
 <p><img src="/blog/2021-01-22-predict-partial_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
-<p>This bears more explanation, but I’m out of time for the day.</p>
+<p>Note that this function also works with <code>lm</code> and <code>felm</code>, though there’s little reason to use it for <code>lm</code> given that <code>predict.lm</code> works (and provides more functionality).</p>
+<pre class="r"><code>fit_lm &lt;- lm(y ~ x + I(x^2), data = data)
+preds_lm &lt;- predict_partial(fit_lm, newdata, se.fit = T, interval = &quot;confidence&quot;)
+library(lfe)</code></pre>
+<pre><code>## Loading required package: Matrix</code></pre>
+<pre class="r"><code>fit_felm &lt;- felm(y ~ x + I(x^2), data = data)
+preds_felm &lt;- predict_partial(fit_felm, newdata, se.fit = T, interval = &quot;confidence&quot;)</code></pre>
+<p>In any case, I’m happy to finally close this issue, given that it’s been on my mind for <a href="https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package">almost six years</a>.</p>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>I’m not actually sure we need to assume this, but someone smarter than me can work out the math of what we could do in the non-linear-in-parameters case.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>This code borrows from code written by Kenny Bell in this StackOverflow <a href="https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package">post</a>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

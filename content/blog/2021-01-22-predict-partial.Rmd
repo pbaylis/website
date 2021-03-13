@@ -8,6 +8,8 @@ tags:
 - prediction
 ---
 
+Update (2021-03-04): I've improved the function, and it can now handle any (?) kind of formula you can throw at it.
+
 In climate economics and in other settings, we often would like to estimate a **response function**, or the outcome as a function of some covariate, i.e., $y = f(T)$. Most of the time, $T$ stands for temperature. Figure 3 in [Carleton and Hsiang (2016)](https://science.sciencemag.org/content/353/6304/aad9837) documents a bunch of different response functions from the literature.
 
 ![Carleton and Hsiang (2016), Figure 3](https://science.sciencemag.org/content/sci/353/6304/aad9837/F4.large.jpg?width=800&height=600&carousel=1)
@@ -27,55 +29,95 @@ To see how this works, consider that a response function is really just the expe
 
 $$E[y_{it}|T=40] - E[y_{it}|T = 20] = f(T=40; \hat{\beta}) + \phi_i - f(T=20; \hat{\beta}) - \phi_i = f(T=40; \hat{\beta}) - f(T=20; \hat{\beta})$$
 
-As you can see, the fixed effects drop out, so for this linear-in-parameters model at least we don't need the entire vcov to generate standard errors for each point on the response curve. So far as I know, though, there's no easy way to run this kind of prediction without a bit of wrangling. Typically, I've used `survey::svycontrast` to do this sort of thing (see [here](https://www.patrickbaylis.com/blog/2018-04-12-svycontrasts/)), but it always felt a bit fiddly. So the following code lets us do this kind of partial prediction easily, by just passing the variables we want to predict over.
+As you can see, the fixed effects drop out, so for this linear-in-parameters model at least we don't need the entire vcov to generate standard errors for each point on the response curve. So far as I know, though, there's no easy way to run this kind of prediction without a bit of wrangling. Typically, I've used `survey::svycontrast` to do this sort of thing (see [here](https://www.patrickbaylis.com/blog/2018-04-12-svycontrasts/)), but it always felt a bit fiddly. So the following code lets us do this kind of partial prediction easily, by just passing the variables we want to predict over.^[This code borrows from code written by Kenny Bell in this StackOverflow [post](https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package).]
 
 ```{r}
 library(fixest)
 library(ggplot2)
 library(cowplot)
 
-N <- 100
-df <- data.frame(x1 = rnorm(N), x2 = rnorm(N))
-df$y <- 1 + 3 * df$x1 - 2 * df$x2 + rnorm(N, 0, 0.5)
-
-fit <- feols(y ~ x1 + x2, data = df)
-
-predict_partial <- function(fit, newdata) {
-    # Compute XB for Xs provided in newdata
-    # Note: Will not work for variables created via on the fly via formula (e.g., x:y, I(x^2), x^y) 
-    X <- as.matrix(newdata[, names(newdata) %in% names(coef(fit))])
+predict_partial <- function(object, newdata, se.fit = FALSE,
+                            interval = "none",
+                            level = 0.95){
+    if(missing(newdata)) {
+        stop("predict_partial requires newdata and predicts for all group effects = 0.")
+    }
     
-    # Get indices of variables that we'll use from the fit
-    i <- which(names(coef(fit)) %in% colnames(X))
-    B <- coef(fit)[i]
-    sigma <- vcov(fit)[i, i]
+    object <- fit_feols; newdata <- newdata; se.fit = T; interval = "confidence"; level = 0.95
     
-    # Compute 
-    est <- as.vector(X %*% B)
-    se <- apply(X, MARGIN = 1, FUN = get_se, sigma = sigma)
-    # There is maybe a smarter matrix algebra way to do this? 
+    # Extract terms object, removing response variable 
+    tt <- terms(object)
+    Terms <- delete.response(tt)
     
-    list(est = est, se = se)
+    # Remove intercept
+    attr(Terms, "intercept") <- 0
+    
+    X <- model.matrix(Terms, data = newdata)
+    
+    if (class(object) == "fixest") {
+        B <- as.numeric(coef(object))
+        df <- attributes(vcov(fit_feols, attr = T))$dof.K
+    } else if (class(object) %in% c("lm", "felm")) { 
+        B <- as.numeric(object$coef)
+        df <- object$df.residual
+    } else {
+        stop("class(object) should be lm, fixest, or felm.")
+    }
+    
+    fit <- data.frame(fit = as.vector(X %*% B))
+    
+    if(se.fit | interval != "none") {
+        sig <- vcov(object)
+        se <- apply(X, MARGIN = 1, FUN = get_se, sig = sig)
+    }
+    
+    if(interval == "confidence"){
+        t_val <- qt((1 - level) / 2 + level, df = df)
+        fit$lwr <- fit$fit - t_val * se
+        fit$upr <- fit$fit + t_val * se
+    } else if (interval == "prediction"){
+        stop("interval = \"prediction\" not yet implemented")
+    }
+    if(se.fit){
+        return(list(fit=fit, se.fit = se))
+    } else {
+        return(fit)
+    }
 }
 
-get_se <- function(r, sigma) {
+get_se <- function(r, sig) {
     # Compute linear combination, helper function for predict_partial
-    # Given numeric vector r (the constants) and vcov sigma (the ), compute SE 
+    # Given numeric vector r (the constants) and vcov sig (the ), compute SE 
     r <- matrix(r, nrow = 1)
-    sqrt(r %*% sigma %*% t(r))
+    sqrt(r %*% sig %*% t(r))
 }
 
-newdata <- data.frame(x1 = seq(-3, 3, 1))
-newdata$x2 <- newdata$x^2
+N <- 100
+data <- data.frame(x = rnorm(N), group = rep(c("A", "B"), times = N/2))
+data$y <- 1 + 3 * data$x - 2 * data$x^2 + rnorm(N, 0, 0.5) + as.numeric(data$group == "A") * 3
 
-plot_df <- cbind(newdata, as.data.frame(predict_partial(fit, newdata)))
+fit_feols <- feols(y ~ x + I(x^2) | group, data = data)
 
-ggplot(plot_df, aes(x = x1, y = est)) + 
+newdata <- data.frame(x = seq(-3, 3, 0.1))
+preds <- predict_partial(fit_feols, newdata, se.fit = T, interval = "confidence")
+
+plot_df <- cbind(newdata, preds$fit)
+
+ggplot(plot_df, aes(x = x, y = fit)) + 
     geom_line() +
-    geom_line(aes(y = est - se * 1.96), linetype = "dashed") + 
-    geom_line(aes(y = est + se * 1.96), linetype = "dashed") + 
+    geom_line(aes(y = lwr), linetype = "dashed") + 
+    geom_line(aes(y = upr), linetype = "dashed") + 
     theme_cowplot()
 ```
 
-This bears more explanation, but I'm out of time for the day. 
+Note that this function also works with `lm` and `felm`, though there's little reason to use it for `lm` given that `predict.lm` works (and provides more functionality).
 
+```{r}
+fit_lm <- lm(y ~ x + I(x^2), data = data)
+preds_lm <- predict_partial(fit_lm, newdata, se.fit = T, interval = "confidence")
+library(lfe)
+fit_felm <- felm(y ~ x + I(x^2), data = data)
+preds_felm <- predict_partial(fit_felm, newdata, se.fit = T, interval = "confidence")
+```
+
+In any case, I'm happy to finally close this issue, given that it's been on my mind for [almost six years](https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package).
