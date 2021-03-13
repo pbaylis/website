@@ -5,7 +5,9 @@ title: Home
 
 Hello!
 
-I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) at the [University of British Columbia](https://www.ubc.ca/) (UBC) and a member of the [Centre for Food, Resource and Environmental Economics](https://cfree.landfood.ubc.ca/) (CFREE). I study how people respond to environmental threats like climate change, air pollution, and wildfires.
+I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) at the [University of British Columbia](https://www.ubc.ca/) (UBC). I study how people respond to environmental threats like climate change, air pollution, and wildfires.
+
+<!-- and a member of the [Centre for Food, Resource and Environmental Economics](https://cfree.landfood.ubc.ca/) (CFREE) -->
 
 <!-- **[Matt Lowe](https://mattlowe.site/) and I currently hiring a pre-doc RA for 2020 / 2021!** The RA will contribute to a set of field and natural experiment projects in behavioural development and environmental economics. You should apply [here](https://econjobmarket.org/positions/6466), be sure to fill in the separate survey on technical background, and e-mail me if you have any questions. -->
 
