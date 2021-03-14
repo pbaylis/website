@@ -9,6 +9,7 @@ output:
         keep_tex: true
 ---
 
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
 
 
 <p>I often need to document the statistical results I <a href="/posts/2019-06-11-making-regressions-purrr/">estimate</a> in table format. I have tried many, many things over the years, and none of my solutions are perfect, including the one I’m about to describe. But, it is now… pretty good.</p>
@@ -49,17 +50,28 @@ data(cars)
 fit &lt;- lm(speed ~ dist, data = cars)
 
 # Use the function we defined above to split the regression output into different pieces of a tabulr
-pieces &lt;- make_tex_pieces(fit, &quot;dist&quot;, &quot;distance&quot;)
-
-# Put the pieces back together, adding a short panel with the count of observations
+pieces &lt;- make_tex_pieces(fit, &quot;dist&quot;, &quot;distance&quot;)</code></pre>
+% Table created by stargazer v.5.2.2 by Marek Hlavac, Harvard University. E-mail: hlavac at fas.harvard.edu
+% Date and time: Sat, Mar 13, 2021 - 16:52:54
+% Requires LaTeX packages: dcolumn
+<pre class="r"><code># Put the pieces back together, adding a short panel with the count of observations
 latex_output &lt;- c(pieces$header,
                   pieces$inner,
                   &quot;\\midrule&quot;,
                   sprintf(&quot;Observations &amp; %.0f \\\\&quot;, length(fit$model$dist)),
                   pieces$footer)
 
-# Write to file
-write(latex_output, &quot;model-tabular.tex&quot;)</code></pre>
+# Write to file (I leave commented)
+# write(latex_output, &quot;model-tabular.tex&quot;) 
+latex_output</code></pre>
+<p>[1] “\begin{tabular}{@{\extracolsep{5pt}}lD{.}{.}{-2} }”
+[2] “\toprule”<br />
+[3] " distance &amp; 0.17^{***} \\ "<br />
+[4] " &amp; (0.02) \\ "<br />
+[5] “\midrule”<br />
+[6] “Observations &amp; 50 \\”<br />
+[7] “\bottomrule”<br />
+[8] " \end{tabular} "</p>
 <p>Next, I use the LaTeX <code>threeparttable</code> package (also used in this <a href="/posts/2018-10-11-beamer-resizing/">post</a>) to display the table. Here’s a minimum example.</p>
 <pre><code>\documentclass{article}
 
@@ -86,7 +98,7 @@ write(latex_output, &quot;model-tabular.tex&quot;)</code></pre>
 \end{document}</code></pre>
 <p>And here’s the result.</p>
 <div class="figure">
-<img src="/img/auto-table-output.png" alt="Table output" />
+<img src="/img/auto-table-output.png" alt="" />
 <p class="caption">Table output</p>
 </div>
 <p>Other packages you might find useful:</p>

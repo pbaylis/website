@@ -48,7 +48,7 @@ make_tex_pieces <- function(models, keep, covariate.labels, digits = 2) {
 
 Once I have that function defined, I can use it to create the inside part of the table: the `tabular` command. 
 
-```{r create-tabular, results = 'hide'}
+```{r create-tabular, results = 'asis'}
 # Load a sample dataset and run regression
 data(cars)
 fit <- lm(speed ~ dist, data = cars)
@@ -63,8 +63,9 @@ latex_output <- c(pieces$header,
                   sprintf("Observations & %.0f \\\\", length(fit$model$dist)),
                   pieces$footer)
 
-# Write to file
-write(latex_output, "model-tabular.tex")
+# Write to file (I leave commented)
+# write(latex_output, "model-tabular.tex") 
+latex_output
 ```
 
 Next, I use the LaTeX `threeparttable` package (also used in this [post](/posts/2018-10-11-beamer-resizing/)) to display the table. Here's a minimum example. 

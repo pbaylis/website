@@ -1,7 +1,7 @@
 ---
 title: "The magic of downsampling"
 layout: post
-date: 2021-03-31
+date: 2021-03-13
 categories: raster, maps
 tags:
 - r
@@ -19,7 +19,7 @@ library(sf) # Spatial work
 library(cowplot) # theme_map
 library(rnaturalearth) # World shapefile
 
-knitr::opts_knit$set(message = F, warning = F)
+knitr::opts_knit$set(message = F, warning = F, cache = T)
 
 theme_set(theme_map()) # We&#39;re only going to be making maps, so just set the theme here.</code></pre>
 <p>Note that I load the new-ish <a href="https://rspatial.org/terra/pkg/index.html"><code>terra</code></a> rather than the usual, and now venerable, <a href="https://www.rdocumentation.org/packages/raster/"><code>raster</code></a> package. <code>terra</code> is the successor to <code>raster</code>, and in general it’s much, much faster (because its written in C++). But everything I do below with <code>terra</code> could be done with <code>raster</code> instead.</p>

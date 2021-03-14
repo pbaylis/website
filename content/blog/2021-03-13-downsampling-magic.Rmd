@@ -1,7 +1,7 @@
 ---
 title: "The magic of downsampling"
 layout: post
-date: 2021-03-31
+date: 2021-03-13
 categories: raster, maps
 tags:
 - r
@@ -9,7 +9,6 @@ tags:
 ---
 
 It's time for another mapping post! For a recent project, I wanted to plot some **very** highly resolved raster data with ``ggplot2``, but I ran into a hiccup. In case it's useful to someone else, here's what I learned.
-
 
 First, some setup:
 
@@ -20,7 +19,7 @@ library(sf) # Spatial work
 library(cowplot) # theme_map
 library(rnaturalearth) # World shapefile
 
-knitr::opts_knit$set(message = F, warning = F)
+knitr::opts_knit$set(message = F, warning = F, cache = T)
 
 theme_set(theme_map()) # We're only going to be making maps, so just set the theme here.
 ```
