@@ -17,7 +17,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\
 
 [params]
 pagetitle = "Patrick Baylis"
-copyright = "© 2020 Patrick Baylis"
+copyright = "© 2021 Patrick Baylis"
 copyrightUrl = "https://www.patrickbaylis.com"
 faviconfile = "img/favicon-camping.png"
 logofile = "img/pbaylis-avatar.png"
@@ -30,6 +30,9 @@ github = "pbaylis"
 twitter = "pbaylis"
 linkedin = "pbaylis"
 email = "patrick.baylis@ubc.ca"
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
 
 [[menu.primary]]
     identifier = "research"

@@ -12,7 +12,6 @@ slug: links
 # Books
 
 - Clause O. Wilke on [Data Visualization](https://serialmentor.com/dataviz/)
-  - He has a [blog](https://serialmentor.com/virtualbooks/) on a variety of interesting subjects
 - Yihui Xie on [bookdown](https://bookdown.org/yihui/bookdown/)
   
 # Data
@@ -54,7 +53,8 @@ slug: links
 - [Projection wizard](https://projectionwizard.org/)
 
 ### R Packages
-- [etable](https://cran.r-project.org/web/packages/fixest/vignettes/exporting_tables.html) - Another table making package! booktabs out of the box? built by fixest author? Is this (finally) the death of stargazer?
+
+- [targets](https://docs.ropensci.org/targets/) - Make for R
 - [torch](https://blogs.rstudio.com/ai/posts/2020-09-29-introducing-torch-for-r/) - torch connectors for R. Will this be the year I learn to deep learn? Maybe.
 - [modelsummary](https://github.com/vincentarelbundock/modelsummary/#installation): Publication-ready summary statistics, tidy-style.
 - [gt](https://gt.rstudio.com/): RStudio's new package for table-making.
@@ -62,7 +62,7 @@ slug: links
 - [datadrivencv](http://nickstrayer.me/datadrivencv/): reduce the burden of maintaining a CV
 - [{disk.frame}](https://diskframe.com/articles/intro-disk-frame.html): Manipulate larger-than-memory datasets (similar to Spark, Dask, JuliaDB)
 - [pacman](http://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html) - Package manager for R
-- [fixest](https://cran.r-project.org/web/packages/fixest/vignettes/fixest_walkthrough.html): Fast(est?) fixed effect estimation, includes non-linear approaches.
+- [fixest](https://cran.r-project.org/web/packages/fixest/vignettes/fixest_walkthrough.html): Fastest fixed effect estimation, includes non-linear approaches. Also includes the very-good `etable` function for making tables.
 - [gghighlight](https://cran.r-project.org/web/packages/gghighlight/vignettes/gghighlight.html)
 - [cowplot](https://github.com/wilkelab/cowplot) (Clause Wilke)
 - [glue](https://github.com/tidyverse/glue): Easily combine strings.
