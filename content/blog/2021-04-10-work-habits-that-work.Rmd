@@ -1,8 +1,7 @@
 ---
 title: "Work habits that work (for me)"
-slug: work-habits
 layout: post
-date: 2021-04-09
+date: 2021-04-10
 categories: productivity
 tags:
 - habits
@@ -13,7 +12,7 @@ I used to think a lot about productivity. I still do, but I used to, too. (Apolo
 
 What is productivity? As an economist, I suppose I'm professionally obligated to define productivity as "rate of output per unit of input." But as a human and person who tries to get stuff done, I prefer to think of productivity as the state of **doing good work in a sustainable way**. (Sustainable, by the way, here refers to what is sustainable for us as people, though of course it's better if your version of productivity doesn't also burn down the rain forests or something.) In other words, how can we get the good stuff done over the long term? 
 
-That's what this post is about. I am one of those people who thinks a lot - too much, I'll argue later - about productivity. In a previous and now somewhat cringe-inducing [post](/blog/2015-09-08-researchproductivity/), I wrote about the kinds of practices and tools that I found useful for maintaining productivity as a grad student. In the five years since I wrote that, my thinking has continued to evolve. The following post is a loose meander through that thinking. I'll start with some **caveats**, then I'll talk about some of the **principles** underlying how I approach work, a few of my favorite **habits**, **research-specific** notes, and end with a discussion of the **tools** that I typically use. I'll wrap up with a brief list of some **resources** you 
+That's what this post is about. I am one of those people who thinks a lot - too much, I'll argue later - about productivity. In a previous and now somewhat cringe-inducing [post](/blog/2015-09-08-researchproductivity/), I wrote about the kinds of practices and tools that I found useful for maintaining productivity as a grad student. In the five years since I wrote that, my thinking has continued to evolve. The following post is a loose meander through that thinking. I'll start with some **caveats**, then I'll talk about some of the **principles** underlying how I approach work, a few of my favorite **habits**, **research-specific** notes, and end with a discussion of the **tools** that I typically use. I'll wrap up with a brief list of some **resources** that have helped me form these ideas.
 
 ## Caveats
 

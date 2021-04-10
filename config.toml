@@ -31,9 +31,6 @@ twitter = "pbaylis"
 linkedin = "pbaylis"
 email = "patrick.baylis@ubc.ca"
 
-[permalinks]
-    post = "/:year/:month/:day/:slug/"
-
 [[menu.primary]]
     identifier = "research"
     name = "Research"
