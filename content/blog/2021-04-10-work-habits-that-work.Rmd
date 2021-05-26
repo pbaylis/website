@@ -1,5 +1,5 @@
 ---
-title: "Work habits that work (for me)"
+title: "Productivity and the work habits that work (for me)"
 layout: post
 date: 2021-04-10
 categories: productivity
@@ -8,83 +8,74 @@ tags:
 - productivity
 ---
 
-I used to think a lot about productivity. I still do, but I used to, too. (Apologies to Mitch Hedberg, wherever he is.)
+I used to think a lot about productivity. I still do, but I used to, too ([h/t Mitch Hedberg](https://www.youtube.com/watch?v=VqHA5CIL0fg)).
 
-What is productivity? As an economist, I suppose I'm professionally obligated to define productivity as "rate of output per unit of input." But as a human and person who tries to get stuff done, I prefer to think of productivity as the state of **doing good work in a sustainable way**. (Sustainable, by the way, here refers to what is sustainable for us as people, though of course it's better if your version of productivity doesn't also burn down the rain forests or something.) In other words, how can we get the good stuff done over the long term? 
+What is productivity? The boring economics-y definition is "rate of output per unit of input" which is accurate but mostly unhelpful. A more human definition, and one I prefer, is "**the quality of doing good work in a sustainable way**." So a productive week for me is one where I generate valuable pieces of work,  like cleaned data, lesson plans, or manuscript sections ("doing good work"), while also staying happy and healthy by doing other non-work things that I love ("in a sustainable way"). Not all weeks feel that way, but over the years I've found that some behaviors are more likely to lead to productive days than others. And turning these good behaviors into **habits** has helped me get more done with less time and frustration than I did early in my career.
 
-That's what this post is about. I am one of those people who thinks a lot - too much, I'll argue later - about productivity. In a previous and now somewhat cringe-inducing [post](/blog/2015-09-08-researchproductivity/), I wrote about the kinds of practices and tools that I found useful for maintaining productivity as a grad student. In the five years since I wrote that, my thinking has continued to evolve. The following post is a loose meander through that thinking. I'll start with some **caveats**, then I'll talk about some of the **principles** underlying how I approach work, a few of my favorite **habits**, **research-specific** notes, and end with a discussion of the **tools** that I typically use. I'll wrap up with a brief list of some **resources** that have helped me form these ideas.
+Developing those habits is what this post is about. In a previous and now slightly cringe-inducing [note](/blog/2015-09-08-researchproductivity/), I wrote about the kinds of practices and tools that I found useful for maintaining productivity as a grad student. In the five years since I wrote that, my thinking has continued to evolve. The following is a loose meander through that thinking. 
+
+I'll start with some **caveats**, then I'll talk about some of the **principles** underlying how I approach work, a few of my favorite **habits**, **research-specific** notes, and end with a discussion of the **tools** that I typically use. I'll wrap up with a brief list of some **resources** that have helped me form these ideas.
 
 ## Caveats
 
-The **first caveat** is that I should say here that I **do not** think of myself as an exceptionally productive person! I know (and am lucky to work with) a bunch of people who are, though, and I read a lot (again, too much) on the topic. But every once in a while, I reflect on how my approach to work has shifted over the years and I can see that implementing a lot of these ideas really has allowed me to do more good work (in a sustainable way!) than I could have a few years ago.
+1. **The ideas in this post are aspirational.** I can assure you that I fail to demonstrate these habits **all the time**. In fact, I would guess that I fail more often than I succeed. I suspect that most people who write about productivity are the same way, though you might not know it from their marketing copy. We're all human here, and the important thing that I've found is that **incremental improvement is still improvement**. 
 
-The **second caveat** is that fail at reaching the lofty expectations of this post **all the time**. In fact, I would guess that I fail more often than I succeed. So you should think of the ideas here as **aspirational**, and that marginal improvement is still very much improvement. 
+2. **What works for me may not work for you.** We're all different, with different abilities and challenges. If something you read here doesn't make sense or doesn't work for you, I encourage you to ignore it. The process of carefully considering what kinds of habits **lead to the work and non-work life that you want** is the most important piece here, and if that leads to a completely different set of habits, great! 
 
-So given these two caveats, why should you listen to me at all? Well, I do think I know what productivity **looks like**. And though I certainly have a long way to go, I'm a tinkerer by nature, and of course a researcher, and I've found that documenting these ideas and discussing them with friends and colleagues has often led to helpful conversations and better work outcomes for everyone involved. I'm hopeful they do the same for you, and if they do, I'd love to [hear](https://www.twitter.com/pbaylis) about it.
+With those having been said, let's get started!
 
 ## Principles
 
 I have a small number of principles I try keep in mind when I think about being productive.
 
-1. **The goal is to get stuff done**. This seems obvious, but it's extremely easy to get distracted. If you're a researcher like me, your "stuff" is writing good research papers and teaching well. To the extent that other tasks (e.g., ruminating about productivity...) serve those goals you should pursue them, but don't let the *means* become the *end*. 
-2. **Writing is thinking**. Most people think that writing is simply transcribing ideas in your brain. It is not. Writing is a **generative** process that will help you come up with new and better ideas. Your brain is a blob of jelly that both generates **and loses track of** hundreds of brilliant ideas every hour. Harness its power by writing. 
-3. **Don't use your brain as a hard drive.** Free your brain to do what it is best at: sparking ideas! Don't use to save data, ideas about how to best code something, new projects, to remember your schedule, or to maintain a list of your big goals. Write it down and let your brain move on to something else!
-4. **Future-proof**. Consider the computer and the programs you're using right now. Were you using that same computer and those same programs five years ago? I doubt it. I also doubt you'll be using the same computer and programs five or ten years in the future. So future-proof whatever you can. That means: **use systems that are easily backed up** and recognize that **you will probably change tools soon** (if you're like me, very likely within six months), so don't overinvest in the ones you're using now, and make sure that you'll be able to get the data out of them easily.
+1. **The goal is to get stuff done.** This seems obvious, but it's extremely easy to get distracted. If you're a researcher like me, your "stuff" is writing good research papers and teaching well. To the extent that other tasks serve those goals you should pursue them, but don't let the **means** become the **end**. 
+2. **Writing is thinking.** Most people think that writing is simply transcribing ideas in your brain. It is not. Writing is a **generative** process that will help you come up with new and better ideas. Your brain is a blob of jelly that both generates **and loses track of** hundreds of brilliant ideas every hour. Harness its power by writing. 
+3. **Don't use your brain as a hard drive.** Free your brain to do what it is best at: **sparking ideas**! Don't use it to retain TODO lists, guidance for how to best code something, new projects that you want to start, your schedule, your long-term goals, or frankly anything that could easily be stored on a sheet of paper or computer. Write it down and let your brain move on to something else!
+4. **Future-proof**. Consider the computer and the programs you're using right now. Were you using that same computer and those same programs ten years ago? Even five years ago? I doubt it. I also doubt you'll be using the same computer and programs five or ten years in the future. So future-proof whatever you can. That means: **use systems that are easily backed up** and recognize that **you will probably change tools soon** (if you're like me, very likely within six months), so don't overinvest in the ones you're using now, and make sure that you'll be able to get the data out of them easily.
 
 ## Habits
 
-With those principles in mind, the following are a semi-categorized list of habits that I aspire to.
+With those principles in mind, the following are a semi-categorized list of habits that I aspire to. Many of these are either stolen directly from or indirectly inspired by one or more of the resources I list below, so I claim no credit for them. In particular, [Make Time](https://www.goodreads.com/book/show/37880811-make-time), by Jake Knapp and John Zeratsky, is probably my favorite book on the topic and the source for many of these ideas.
 
-- On mornings
-    - Morning is my most productive time. I like to get up if I can and get to work. 
-        - I should say that I have a complicated relationship with coffee.
-    - I try to never schedule anything in the morning, if at all possible. Not always possible.
-    - The absolute best days are the ones where I start the day with thirty minutes of writing.
-- On writing
-    - I can't say this enough: Writing is thinking. Writing for an audience is better thinking. Writing for an *editing* audience is the best thinking.
-    - Related to this, anytime you can get yourself a deadline, you will find that your ability to produce work skyrockets. It's amazing how that works.
-- Planning
-    - Your brain hates a bad plan. I stole that from someone, I'm not sure who.
-    - New one for me: pick a "highlight" for each day that will be the centerpiece of each day.
-    - I find it helpful to have different "levels" of planning. Or different timeframes, I guess. I like to plan for the day, usually with a main goal to accomplish and a bunch of other tasks I'd like to get to. But I also like to have a weekly plan. And a quarterly plan.
-    - Block your schedule. I'm honestly not the best at this, but having written down when you will work on what project frees your mind from stressing about that project at other times.
-    - Generate "ACTION-OUTCOME" tasks, i.e., tasks that involve creating a deliverable (as consultants would say). Having these small goals.
-- I have horrible impulse control, which is probably why I need all these rules in the first place. So taking actions to reduce the possibility that I'll become distracted is helpful.
-    - For example, I will often leave my phone either in my bag or in my car.
-    - Having a plan before opening a screen is super important.
-    - Infinity pools idea is important and compelling and related to the phone stuff. It's been useful to ask myself what my infinity pools are.
-- Effort management.
-    - The nights when I work late into the night almost always result in a loss of energy and motivation the next day. 
-    - Much better to maintain a constant stream of work and to enjoy your leisure time, whether that's with family, friends, etc. Leisure time is recharge time.
-    - Start with a small task.
-    - Not everyone is like this, but I absolutely need exercise. I've come to know when I'm likely to hit lulls and try to aim my workouts for those times. That's usually just before lunch or around 2 or 3:30.
-    - Quit when you're ahead. It's appealing to finish a task, but it can be better to get a bit of a win the next day.
-- "No" is the most important word in the world. Especially as a junior, you are tempted to say  yes to projects, tasks, etc. Killing projects is SUPER important. Even if it's with people you like. The most painful project I've ever had to kill was with two close friends, because I wanted to keep hanging out and working with them. But the reality was, we were all using time that should have been spent elsewhere.
-    - I say this with some hesitancy, because I'm aware that folks like me - white men - are not tasked with as many asks as our minority or female colleagues, particularly when it comes to things like diversity committees, so let me caveat that with the observation that folks like me should consider whether me saying no to this tasks means it will fall to someone else and that's a very challenging question.
-- Email is the devil. It really is. Anything you can do to limit the flood is enormously important. Lots of recommendations here. I know Cal Newport has a new book on this, though I haven't read it.
-- Get right with your mental health. Journaling, meditating, therapy, whatever works for you. I do none of them all the time, but all of them some of the time.
-- It's absolutely possible to overdo this and to just become insanely task and checklist oriented. That's probably where I'm at right now, if we're honest. Try to avoid over-optimizing, especially on tasks that you're unlikely to need to revisit or repeat.
+- Mornings are my most creative and productive times, so I **schedule almost all of my meetings in the afternoons**. (Some people find that they are most productive and creative at night. Adjust accordingly.)
+- My absolute best days are the ones where I **start the day with thirty minutes of writing**.
+- Start a larger set of tasks by taking on a small, achievable goal. Get the momentum going! (Some people like to "eat the frog." That is not how I roll, but maybe that works better for you.)
+- I can't say this enough: **Writing is thinking**. Writing for an audience is better thinking. Writing for an audience that you expect to **edit** your work is the best thinking.
+- **Deadlines are highly motivating**. Submit to conferences, agree to presentations, commit to returning drafts by a certain date. Don't wait until you feel the work is "ready" (it never will be), give yourself a deadline.
+- **Your brain hates a bad plan**. Writing down a plan for the day/week/month is almost always time well spent.
+- Pick a "**highlight**" to be the 60 to 90 minute centerpiece of your day. It's not the only thing you'll do that day, but think of it as the thing that you'll reflect on later as your major accomplishment for the day. It doesn't have to be work, though!
+- **Block your schedule**. By blocking off writing time, or even writing time for a particular project, you can free your mind from stressing about that project at other times.
+- Generate "ACTION-OUTCOME" tasks, i.e., tasks that involve creating a **deliverable** (as consultants would say). 
+- If you have horrible impulse control, like me, **minimize distractions** by knowing what triggers you to waste time. For example, I will often leave my phone either in my bag or in my car. 
+- Have a plan for what you're about to do **before** you open a screen, including your laptop.
+- In general, I know that I can lose large chunks of time to **infinite scroll** apps (Instagram, Twitter, Facebook, ...), so I keep them off my phone and I don't stay logged in on my computer. Adding a small effort cost for accessing these apps seems to help me avoid them.
+- The nights when I work late into the night almost always result in a loss of energy and motivation the next day. Instead, **shut it down** while you still have every and something to dive into tomorrow. Go read a book, or hang out with friends or family. It's better to maintain a constant stream of work and to enjoy your leisure time. Leisure time is recharge time.
+- Not everyone is like this, but I absolutely **require exercise**. I've come to know when I'm likely to hit lulls and try to aim my workouts for those times. That's usually just before lunch or around 2 or 3:30.
+- "No" is the **most important word in the world**. Especially as a junior academic, you will be tempted to say yes to projects, tasks, committees, and so on. Nobody knows what is on your plate except for you, and it's your job to protect your time. The people who want you to succeed will understand when you decline. (I think this is important not say, but I do say it with some hesitancy, since I'm aware that folks who look like me - white men - do not receive as many asks as our minority or female colleagues, so let me caveat this advice with the suggestion that if you do look like me, please do consider of who is likely to take on this task if you aren't. These are not easy dilemmas.)
+- **Email is evil**. It really is. Anything you can do to limit the flood of mail is enormously important. Very few people reading this will have their job performance determined by how many emails they responded to. 
+- **Don't neglect your mental health.** Journaling, meditating, therapy, whatever works for you. I do none of them all the time, but all of them some of the time.
+- **Don't obsess about productivity.** It's possible to overdo it and to become focused on checking off as many tasks as possible. I've been there, and it can become joyless. Having a highlight helps here.
 
 ## Research-specific thoughts
 
 If you're a researcher like me, there are a few habits that are particularly useful for our field (but likely for others, too). 
 
-- I have never been able to make useful forward progress on more than one or MAYBE two projects where I am the primary writer or coder at a single time. It's one thing to be delegating tasks on a couple projects - that is doable, if you have the resources to do so. But leading multiple projects is a recipe for failure.
-- Get to a minimum viable research product. As they say in silicon valley, **fail fast**. 
-- Whenever I write code on invented dataset, it always works out better for me. Rather than deal the the messy, real dataset I can make progress on only the critical pieces. And I know they're critical because I had to construct the data. Then when I apply it to the real data, I'm much less likely to get caught up in the details.
-- Pre-comment (and post-comment) your code. Instead of just starting with code, start by describing what you want the code to do. First line of a piece of code should describe what that code will do in general. Then, you can generate a series of comments that outline the functions you'll need, the steps you'll take, and so on.
-- Again, write for an audience. The main reason why I generate these posts is self-serving. I am probably the primary consumer of that code.
+- **Be ruthless about your project load.** I have found that I can, at most, actively push forward **two** research projects at once. If I try to spread my scarce research time over four or five projects, nothing actually gets done. Switching costs are real and large, so it's better to focus intensely one one thing for, say, a six week sprint, than to spread yourself thin across five or six projects all the time. (Note: if you manage a research team, the math here is a bit different, but the general principle of focusing your own active research time holds.)
+- **Get to a minimum viable research product**. As they say in silicon valley, "fail fast." Ask yourself what would kill your project, and try to figure out if it's likely to do so as quickly as possible.
+- **Mock up data to write clean code.** Whenever I write code on invented dataset, it always works out better for me. Rather than deal the the messy, real dataset I can make progress on only the critical pieces. And I know they're critical because I had to construct the data. Then when I apply it to the real data, I'm much less likely to get caught up in the details.
+- **Pre-comment your code**. Instead of just starting with code, start by describing what you want the code to do. First line of a piece of code should describe what that code will do in general. Then, you can generate a series of comments that outline the functions you'll need, the steps you'll take, and so on.
+- Again, **write for an audience**. The main reason why I generate these blog posts is actually self-serving. By writing for an audience, I force myself to be clear and concise (at least as much as I am capable). In the end, the posts are helpful for me even years down the line. 
 
 ## Tools
 
-I hesitate to discuss tools too much (see Principle #4 above), since I know how mercurial I am with what I use. But for the record, here's the set of applications that are most often open on my computer.
+I hesitate to discuss specific tools too much (see Principle #4 above), since I know how mercurial I am with what I use. But for the record, here's the set of applications that are most often open on my computer.
 
 - **Markdown** for as much as possible.
     - Writing, preparing lecture slides, note-taking. I even make this website using Markdown (well, [blogdown](https://bookdown.org/yihui/blogdown/)).
     - My weapon of choice is [Atom](https://atom.io/). Other people like Sublime Text. 
 - [R](https://www.r-project.org/)/[RStudio](https://www.rstudio.com/) for almost all of my coding / analysis tasks. I used to use more Python and Stata, but R does almost everything I neeed now.
 - [Alfred](https://www.alfredapp.com/) (OS X) to avoid hunting through my file structure. It'll change your life.
-- [Roam Research](https://roamresearch.com/): Note-taking, personal task management. RR is not free, though, but right now I use it because it does the best job allowing me to quickly get ideas out of my brain and somewhere where I can find them later.
+- [Roam Research](https://roamresearch.com/): Note-taking, personal task management. RR is not free, though, but right now I use it because it does the best job allowing me to quickly get ideas out of my brain and somewhere where I can find them later. 
 - [Github](https://github.com/) + for project management, especially across a team. The "Issues" feature is underused by researchers.
 
 ## Resources
@@ -92,4 +83,8 @@ I hesitate to discuss tools too much (see Principle #4 above), since I know how 
 - [Make Time](https://www.goodreads.com/book/show/37880811-make-time) (Jake Knapp and John Zeratsky). This is probably my favorite single resource on productivity. I find it much more reasonable and accessible than many of the other resources out there, which can be dogmatic.
 - Most of [Cal Newport](https://www.calnewport.com/)'s books are worth a read.
 - [Getting Things Done](https://gettingthingsdone.com/) (David Allen): A system for planning work that's been useful in shaping my thinking.
-- [PARA System](https://fortelabs.co/blog/para/) (Tiago Forte): Helped guide how I set up my document structure. It's not perfect, but I haven't found anything better yet.
+- [PARA System](https://fortelabs.co/blog/para/) (Tiago Forte): Helped guide how I set up my document structure. It's not perfect, but I haven't found anything better yet. On the other hand, Alfred (see above) has basically obviated having a good document structure for me.
+
+## Wrapping up
+
+I hope you've found something useful here. I've found that documenting these ideas and discussing them with friends and colleagues has led me to insightful conversations about how all of us can improve our ability to do good work (sustainably). I'm hopeful that this post will spark some useful ideas for you as well, and if you have any thoughts I'd love to [hear](https://www.twitter.com/pbaylis) them!
