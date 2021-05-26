@@ -8,30 +8,30 @@ tags:
 - productivity
 ---
 
-I used to think a lot about productivity. I still do, but I used to, too ([h/t Mitch Hedberg](https://www.youtube.com/watch?v=VqHA5CIL0fg)).
+I used to think a lot about productivity. I still do, but I used to, too. ([RIP Mitch Hedberg](https://www.youtube.com/watch?v=VqHA5CIL0fg).)
 
-What is productivity? The boring economics-y definition is "rate of output per unit of input" which is accurate but mostly unhelpful. A more human definition, and one I prefer, is "**the quality of doing good work in a sustainable way**." So a productive week for me is one where I generate valuable pieces of work,  like cleaned data, lesson plans, or manuscript sections ("doing good work"), while also staying happy and healthy by doing other non-work things that I love ("in a sustainable way"). Not all weeks feel that way, but over the years I've found that some behaviors are more likely to lead to productive days than others. And turning these good behaviors into **habits** has helped me get more done with less time and frustration than I did early in my career.
+What is productivity? The boring economics-y definition is "rate of output per unit of input," which is accurate but mostly unhelpful. A more human definition, and one I prefer, is "**the quality of doing good work in a sustainable way**." So a productive week for me is one where I generate valuable pieces of work,  like cleaned data, lesson plans, or manuscript sections ("doing good work"), while also staying happy and healthy by doing other non-work things that I love ("in a sustainable way"). Not all weeks feel that way, but over the years I've found that some behaviors are more likely to lead to productive weeks than others. And turning these good behaviors into **habits** has helped me get more done with less time and frustration than I did early in my career.
 
 Developing those habits is what this post is about. In a previous and now slightly cringe-inducing [note](/blog/2015-09-08-researchproductivity/), I wrote about the kinds of practices and tools that I found useful for maintaining productivity as a grad student. In the five years since I wrote that, my thinking has continued to evolve. The following is a loose meander through that thinking. 
 
-I'll start with some **caveats**, then I'll talk about some of the **principles** underlying how I approach work, a few of my favorite **habits**, **research-specific** notes, and end with a discussion of the **tools** that I typically use. I'll wrap up with a brief list of some **resources** that have helped me form these ideas.
+I'll start with some necessary **caveats**, then discuss the **principles** that underpin my thoughts about productivity, list a few of my favorite **habits** (including some that are more specific to my job as a researcher), and link to some of the **tools** that I currently use. I'll wrap up with a brief list of some **resources** that have helped me form these ideas.
 
 ## Caveats
 
-1. **The ideas in this post are aspirational.** I can assure you that I fail to demonstrate these habits **all the time**. In fact, I would guess that I fail more often than I succeed. I suspect that most people who write about productivity are the same way, though you might not know it from their marketing copy. We're all human here, and the important thing that I've found is that **incremental improvement is still improvement**. 
+1. **The ideas in this post are aspirational.** I can assure you that I fail to demonstrate these habits **all the time**. In fact, I would guess that I fail more often than I succeed. I suspect that most people who write about productivity are the same way, though you might not know it from their marketing copy. We're all human here, and it's worth remembering that **incremental improvement is still improvement**. 
 
-2. **What works for me may not work for you.** We're all different, with different abilities and challenges. If something you read here doesn't make sense or doesn't work for you, I encourage you to ignore it. The process of carefully considering what kinds of habits **lead to the work and non-work life that you want** is the most important piece here, and if that leads to a completely different set of habits, great! 
+2. **What works for me may not work for you.** We're all different, with different abilities and challenges. If something you read here doesn't make sense or doesn't work for you, I encourage you to ignore it. Engaging in the process of considering what kinds of habits **lead to the work and non-work lives that you want** is far more critical than any particular habit, and if that process leads to work in competely different ways than I do, great!
 
-With those having been said, let's get started!
+With those out of the way, let's get started!
 
 ## Principles
 
 I have a small number of principles I try keep in mind when I think about being productive.
 
 1. **The goal is to get stuff done.** This seems obvious, but it's extremely easy to get distracted. If you're a researcher like me, your "stuff" is writing good research papers and teaching well. To the extent that other tasks serve those goals you should pursue them, but don't let the **means** become the **end**. 
-2. **Writing is thinking.** Most people think that writing is simply transcribing ideas in your brain. It is not. Writing is a **generative** process that will help you come up with new and better ideas. Your brain is a blob of jelly that both generates **and loses track of** hundreds of brilliant ideas every hour. Harness its power by writing. 
-3. **Don't use your brain as a hard drive.** Free your brain to do what it is best at: **sparking ideas**! Don't use it to retain TODO lists, guidance for how to best code something, new projects that you want to start, your schedule, your long-term goals, or frankly anything that could easily be stored on a sheet of paper or computer. Write it down and let your brain move on to something else!
-4. **Future-proof**. Consider the computer and the programs you're using right now. Were you using that same computer and those same programs ten years ago? Even five years ago? I doubt it. I also doubt you'll be using the same computer and programs five or ten years in the future. So future-proof whatever you can. That means: **use systems that are easily backed up** and recognize that **you will probably change tools soon** (if you're like me, very likely within six months), so don't overinvest in the ones you're using now, and make sure that you'll be able to get the data out of them easily.
+2. **Writing is thinking.** Most people think that writing is simply transcribing ideas in your brain. It is not. Writing is a critical part of the creative process and is far more **generative** (in terms of leading to new ideas) than we realize. When you force yourself to write down something you will refine it, improve on it, and probably come up with something new entirely. 
+3. **Don't use your brain as a hard drive.** Free your brain to do what it is best at: **sparking ideas**! Don't use it to retain TODO lists, guidance for how to best code something, new projects that you want to start, your schedule for the week, long-term goals, or frankly anything that could easily be stored on a sheet of paper or computer. Make a note somewhere retrievable and let your brain move on to something else!
+4. **Future-proof everything.** Consider the computer and the programs you're using right now. Were you using that same computer and those same programs ten years ago? Even five years ago? I doubt it. I also doubt you'll be using the same computer and programs five or ten years in the future. So future-proof whatever you can. That means: use systems that are easily backed up and recognize that you will probably change tools soon (if you're like me, very likely within six months), so don't overinvest in the ones you're using now, and make sure that you'll be able to get the data out of them easily.
 
 ## Habits
 
@@ -56,7 +56,7 @@ With those principles in mind, the following are a semi-categorized list of habi
 - **Don't neglect your mental health.** Journaling, meditating, therapy, whatever works for you. I do none of them all the time, but all of them some of the time.
 - **Don't obsess about productivity.** It's possible to overdo it and to become focused on checking off as many tasks as possible. I've been there, and it can become joyless. Having a highlight helps here.
 
-## Research-specific thoughts
+### Research-specific habits
 
 If you're a researcher like me, there are a few habits that are particularly useful for our field (but likely for others, too). 
 
@@ -76,7 +76,7 @@ I hesitate to discuss specific tools too much (see Principle #4 above), since I 
 - [R](https://www.r-project.org/)/[RStudio](https://www.rstudio.com/) for almost all of my coding / analysis tasks. I used to use more Python and Stata, but R does almost everything I neeed now.
 - [Alfred](https://www.alfredapp.com/) (OS X) to avoid hunting through my file structure. It'll change your life.
 - [Roam Research](https://roamresearch.com/): Note-taking, personal task management. RR is not free, though, but right now I use it because it does the best job allowing me to quickly get ideas out of my brain and somewhere where I can find them later. 
-- [Github](https://github.com/) + for project management, especially across a team. The "Issues" feature is underused by researchers.
+- [Github](https://github.com/) for project management, especially across a team. (I could write a whole post on how to use Github Issues for research.)
 
 ## Resources
 
@@ -87,4 +87,4 @@ I hesitate to discuss specific tools too much (see Principle #4 above), since I 
 
 ## Wrapping up
 
-I hope you've found something useful here. I've found that documenting these ideas and discussing them with friends and colleagues has led me to insightful conversations about how all of us can improve our ability to do good work (sustainably). I'm hopeful that this post will spark some useful ideas for you as well, and if you have any thoughts I'd love to [hear](https://www.twitter.com/pbaylis) them!
+I hope you've found something useful here. I've noticed that documenting these ideas and discussing them with friends and colleagues has often led me to insightful conversations about how all of us can improve our ability to do good work (sustainably). I'm hopeful that this post will spark some useful ideas for you as well, and if you have any thoughts I'd love to [hear](https://www.twitter.com/pbaylis) them!
