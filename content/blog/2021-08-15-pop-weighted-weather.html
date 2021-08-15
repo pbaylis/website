@@ -57,7 +57,7 @@ ggplot(LA_county) +
   geom_tile(data = pop_df, aes(x = x, y = y), fill = NA, colour = &quot;red&quot;, size = 0.05, alpha = 0.5) +  
   theme_map()</code></pre>
 <p><img src="/blog/2021-08-15-pop-weighted-weather_files/figure-html/visualize-rasters-1.png" width="672" /></p>
-<p>It’s a little hard to see what’s happening with the grid cells, so let’s zoom into a location at random, like <a href="https://neptunesnet.com/">Neptune Net</a>, the restaurant where Johnny Utah first approaches Tyler about learning to surf.</p>
+<p>It’s a little hard to see what’s happening with the grid cells, so let’s zoom into a location at random, like <a href="https://neptunesnet.com/">Neptune Net</a>, the restaurant where Johnny Utah first approaches Tyler (played by Lori Petty) about learning to surf.</p>
 <pre class="r"><code>ggplot(LA_county) + 
   geom_sf() + 
   geom_tile(data = weather_df, aes(x = x, y = y), fill = NA, colour = &quot;black&quot;) +  

@@ -76,7 +76,7 @@ ggplot(LA_county) +
   theme_map()
 ```
 
-It's a little hard to see what's happening with the grid cells, so let's zoom into a location at random, like [Neptune Net](https://neptunesnet.com/), the restaurant where Johnny Utah first approaches Tyler about learning to surf.
+It's a little hard to see what's happening with the grid cells, so let's zoom into a location at random, like [Neptune Net](https://neptunesnet.com/), the restaurant where Johnny Utah first approaches Tyler (played by Lori Petty) about learning to surf.
 
 ```{r zoom}
 ggplot(LA_county) + 
