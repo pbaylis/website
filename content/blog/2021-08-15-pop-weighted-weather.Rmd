@@ -1,0 +1,131 @@
+---
+title: "Population-weighted weather, the Swayze way"
+layout: post
+date: 2021-08-15
+categories: programming
+tags:
+- R
+---
+
+Much of my work examines how the environment impacts people, often at a national scale. As a result, I often end up gratefully using weather data from the [PRISM Climate Group](https://prism.nacse.org/) at Oregon State, who make rasters of daily and monthly weather data available for the entire United States. The basic idea behind the PRISM approach is that they interpolate weather station data in a sophisticated way that accounts for weather-relevant topographic features, e.g., elevation (details [here](https://prism.nacse.org/documents/Daly2008_PhysiographicMapping_IntJnlClim.pdf) if that's your thing). This is usally an improvement over more naive approaches that simply take some sort of distance-weighted average.
+
+So PRISM is really good for generating highly-resolved measurements of weather, and their datasets are packaged as a set of rasters, easy to incorporate into analyses in your statistical program of choice. Much of the time, this is sufficient: if I want to incorporate information on the weather into a particular area (say, a county), it's often enough to just take an average over the raster cells that overlap that area.
+
+### Why weight by population?
+
+Imagine you're looking down at the County of Los Angeles, much like Johnny Utah (played by Keanu Reeves) and Bodhi (played by Patrick Swayze, rest in peace) do as they parachute together in the 1991 classic [Point Break](https://www.imdb.com/title/tt0102685/) (not to be confused with the far inferior 2015 remake).
+
+![Bodhi: "You're about to jump out a perfectly good airplane, Johnny! How do you feel about that?"](/img/point-break-skydiving.jpeg)
+
+Looking down, Johnny and Bodhi would obviously (obviously!) notice first that the population of Los Angeles County is _not_ distributed evenly across the landscape: LA, especially downtown, is of course densely populated, but many other areas, like the mountains and various beach towns that dot its coastline, have far fewer numbers of people per unit of land area. So from the perspective of observing the weather experienced by _average_ person in LA experiences, an unweighted average isn't strictly correct. What we really want is some sort of **population-weighted** average. 
+
+Taking population-weighted averages is one of those small things that almost always improves the fit of any statistical model I estimate, since most of the time I'm interested in *people's* responses to weather (or controlling for weather), and for that reason it just makes more sense to derive measures that better represent the weather experienced by the actual humans on the ground. It used to be a fairly significant task to compute population-weighted averages, but these days there are tools in R that make it much easier. 
+
+In the tutorial that follows, we'll lean heavily on [exactextractr](https://github.com/isciences/exactextractr) to do the weighting. Our goal will be to generate a population-weighted average of the weather on July 12, 1991 for every county in California. I'm sure I don't have to tell anyone this, but that's the date that Point Break was released.
+
+### Preliminaries
+
+Our first task is to load a bunch of packages. Besides `exactextractr`, we'll load many of the usual suspects. 
+
+```{r load-packages, message = F, warning = F, echo = F}
+library(tigris)
+library(exactextractr)
+library(raster)
+library(sf)
+library(tidyverse) ## Load tidyverse _after_ raster, since raster and dplyr have some conflicting methods.
+library(cowplot)
+
+knitr::opts_knit$set(root.dir = "~/Dropbox/SHARING/prism-pop-weighting/") # Project directory, you will probably need to change this
+```
+
+Next, we want to download a shapefile with our output geography (counties, in this case) and load the PRISM weather data and the population data. The last two are both rasters, and I've included their sources in the code. You'll still need to download and unzip them to your project directory, though. 
+
+
+```{r load-data, message = F, warning = F, results='hide'}
+# Load CA counties
+CA_counties = tigris::counties(state = "CA", cb = TRUE, resolution = "20m")
+
+# Load PRISM raster
+# SOURCE: ftp://prism.nacse.org/daily/tmean/1991/PRISM_tmean_stable_4kmD2_19910712_bil.zip  
+weather_rast = raster("PRISM_tmean_stable_4kmD2_19910712_bil/PRISM_tmean_stable_4kmD2_19910712_bil.bil")
+
+# Load Population raster
+# SOURCE: https://sedac.ciesin.columbia.edu/data/set/usgrid-summary-file1-2000/data-download - Census 2000, population counts for continental US
+pop_rast = raster("usgrid_data_2000/geotiff/uspop00.tif")
+```
+
+### Visualizing the rasters
+
+Now that we have these loaded, let's do some visualization of what we're working with. We'll focus on just Los Angeles County for now, since that will let us see the (fine) weather grid cells, as well as the even finer population rasters.
+
+```{r visualize-rasters, message = F, warning = F}
+LA_county = CA_counties %>% filter(NAME == "Los Angeles")
+
+# Crop both rasters to LA county and convert to a data.frames (just for plotting)
+weather_crop = crop(weather_rast, LA_county)
+weather_df = as.data.frame(weather_crop, xy = TRUE)
+
+pop_crop = crop(pop_rast, LA_county)
+pop_df = as.data.frame(pop_crop, xy = TRUE)
+
+# Plot shapefile and raster boundaries
+ggplot(LA_county) + 
+  geom_sf() + 
+  geom_tile(data = weather_df, aes(x = x, y = y), fill = NA, colour = "black", size = 0.05, alpha = 0.5) +  
+  geom_tile(data = pop_df, aes(x = x, y = y), fill = NA, colour = "red", size = 0.05, alpha = 0.5) +  
+  theme_map()
+```
+
+It's a little hard to see what's happening with the grid cells, so let's zoom into a location at random, like [Neptune Net](https://neptunesnet.com/), the restaurant where Johnny Utah first approaches Tyler about learning to surf.
+
+```{r zoom}
+ggplot(LA_county) + 
+  geom_sf() + 
+  geom_tile(data = weather_df, aes(x = x, y = y), fill = NA, colour = "black") +  
+  geom_tile(data = pop_df, aes(x = x, y = y), fill = NA, colour = alpha("red", 0.25), size = 0.5) +  
+  coord_sf(xlim = c(-118.96250491825595 - 0.1, -118.96250491825595 + 0.1),
+                  ylim = c(34.05315253542454 - 0.1, 34.05315253542454 + 0.1)) + 
+  theme_map()
+```
+
+Zooming in on Neptune's Net ("Johnny, gimme two!") demonstrates a little issue: these rasters aren't perfectly aligned, but they'll need to be in order to use the population raster as weights when we compute average weather for the county. How can we deal with this? It's easy: we can **resample** the population raster to match the weather raster. 
+
+### Time to resample!
+
+```{r resample}
+pop_rs = raster::resample(pop_crop, weather_crop)
+pop_df2 = as.data.frame(pop_rs, xy = TRUE)
+
+ggplot(LA_county) + 
+  geom_sf() + 
+  geom_tile(data = weather_df, aes(x = x, y = y), fill = NA, colour = "black") +  
+  geom_tile(data = pop_df2, aes(x = x, y = y), fill = NA, colour = alpha("red", 0.25), size = 0.5) +  
+  coord_sf(xlim = c(-118.96250491825595 - 0.1, -118.96250491825595 + 0.1),
+           ylim = c(34.05315253542454 - 0.1, 34.05315253542454 + 0.1)) + 
+  theme_map()
+```
+
+Now that the rasters are aligned, we can move forward. "Little hand says it's time to rock and roll."
+
+### Computing population-weighted averages
+
+There's not much left to do, now that the `exact_extract` command exists. We can compute both unweighted and weighted averages for LA county (they're different by more than 1 degree C), and we can compute weighted averages for all the counties in California.
+
+```{r compute, results='hide', fig.keep='all', message = FALSE}
+exact_extract(weather_crop, LA_county, fun = "weighted_mean", weights = pop_rs)
+# Compare to unweighted mean
+exact_extract(weather_crop, LA_county, fun = "mean")
+
+# Now use uncropped rasters to generate pop-weighted averages for all CA counties
+CA_counties$tmean_averages = exact_extract(weather_rast, CA_counties, fun = "mean")
+
+ggplot(CA_counties) + 
+  geom_sf(aes(fill = tmean_averages)) + 
+  scale_fill_viridis_c(name = NULL) + 
+  theme_map() +
+  theme(legend.position = "none")
+```
+
+And that's it! Note that you can use `exact_extract` on other types of raster objects, like `RasterStack`s or `RasterBrick`s, which allow you to compute averages on more than one layer at once. Happy population-weighting, or in the immortal words of Bodhi...
+
+!["Vaya con dios, brah."](/img/vaya-con-dios.jpeg)
