@@ -6,6 +6,8 @@ slug: research
 
 ## Working papers and work in progress
 
+- Exposures and Behavioral Responses to Wildfire Smoke (with Marshall Burke, Sam Heft-Neal, Jessica Li, Anne Driscoll, Matthieu Stigler, Joakim Weill, Jennifer Burney, Jeff Wen, Marissa Childs, and Carlos Gould)
+  - [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
 - Do Building Codes Increase Natural Disaster Resilience? (with Judson Boomhower)
   - [Working Paper](/pdf/buildingcodes-apr2021.pdf) (April 2021)
 - The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman, *Submitted*)
