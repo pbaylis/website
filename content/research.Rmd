@@ -6,15 +6,15 @@ slug: research
 
 ## Working papers and work in progress
 
+- Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower)
+  - [NBER Working Paper](https://www.nber.org/papers/w29621) (December 2021)
 - Exposures and Behavioral Responses to Wildfire Smoke (with Marshall Burke, Sam Heft-Neal, Jessica Li, Anne Driscoll, Matthieu Stigler, Joakim Weill, Jennifer Burney, Jeff Wen, Marissa Childs, and Carlos Gould)
   - [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
-- Do Building Codes Increase Natural Disaster Resilience? (with Judson Boomhower)
-  - [Working Paper](/pdf/buildingcodes-apr2021.pdf) (April 2021)
 - The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman, *Submitted*)
   - [NBER Working Paper](https://www.nber.org/papers/w27881.pdf) $\cdot$ [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *Conditionally accepted at the Review of Economic Studies*)
     - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
-- Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Revise and resubmit at AEJ: Applied Economics*) 
+- Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Conditionally accepted at AEJ: Applied Economics*) 
   - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf) $\cdot$ [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
 <!-- - Temperature and Historical U.S. Migration (with Nick Obradovich, draft available upon request) -->
 
