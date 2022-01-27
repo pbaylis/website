@@ -8,7 +8,7 @@ slug: research
 
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower)
   - [NBER Working Paper](https://www.nber.org/papers/w29621) (December 2021)
-  - Selected media: [The Weeds](https://megaphone.link/VMP8825632497) (starting @ 57 minutes) | [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060)
+  - Selected media: [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) | [The Weeds](https://megaphone.link/VMP8825632497) (starting @ 57 minutes) | [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060)
 - Exposures and Behavioral Responses to Wildfire Smoke (with Marshall Burke, Sam Heft-Neal, Jessica Li, Anne Driscoll, Matthieu Stigler, Joakim Weill, Jennifer Burney, Jeff Wen, Marissa Childs, and Carlos Gould)
   - [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
 - The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman, *Submitted*)
