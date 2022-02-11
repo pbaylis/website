@@ -6,6 +6,7 @@ slug: research
 
 ## Working papers and work in progress
 
+- Coordination versus Environmental Adaptation: How Much Does Standardized Time Change Behavior? (with Severin Borenstein and Ed Rubin)
 - Pollution Masks and The Demand for Clean Air: Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower)
   - [NBER Working Paper](https://www.nber.org/papers/w29621) (December 2021)
