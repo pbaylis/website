@@ -1,16 +1,18 @@
 ---
 title: "Productivity and the work habits that work (for me)"
 layout: post
-date: 2021-04-10
+date: 2022-02-09
 categories: productivity
 tags:
 - habits
 - productivity
 ---
 
+(Original post April 10, 2021, updated February 9, 2022.)
+
 I used to think a lot about productivity. I still do, but I used to, too. ([RIP Mitch Hedberg](https://www.youtube.com/watch?v=VqHA5CIL0fg).)
 
-What is productivity? The boring economics-y definition is "rate of output per unit of input," which is accurate but mostly unhelpful. A more human definition, and one I prefer, is "**the quality of doing good work in a sustainable way**." So a productive week for me is one where I generate valuable pieces of work,  like cleaned data, lesson plans, or manuscript sections ("doing good work"), while also staying happy and healthy by doing other non-work things that I love ("in a sustainable way"). Not all weeks feel that way, but over the years I've found that some behaviors are more likely to lead to productive weeks than others. And turning these good behaviors into **habits** has helped me get more done with less time and frustration than I did early in my career.
+What is productivity? The boring economics-y definition is "rate of output per unit of input," which is accurate but mostly unhelpful. A more human definition, and one I prefer, is "**doing good work in a sustainable way**." So a productive week for me is one where I generate valuable pieces of work, like cleaned data, lesson plans, or sections of a paper ("good work") while also staying happy and healthy by doing other non-work things that I love ("in a sustainable way"). Not all weeks feel that way, but over the years I've found that some behaviors are more likely to lead to productive weeks than others. And turning these good behaviors into **habits** has helped me get more done with less time and frustration than I did early in my career.
 
 Developing those habits is what this post is about. In a previous and now slightly cringe-inducing [note](/blog/2015-09-08-researchproductivity/), I wrote about the kinds of practices and tools that I found useful for maintaining productivity as a grad student. In the five years since I wrote that, my thinking has continued to evolve. The following is a loose meander through that thinking. 
 
@@ -26,12 +28,12 @@ With those out of the way, let's get started!
 
 ## Principles
 
-I have a small number of principles I try keep in mind when I think about being productive.
+I have a few of principles I try keep in mind when I think about being productive.
 
-1. **The goal is to get stuff done.** This seems obvious, but it's extremely easy to get distracted. If you're a researcher like me, your "stuff" is writing good research papers and teaching well. To the extent that other tasks serve those goals you should pursue them, but don't let the **means** become the **end**. 
+1. **The goal is to get stuff done.** This seems obvious, but it's extremely easy to get distracted. We all have metrics that we use to determine if we've been successful. Some might be given to us externally, some we choose on our own. If you're a researcher like me, your "stuff" is mainly writing good research papers and teaching well. To the extent that other tasks serve those goals you should pursue them, but don't let the **means** become the **end**. A good litmus test here is to ask yourself: will I be happy a year from now that I accomplished this task? (Sending one more email does not typically not pass this test.)
 2. **Writing is thinking.** Most people think that writing is simply transcribing ideas in your brain. It is not. Writing is a critical part of the creative process and is far more **generative** (in terms of leading to new ideas) than we realize. When you force yourself to write down something you will refine it, improve on it, and probably come up with something new entirely. 
 3. **Don't use your brain as a hard drive.** Free your brain to do what it is best at: **sparking ideas**! Don't use it to retain TODO lists, guidance for how to best code something, new projects that you want to start, your schedule for the week, long-term goals, or frankly anything that could easily be stored on a sheet of paper or computer. Make a note somewhere retrievable and let your brain move on to something else!
-4. **Future-proof everything.** Consider the computer and the programs you're using right now. Were you using that same computer and those same programs ten years ago? Even five years ago? I doubt it. I also doubt you'll be using the same computer and programs five or ten years in the future. So future-proof whatever you can. That means: use systems that are easily backed up and recognize that you will probably change tools soon (if you're like me, very likely within six months), so don't overinvest in the ones you're using now, and make sure that you'll be able to get the data out of them easily.
+4. **Future-proof what you can.** Consider the computer and the programs you're using right now. Were you using that same computer and those same programs ten years ago? Even five years ago? I doubt it. I also doubt you'll be using the same computer and programs five or ten years in the future. So future-proof whatever you can. That means: use systems that are easily backed up and recognize that you will probably change tools soon (if you're like me, very likely within six months), so don't overinvest in the ones you're using now, and make sure that you'll be able to get the data out of them easily.
 
 ## Habits
 
@@ -75,7 +77,7 @@ I hesitate to discuss specific tools too much (see Principle #4 above), since I 
     - My weapon of choice is [Atom](https://atom.io/). Other people like Sublime Text. 
 - [R](https://www.r-project.org/)/[RStudio](https://www.rstudio.com/) for almost all of my coding / analysis tasks. I used to use more Python and Stata, but R does almost everything I neeed now.
 - [Alfred](https://www.alfredapp.com/) (OS X) to avoid hunting through my file structure. It'll change your life.
-- [Roam Research](https://roamresearch.com/): Note-taking, personal task management. RR is not free, though, but right now I use it because it does the best job allowing me to quickly get ideas out of my brain and somewhere where I can find them later. 
+- [Notion](https://www.notion.so/): Note-taking, personal task management. There are lots of tools like Notion: I previously used [Roam Research](https://roamresearch.com/), and before that [Bear](https://bear.app/), but they're all mostly interchangeable. I just need something that allows me to quickly get ideas out of my brain and somewhere where I can find them later.
 - [Github](https://github.com/) for project management, especially across a team. (I could write a whole post on how to use Github Issues for research.)
 
 ## Resources
