@@ -6,8 +6,6 @@ slug: research
 
 ## Working papers and work in progress
 
-- Coordination versus Environmental Adaptation: How Much Does Standardized Time Change Behavior? (with Severin Borenstein and Ed Rubin)
-- Pollution Masks and The Demand for Clean Air: Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower)
   - [NBER Working Paper](https://www.nber.org/papers/w29621) (December 2021)
   - Selected media: [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) | [The Weeds](https://megaphone.link/VMP8825632497) (starting @ 57 minutes) | [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) | [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego?_amp=true)
@@ -17,6 +15,8 @@ slug: research
   - [NBER Working Paper](https://www.nber.org/papers/w27881.pdf) $\cdot$ [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
 - Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Conditionally accepted at AEJ: Applied Economics*) 
   - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf) $\cdot$ [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
+- Coordination versus Environmental Adaptation: How Much Does Standardized Time Change Behavior? (with Severin Borenstein and Ed Rubin)
+- Pollution Masks and The Demand for Clean Air: Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
 <!-- - Temperature and Historical U.S. Migration (with Nick Obradovich, draft available upon request) -->
 
 ## Publications
