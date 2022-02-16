@@ -8,9 +8,9 @@ tags:
 - productivity
 ---
 
-(Original post April 10, 2021, updated February 9, 2022.)
+(Original post April 10, 2021, updated February 9, 2022. This blog post is [discussed](https://anchor.fm/hidden-curriculum/episodes/E32---Productivity-and-work-habits-with-Patrick-Baylis-e1edv13) on the excellent [Hidden Curriculum](https://anchor.fm/hidden-curriculum) podcast with [Alex Hollingsworth](https://hollina.github.io/) and [Sebastian Tello-Trillo](https://sebastiantellotrillo.com/).)
 
-I used to think a lot about productivity. I still do, but I used to, too. ([RIP Mitch Hedberg](https://www.youtube.com/watch?v=VqHA5CIL0fg).)
+I used to think a lot about productivity. I still do, but I used to, too. (Joke credit to the late, great [Mitch Hedberg](https://www.youtube.com/watch?v=VqHA5CIL0fg).)
 
 What is productivity? The boring economics-y definition is "rate of output per unit of input," which is accurate but mostly unhelpful. A more human definition, and one I prefer, is "**doing good work in a sustainable way**." So a productive week for me is one where I generate valuable pieces of work, like cleaned data, lesson plans, or sections of a paper ("good work") while also staying happy and healthy by doing other non-work things that I love ("in a sustainable way"). Not all weeks feel that way, but over the years I've found that some behaviors are more likely to lead to productive weeks than others. And turning these good behaviors into **habits** has helped me get more done with less time and frustration than I did early in my career.
 
