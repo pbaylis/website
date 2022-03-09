@@ -8,10 +8,7 @@ slug: research
 
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower)
   - [NBER Working Paper](https://www.nber.org/papers/w29621) (December 2021)
-  - Selected media: [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) | [The Weeds](https://megaphone.link/VMP8825632497) (starting @ 57 minutes) | [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) | [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego?_amp=true)
-- The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman, revision requested at the &Canadian Journal of Economics*)
-  - [NBER Working Paper](https://www.nber.org/papers/w27881.pdf) $\cdot$ [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
-
+  - Selected media: [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) | [The Weeds](https://megaphone.link/VMP8825632497) (starting @ 57 minutes) | [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) | [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego)
 - Coordination versus Environmental Adaptation: How Much Does Standardized Time Change Behavior? (with Severin Borenstein and Ed Rubin)
 - Pollution Masks and The Demand for Clean Air: Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
 <!-- - Temperature and Historical U.S. Migration (with Nick Obradovich, draft available upon request) -->
@@ -24,6 +21,8 @@ slug: research
   - [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *The Review of Economic Studies*, 2021)
     - [Paper](https://academic.oup.com/restud/article-abstract/88/6/2886/6222168) $\cdot$ [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
+- The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman, *Canadian Journal of Economics*, 2021)
+  - [Paper](https://onlinelibrary.wiley.com/doi/full/10.1111/caje.12540) $\cdot$ [NBER Working Paper](https://www.nber.org/papers/w27881.pdf) $\cdot$ [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/vse-risk-tool/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
 - Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone, *COVID Economics*, 2021) 
   - [Paper](https://cepr.org/sites/default/files/CovidEconomics51.pdf)
   - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979) 
