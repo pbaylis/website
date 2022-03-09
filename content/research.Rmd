@@ -9,7 +9,6 @@ slug: research
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower)
   - [NBER Working Paper](https://www.nber.org/papers/w29621) (December 2021)
   - Selected media: [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) | [The Weeds](https://megaphone.link/VMP8825632497) (starting @ 57 minutes) | [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) | [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego?_amp=true)
-  - [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
 - The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman, revision requested at the &Canadian Journal of Economics*)
   - [NBER Working Paper](https://www.nber.org/papers/w27881.pdf) $\cdot$ [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
 
@@ -22,6 +21,7 @@ slug: research
 - The Economic Incidence of Wildfire Suppression in the United States (with Judson Boomhower, previously titled "Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters," forthcoming at *AEJ: Applied Economics*, 2022) 
   - [Paper](https://www.aeaweb.org/articles?id=10.1257/app.20200662) $\cdot$ [NBER Working Paper](https://www.nber.org/papers/w26550.pdf)
 - Exposures and Behavioral Responses to Wildfire Smoke (with Marshall Burke, Sam Heft-Neal, Jessica Li, Anne Driscoll, Matthieu Stigler, Joakim Weill, Jennifer Burney, Jeff Wen, Marissa Childs, and Carlos Gould, forthcoming at *Nature: Human Behavior*, 2022)
+  - [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *The Review of Economic Studies*, 2021)
     - [Paper](https://academic.oup.com/restud/article-abstract/88/6/2886/6222168) $\cdot$ [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
 - Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone, *COVID Economics*, 2021) 
