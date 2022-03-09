@@ -13,16 +13,17 @@ slug: research
   - [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
 - The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman, *Revision requested at the Canadian Journal of Economics*)
   - [NBER Working Paper](https://www.nber.org/papers/w27881.pdf) $\cdot$ [CIRANO Working Paper](https://ideas.repec.org/p/cir/cirwor/2020s-50.html) $\cdot$ [VSE COVID Risk/Reward Assessment Tool](https://baylislab.shinyapps.io/risk-tool-v2/) $\cdot$ [Repo](https://github.com/pbaylis/vse-risk-tool)
-- Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters (with Judson Boomhower, *Conditionally accepted at AEJ: Applied Economics*) 
-  - [NBER Working Paper](https://www.nber.org/papers/w26550.pdf) $\cdot$ [SIEPR Working Paper](https://siepr.stanford.edu/sites/default/files/publications/18-044.pdf)
+
 - Coordination versus Environmental Adaptation: How Much Does Standardized Time Change Behavior? (with Severin Borenstein and Ed Rubin)
 - Pollution Masks and The Demand for Clean Air: Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
 <!-- - Temperature and Historical U.S. Migration (with Nick Obradovich, draft available upon request) -->
 
 ## Publications
 
-- Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *Review of Economic Studies*, 2021)
-    - [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
+- The Economic Incidence of Wildfire Suppression in the United States (with Judson Boomhower, previously titled "Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters," Forthcoming at *AEJ: Applied Economics*, 2022) 
+  - [Paper](https://www.aeaweb.org/articles?id=10.1257/app.20200662) $\cdot$ [NBER Working Paper](https://www.nber.org/papers/w26550.pdf)
+- Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *The Review of Economic Studies*, 2021)
+    - [Paper](https://academic.oup.com/restud/article-abstract/88/6/2886/6222168) $\cdot$ [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
 - Job Loss and Behavioral Change: The Unprecedented Effects of the India Lockdown in Delhi (with Kenneth Lee, Harshil Sahai, and Michael Greenstone, *COVID Economics*, 2021) 
   - [Paper](https://cepr.org/sites/default/files/CovidEconomics51.pdf)
   - [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979) 
