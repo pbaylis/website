@@ -9,9 +9,9 @@ slug: research
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower)
   - [NBER Working Paper](https://www.nber.org/papers/w29621) (December 2021)
   - Selected media: [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) | [The Weeds](https://megaphone.link/VMP8825632497) (starting @ 57 minutes) | [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) | [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego)
-- Coordination versus Environmental Adaptation: How Much Does Standardized Time Change Behavior? (with Severin Borenstein and Ed Rubin)
+- Coordination Versus Environmental Adaptation: How Much Does Standardized Time Change Behavior? (with Severin Borenstein and Ed Rubin)
 - Pollution Masks and The Demand for Clean Air: Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
-<!-- - Temperature and Historical U.S. Migration (with Nick Obradovich, draft available upon request) -->
+<!-- - Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich) -->
 
 ## Publications
 
