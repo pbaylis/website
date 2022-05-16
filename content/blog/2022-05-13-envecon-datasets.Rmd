@@ -1,0 +1,43 @@
+---
+title: "Datasets for environmental economics"
+layout: post
+date: 2022-05-13
+output: html_document
+categories: data, economics
+tags:
+- datasets
+---
+
+With the help of Keith Kirchner, one of our all-star graduate students, I've started to put together database of datasets for environmental economics, mostly to make resources available for students who take one of the two classes I teach where designing an empirical research topic is the goal, a goal for which having such a database can be useful. 
+
+This post (a work in progress) captures our initial efforts to pull together a list. The loose inclusion criteria are data that might be useful for applied environmental economics research. I expect this will be most useful to students in my courses as they brainstorm possible research topics, but I'm hopeful that it will be useful for others as well. Feel free to [send me a note](mailto:patrick.baylis@ubc.ca) with other datasets that you think might be particularly useful.
+
+
+```{r setup, include=F}
+knitr::opts_chunk$set(echo = F)
+library(tidyverse)
+library(DT)
+```
+
+
+
+```{r,  include=F}
+sample <- read.csv("../../static/csv/env-econ-datasets-sample.csv")
+colnames(sample) = c('Source' , 'URL')
+sample$URL = paste0('<a href="',sample$URL,'" target="_blank">',sample$Source,'</a>')
+sample = subset(sample, select = -c(Source))
+colnames(sample) = c('Source', 'Category', 'Sub-category', 'Region', 'Start Date', 'End Date', 'Description')
+
+```
+
+```{r}
+sample %>%   datatable(extensions = 'Buttons', filter = 'top', escape = FALSE,
+            options = list(dom = 'Blfrtip',
+                           buttons = c('csv', 'excel', 'pdf'),
+                           lengthMenu = list(c(10,25,50,-1),
+                                                 c(10,25,50,"All"))))
+
+```
+
+
+
