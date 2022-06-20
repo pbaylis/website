@@ -8,10 +8,9 @@ tags:
 - datasets
 ---
 
-With the help of Keith Kirchner, one of our all-star graduate students, I've started to put together database of datasets for environmental economics, mostly to make resources available for students who take one of the two classes I teach where designing an empirical research topic is the goal, a goal for which having such a database can be useful. 
+With the help of Keith Kirchner, one of our all-star graduate students, I've started to put together database of datasets relevant to environmental economics research. I teach several classes where research design is a main emphasis, and many students have found it useful to have a list of datasets that are out there as they begin thinking about potential research ideas.
 
-This post (a work in progress) captures our initial efforts to pull together a list. The loose inclusion criteria are data that might be useful for applied environmental economics research. I expect this will be most useful to students in my courses as they brainstorm possible research topics, but I'm hopeful that it will be useful for others as well. Feel free to [send me a note](mailto:patrick.baylis@ubc.ca) with other datasets that you think might be particularly useful.
-
+This post (a work in progress) captures our initial efforts to pull together a list. The loose inclusion criteria are data that might be useful for applied environmental economics research. The imagined audience is students in one of my courses, but I'm hopeful that it will be useful for others as well. Feel free to [send me a note](mailto:patrick.baylis@ubc.ca) with other datasets that are useful.
 
 ```{r setup, include=F}
 knitr::opts_chunk$set(echo = F)
