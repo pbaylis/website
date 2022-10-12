@@ -18,7 +18,7 @@ slug: research
 - The Economic Incidence of Wildfire Suppression in the United States (with Judson Boomhower, previously titled "Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters," forthcoming at *AEJ: Applied Economics*, 2022) 
   - [Paper](https://www.aeaweb.org/articles?id=10.1257/app.20200662) $\cdot$ [NBER Working Paper](https://www.nber.org/papers/w26550.pdf)
 - Exposures and Behavioral Responses to Wildfire Smoke (with Marshall Burke, Sam Heft-Neal, Jessica Li, Anne Driscoll, Matthieu Stigler, Joakim Weill, Jennifer Burney, Jeff Wen, Marissa Childs, and Carlos Gould, forthcoming at *Nature: Human Behavior*, 2022)
-  - [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
+  - [Paper](https://www.nature.com/articles/s41562-022-01396-6) $\cdot$ [NBER Working Paper](https://www.nber.org/papers/w29380) (October 2021)
 - Default Effects, Follow-on Behavior and Welfare in Residential Electricity Pricing Program (with Meredith Fowlie, Catherine Wolfram, C. Anna Spurlock, Annika Todd, and Peter Cappers, *The Review of Economic Studies*, 2021)
     - [Paper](https://academic.oup.com/restud/article-abstract/88/6/2886/6222168) $\cdot$ [NBER Working Paper](http://www.patrickbaylis.com/pdf/DefaultBias-NBER.pdf)
 - The Distribution of COVID-19 Related Risks (with Pierre-Loup Beauregard, Marie Connolly, Nicole Fortin, David A. Green, Pablo Gutierrez Cubillos, Samuel S. Gyetvay, Catherine Haeck, Timea Laura Molnar, Gaëlle Simard-Duplain, Henry E. Siu, Maria teNyenhuis, and Casey Warman, *Canadian Journal of Economics*, 2021)
