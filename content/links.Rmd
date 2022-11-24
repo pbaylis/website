@@ -5,6 +5,7 @@ slug: links
 ---
 
 # Classes
+
 - Nick Huntington-Klein's [ECON 305](http://nickchk.com/econ305.html), "Economics, Causality, and Analytics"
   - "a new kind of econometrics class that puts causality and programming skills first, before regression or anything else."
 - Grant McDermott's [EC607](https://github.com/uo-ec607/lectures), "Environmental Economics and Data Science"
@@ -13,6 +14,10 @@ slug: links
 
 - Clause O. Wilke on [Data Visualization](https://serialmentor.com/dataviz/)
 - Yihui Xie on [bookdown](https://bookdown.org/yihui/bookdown/)
+
+# Advice for PhD students
+
+- [David Schindler and Chris Roth](https://sites.google.com/view/econgradadvice/)
   
 # Data
 
@@ -54,6 +59,9 @@ slug: links
 
 ### R Packages
 
+- [tidymodels](https://www.tidymodels.org/) - Easy ML in R
+- [arrow](https://jthomasmock.github.io/arrow-dplyr/#/all-together-now) - efficiently explore large datasets
+- [vroom](https://vroom.r-lib.org/) - Faster file reading than even data.table.
 - [targets](https://docs.ropensci.org/targets/) - Make for R
 - [torch](https://blogs.rstudio.com/ai/posts/2020-09-29-introducing-torch-for-r/) - torch connectors for R. Will this be the year I learn to deep learn? Maybe.
 - [modelsummary](https://github.com/vincentarelbundock/modelsummary/#installation): Publication-ready summary statistics, tidy-style.
