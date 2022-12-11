@@ -1,0 +1,89 @@
+---
+title: "The magic of downsampling"
+layout: post
+date: 2021-03-13
+categories: raster, maps
+tags:
+- r
+- maps
+---
+
+It's time for another mapping post! For a recent project, I wanted to plot some **very** highly resolved raster data with ``ggplot2``, but I ran into a hiccup. In case it's useful to someone else, here's what I learned.
+
+First, some setup:
+
+```{r setup, message = F, warning = F}
+pacman::p_load(terra, tidyverse, sf, cowplot, rnaturalearth) # World shapefile
+
+knitr::opts_knit$set(message = F, warning = F, cache = T)
+
+theme_set(theme_map()) # We're only going to be making maps, so just set the theme here.
+```
+
+Note that I load the new-ish [`terra`](https://rspatial.org/terra/pkg/index.html) rather than the usual, and now venerable, [`raster`](https://www.rdocumentation.org/packages/raster/) package. `terra` is the successor to `raster`, and in general it's much, much faster (because its written in C++). But everything I do below with `terra` could be done with `raster` instead.
+
+For this exercise, we'll use the Natural Earth II (downloaded [here](https://www.naturalearthdata.com/downloads/10m-raster-data/10m-natural-earth-2/) and described in detail [here](http://www.shadedrelief.com/natural2/index.html)). It's a raster of what the earth might look like without humans. Hopefully not a projection. It's a 1:10m, world-wide raster, which means that each cell represents a very small chunk of the earth. So there are a **LOT** of chunks. More than 230 million to be exact.
+
+First, we'll load the raster and try to plot it. Will it work?
+
+```{r load-raster}
+tr <- terra::rast("~/Downloads/large-raster/NE2_HR_LC/NE2_HR_LC.tif")[[1]]
+plot(tr)
+```
+
+Wow, looks great! And it plotted in less than a second. How did `plot` (actually `terra::plot`) display hundreds of millions of pieces of information so quickly? It didn't, it turns out. Through the magic of **downsampling** (or aggregating, or downscaling, or ...), the function cleverly takes averages over larger areas, effectively creating a coarser raster with fewer cells. This makes no difference visually, since neither the human eye nor your monitor is capable of detecting or displaying the differences between the very tiny cells represented by the true data at this scale. So what is downsamping actually doing? Borrowing a visual from [here](https://www.onestopgis.com/GIS-Theory-and-Techniques/Raster-Data-Analysis/Other-Raster-Data-Operations/2-Raster-Data-Operation-Generalization.html):
+
+![[https://www.onestopgis.com/](OneStopGIS.com)](/img/downsampling-ex.png){ width=80% }
+
+You can think of the downsampling operation as converting a high-resolution raster like (a), above, into (b) by taking some summary (above, a mean) over sets of cells. By summarizing many cells into fewer cells, it leaves `plot` with a lot less work to do. 
+
+But, let's say you've taken great pains to produce all of your other figures using the consistent visual styling offered by [``ggplot2``](https://ggplot2.tidyverse.org/). You might feel inexplicably compelled to try to want to plot this map using ``ggplot`` as well. Fortunately, this is doable, at least in principle: you can simply convert, or "fortify", the raster to `data.frame` that `ggplot` can use. Here's how we would do that:
+
+```{r fortify}
+# tr_df <- as.data.frame(tr, xy = T)
+# nrow(tr_df) 
+```
+
+Why is that commented out? Because it takes a long time (and screws up my `knitr` process). What happened? Remember those 230m+ cells? If we fortify that raster, it becomes a massive, 230 *million* row `data.frame`. This is a big problem, because ``ggplot`` is not going to be able to plot all of these in a reasonable amount of time (take my word for it...). 
+
+So what can we do? One option is to take a page out of the `terra` playbook and downsample ourselves. We'll use the function `terra::aggregate` with a factor of 10 both horizontally and vertically, which should reduce the total cells by a factor of 100.
+
+```{r downsample}
+tr_a <- terra::aggregate(tr, fact = 10)
+tr_a_df <- as.data.frame(tr_a, xy = T)
+nrow(tr_a_df)
+```
+
+Now we have 2 rather than 233 million rows. This is a lot, but actually well within the capabilities of `ggplot2::geom_raster`. Let's take a look:
+
+```{r rast-ggplot}
+ggplot(tr_a_df, aes(x = x, y = y, fill = NE2_1)) + 
+  geom_raster() + 
+  scale_fill_viridis_c(direction = -1)
+```
+
+To see how this can be useful, we'll download a shapefile of the countries of the world.
+
+```{r world-shp}
+world <- rnaturalearth::ne_countries(scale = "small", returnclass = "sf")
+ggplot(world) + geom_sf()
+```
+
+Next, we'll reproject the raster to the same projection as as the world shapefile and aggregate and fortify again.
+
+```{r world-proj}
+tr_p <- terra::project(tr, st_crs(world)$proj4string)
+tr_p_a <- terra::aggregate(tr_p, fact = 10)
+tr_p_a_df <- as.data.frame(tr_p_a, xy = T)
+```
+
+And plot, this time with country boundaries.
+
+```{r plot-boundaries}
+ggplot(world) + 
+  geom_raster(data = tr_p_a_df, mapping = aes(x = x, y = y, fill = NE2_1)) + 
+  geom_sf(colour = alpha("white", 0.5), fill = NA) + 
+  scale_fill_viridis_c(direction = -1)
+```
+
+Converting the raster into a `ggplot`-compatible object opens up a whole world of visualization, but we'll stop here for now. I hope this has given you a sense for how to smoothly integrate large spatial rasters with your usual `ggplot2` and `sf` spatial work. Happy mapping! 

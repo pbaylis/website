@@ -1,0 +1,36 @@
+[
+  {
+    "listing": "/posts.html",
+    "items": [
+      "/posts/2022-05-13-envecon-datasets/2022-05-13-envecon-datasets.html",
+      "/posts/2022-02-09-productivity/2022-02-09-productivity.html",
+      "/posts/2021-08-15-pop-weighted-weather/2021-08-15-pop-weighted-weather.html",
+      "/posts/2021-05-30-making-tables/2021-05-30-making-tables.html",
+      "/posts/2021-01-22-predict-partial/2021-01-22-predict-partial.html",
+      "/posts/2020-08-21-remote-teaching/2020-08-21-remote-teaching.html",
+      "/posts/2020-07-03-plot-raster-shape/2020-07-03-plot-raster-shape.html",
+      "/posts/2020-04-12-bread-notes/2020-04-12-bread-notes.html",
+      "/posts/2020-02-28-specification-curve/2020-02-28-specification-curve.html",
+      "/posts/2019-12-05-scoring-texts/2019-12-05-scoring-texts.html",
+      "/posts/2019-11-25-r-reg-tables/2019-11-25-r-reg-tables.html",
+      "/posts/2019-11-05-fd-vs-fe/2019-11-05-fd-vs-fe.html",
+      "/posts/2019-06-11-making-regressions-purrr/2019-06-11-making-regressions-purrr.html",
+      "/posts/2019-05-16-a-list-of-gists/2019-05-16-a-list-of-gists.html",
+      "/posts/2018-12-19-git-lfs/2018-12-19-git-lfs.html",
+      "/posts/2018-10-11-beamer-resizing/2018-10-11-beamer-resizing.html",
+      "/posts/2018-10-08-readr-shortcuts/2018-10-08-readr-shortcuts.html",
+      "/posts/2018-09-14-rstudio-debugging/2018-09-14-rstudio-debugging.html",
+      "/posts/2018-09-11-tmux/2018-09-11-tmux.html",
+      "/posts/2018-08-28-nominatim-install-notes/2018-08-28-nominatim-install-notes.html",
+      "/posts/2018-05-20-climate-projection/2018-05-20-climate-projection.html",
+      "/posts/2018-04-12-svycontrasts/2018-04-12-svycontrasts.html",
+      "/posts/2017-02-03-r-speed-tests/2017-02-03-r-speed-tests.html",
+      "/posts/2017-01-19-r-and-julia-again/2017-01-19-r-and-julia-again.html",
+      "/posts/2016-05-18-prism-leads/2016-05-18-prism-leads.html",
+      "/posts/2016-05-18-tweets-mongo/2016-05-18-tweets-mongo.html",
+      "/posts/2016-03-17-zonal-analysis-speed/2016-03-17-zonal-analysis-speed.html",
+      "/posts/2015-10-12-conley-se-and-fe/2015-10-12-conley-se-and-fe.html",
+      "/posts/2015-09-08-researchproductivity/2015-09-08-researchproductivity.html"
+    ]
+  }
+]

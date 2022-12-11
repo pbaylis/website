@@ -1,0 +1,19 @@
+---
+title: "Posts"
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  sort-ui: false
+  filter-ui: false
+page-layout: full
+title-block-banner: true
+---
+
+<!-- TODO -->
+<!-- - Fix .xmd posts. -->
+<!-- - Add alerts to all deprecated posts, with notes about what I do now. -->
+<!-- - Fix missing images in posts. -->
+<!-- - Create preview images for posts. -->
+<!-- - Each post can/should have its own directory. -->

@@ -1,0 +1,180 @@
+---
+title: "Making better tables"
+layout: post
+date: 2021-05-30
+categories: analysis
+tags:
+- latex
+- fixest
+- kable
+---
+
+There's not much that's sexy about a table. Everyone loves a good [figure](https://www.edwardtufte.com/tufte/minard), but you won't find many people singing the praises of a particularly well-constructed *table* in an academic paper. And yet, tables are the most common medium through which academic authors summarize datasets and relay results. 
+
+So why don't tables get any love? Maybe it's because they usually aren't that interesting. Jammed full of dry, difficult-to-process numbers conveying a range of different types of information (means, standard deviations, parameter estimates, goodness-of-fit numbers, and so on), it's no wonder that the average reader, myself included, is more inclined to skip over the tables to get to the more fun and illustrative visual displays in the paper.
+
+But I don't think it has to be this way. Or, at least, I think we can do better. The goal of this post is to write up my current best practices for generating the two main types of tables I use: **data summary tables** and **regression tables**. I'll include the R code to generate the tables and the TeX code to include them in the paper, since although I try to avoid writing in TeX as much as possible, it's still the best option for creating elegant, consistently formatted manuscripts. 
+
+## General approach
+
+Several guidelines steer my general approach.
+
+1. **Automate the table generation process**. The idea here is that I should be able to regenerate the table without any "manual" input to the greatest extent possible. This means that the could shoul d *everything* relating to table formatting.
+
+2. **Use booktabs because it's better**. As with any form of data presentation, the best-designed tables are as simple as possible. As argued [here](https://nhigham.com/2019/11/19/better-latex-tables-with-booktabs/) by Nick Higham, vertical lines and double horizontal lines have no place in tables. The focus should be on the information, not the stuff around it.
+
+3. **Captions and notes are part of the text**. I find that I prefer to keep captions and notes separate from the table generation process. Writing and improving these pieces of text are closer to the writing process for me, and going back to the table generation code to edit captions or notes is a chore. 
+
+## Generating data summary tables in R
+
+Also known as summary statistics, or descriptive statistics, data summary tables deliver summarizing information about the variables used in analyses.
+
+We'll use the `Fatalities` dataset from the `AER` package as our sample dataset. This is a panel dataset with around 30 variables relating to traffic fatalities in the United States. First, we'll do some quick setup, load the data, and preview it using [`glimpse`](https://www.rdocumentation.org/packages/tibble/versions/3.0.1/topics/glimpse) (a much more useful alternative to `head`, in my view). 
+
+```{r summary-setup, message = F, warning = F}
+pacman::p_load(tidyverse, kableExtra, AER)
+
+# Load fatalities panel data
+data("Fatalities")
+glimpse(Fatalities)
+```
+
+That's a lot of variables! But we're not going to summarize all of them. Suppose we think the main drivers of traffic fatalities in a state are the price of beer, how much people make, how much people drive, and how many people live there. If those are the variables we're focused on, we might want to give the reader a sense for their distributions to help contextualize the remainder of the paper. That's really the goal of a good summary statistics table: to provide context.
+
+There are some great tools that will generate summaries for you (my favorite is [`modelsummary::datasummary`](https://vincentarelbundock.github.io/modelsummary/articles/datasummary.html)), but I find that most of the time I prefer to build them by hand. function.] This gives me a clearer sense for what is in the data, and ensures that I don't get lazy and just generate some default set of statistics, since those are not terribly informative or easy to read.
+
+```{r summarize}
+data <- Fatalities %>% ## Rescale variables
+    mutate(beertax = beertax * 100,
+           income = income / 1000,
+           miles = miles / 1000,
+           fatal = fatal / 1000,
+           pop = pop / 100000) 
+
+summary <- data %>%
+    select(State = state, 
+           Year = year, 
+           `Unemployment rate` = unemp, 
+           Income = income, 
+           `Beer tax (cents)` = beertax, 
+           `Miles per driver (1000s)` = miles, 
+           `Vehicle fatalities (1000s)` = fatal, 
+           `Population (m)` = pop) %>%
+    pivot_longer(-c(State, Year)) %>%
+    group_by(` ` = name) %>% 
+    summarize(Mean = mean(value), 
+              Median = median(value), 
+              P5 = quantile(value, p = 0.05), 
+              P95 = quantile(value, p = 0.95))
+summary
+```
+
+If you're familiar with the [`tidyverse`](https://www.tidyverse.org/) this code will be fairly intuitive. I rescale the variables so that they display well with the same number of digits^[Alternatively, if you prefer not to rescale you may need to format each one as a string instead. This takes a bit more work.], select the variables I want to display, pivot the data into a `long` format, and finally summarize all of the variables using the same summary functions. I like re-labeling both the variables and the summary functions here to their final, human-readable versions that I'll use in the table, since it reduces redundancy and extra typing.
+
+The final step is to actually save the TeX output. [`kableExtra::kbl`](https://www.rdocumentation.org/packages/kableExtra/versions/1.3.4/topics/kbl) does basically all of the work for us here. 
+
+```{r summary-tex}
+kbl(summary, 
+    format = "latex", 
+    linesep = "",
+    digits = 1, 
+    booktabs = T) %>%
+    print()
+```
+
+I use `print()` to display the output here, but normally I would write this to a file using `%>% write("summary.tex")`, which would give us this TeX code in a file that we can load using our main document. But before we do that, we have one more task...
+
+## Generating regression tables in R
+
+That's right, it's time to regress!! Linear regression is most economists' analytic weapon of choice, including mine. I like the [`fixest`](https://lrberge.github.io/fixest/) package for many reasons, but for our purposes today the most salient one is that it includes a very nice table-making function called `etable` (again, for a very good alternative see [`modelsummary`](https://vincentarelbundock.github.io/modelsummary/articles/modelsummary.html), especially if you want to make HTML tables).
+
+First, let's estimate a few models.
+
+```{r reg-estimate}
+library(fixest)
+models <- list()
+models[["OLS"]] <- feols(fatal ~ unemp + income + beertax + miles, data = data)
+models[["+ State FE"]] <- feols(fatal ~ unemp + income + beertax + miles | state, data = data)
+models[["+ Year FE"]] <- feols(fatal ~ unemp + income + beertax + miles | state + year, data = data)
+```
+
+Here we've estimated three models that vary only in their included fixed effects. The first model, "OLS", includes only the covariates. The second and third add state and year fixed effects, respectively. This kind of buildup table shows how the parameter estimates change as we condition on more covariates (which are just the additional fixed effects here). For the record, this is just a demonstration exercise; I wouldn't interpret any of these coefficients as very likely to represent their true "causal" analogues. To show the results, I'll use the `etable` function.
+
+```{r reg-table}
+dict_names <- c("fatal" = "Vehicle fatalities (1000s)",
+                "unemp" = "Unemployment rate",
+                "income" = "Income",
+                "beertax" = "Beer tax (cents)",
+                "miles" = "Miles per driver (1000s)",
+                "pop" = "Population (m)",
+                "state" = "State",
+                "year" = "Year")
+
+etable(models,
+       cluster = "state",
+       dict = dict_names,
+       drop = "Intercept",
+       digits = "r2",
+       digits.stats = 2,
+       fitstat = c("n", "war2"),
+       style.tex = style.tex("aer",
+                             fixef.suffix = " FEs",
+                             fixef.where = "var",
+                             yesNo = c("Yes", "No")),
+       tex = T) %>%
+    print()
+```
+
+Note that we used the `dict_names` character vector to define character labels. This unfortunately does repeat some code from earlier (and could have been avoided if I had been a bit more clever), but it's such an elegant want to handle labeling that I wanted to highlight how it's used in `etable`. Note also that rather than using a `booktabs` argument, the `style.tex` argument is doing the heavy lifting on the design side. You can review the `etable` [documentation](https://rdrr.io/cran/fixest/man/etable.html) for more, but basically I'm asking it to follow the general American Economic Review (AER) format, which happens to include booktabs-liek tables, with a few additional modifications.
+
+So, we have two tabular `.tex` files (assuming we `write` this one as well). Now what?
+
+## The final product
+
+It's time to put it all together! Below is a minimal "container" TeX code for these two tables, with sample captions and notes.
+
+```latex
+\documentclass{article}
+\usepackage{threeparttable}
+\usepackage{booktabs}
+\usepackage[capitalise]{cleveref}
+
+% Define a notes environment
+\newenvironment{notes}[1][Notes]{\begin{minipage}[t]{\linewidth}\small{\itshape#1: }}{\end{minipage}}
+
+\begin{document}
+
+\cref{tab:summary} documents summary statistics. \cref{tab:regs} shows regression results.
+
+\begin{table}[!h]
+	\centering
+	\begin{threeparttable}
+		\caption{Data summary}
+		\label{tab:summary}
+		\input{summary.tex}
+		\begin{notes}
+		This table summarizes the variables used in the study.
+		\end{notes}
+	\end{threeparttable}
+\end{table}
+
+\begin{table}[!h]
+	\centering
+	\begin{threeparttable}
+		\caption{Regression results}
+		\label{tab:regs}
+		\input{regs.tex}
+		\begin{notes}
+		This table documents regression results.
+		\end{notes}
+	\end{threeparttable}
+\end{table}
+
+\end{document}
+```
+
+And here's a screenshot of what that looks like once compiled.
+
+![](tablemaking-pdf-output.png)
+
+So... maybe there IS something a little sexy about tables?

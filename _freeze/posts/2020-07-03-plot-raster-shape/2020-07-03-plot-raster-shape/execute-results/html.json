@@ -1,0 +1,14 @@
+{
+  "hash": "42265bf874f3bb1554a10f00f3f1e52d",
+  "result": {
+    "markdown": "---\nlayout: post\ntitle: \"Overlaying a raster and shapefile\"\nauthor: Patrick Baylis\ndate: 2020-07-03\ncategories:\n  - R\ntags:\n  - spatial\n  - sf\n---\n\n\nI'm often overlaying rasters with shapefiles in order to get, for example, the average weather for Indonesia. I've found that it's immensely important that I __map my data__ when I'm doing this sort of thing, to make sure that I'm not making any boneheaded mistakes (e.g., using the wrong projection). Here's an example of a map like that, where the color of the cells indicates whether or not we have data there, plus the code I used to create it.\n\n![Indonesia + UDel precip raster overlay](/img/map.png)\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(tidyverse)\nlibrary(sf)\nlibrary(raster)\nlibrary(cowplot)\n\n# Load UDEL raster data\n# Source: ftp://ftp.cdc.noaa.gov/Datasets/udel.airt.precip/precip.mon.ltm.v501.nc\nrast <- raster(\"precip.mon.ltm.v501.nc\")\n\n# Load Indonesia shapefile, tranform to raster CRS, and simplify for performance\n# Source: https://gadm.org/download_country_v3.html\npoly <- readRDS(\"IDN_adm1.sf.rds\") %>% \n  st_transform(proj4string(rast)) %>%\n  st_simplify(0.01, preserveTopology = TRUE)\n\n# Crop global raster to extent of polygon\nrast <- crop(rast, extent(poly))\n\nrast_df <- as.data.frame(rast, xy = TRUE)\nnames(rast_df)[3] <- \"value\"\n\n# Make a plot with the shapefile and boxes for the raster cells, where gray cells indicate no data.\np <- ggplot(data = rast_df) + \n  geom_sf(data = poly, fill = NA, colour = \"blue\", size = 0.25) + \n  geom_tile(data = rast_df %>% filter(is.na(value)), mapping = aes(x = x, y = y), size = 0.25, fill = NA, color = alpha(\"gray\", 0.25)) +\n  geom_tile(data = rast_df %>% filter(!is.na(value)), mapping = aes(x = x, y = y), size = 0.25, fill = NA, color = alpha(\"red\", 0.5)) +\n  theme_map()\n\nsave_plot(\"map.png\", plot = p)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

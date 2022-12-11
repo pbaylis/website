@@ -1,0 +1,14 @@
+{
+  "hash": "6a88e849162dca7a227fc021f520f841",
+  "result": {
+    "markdown": "---\nlayout: post\ntitle:  \"Things I forget: readr shortcuts\"\ndate:   2018-10-08\ncategories:\n  - programming\ntags:\n  - R\n  - RStudio\n---\n\n\n`readr` is a the swiss-army knife of data ingestion: it's my tool of choice for reading in text data in R, not least because I'm spending more time using the [tidyverse](https://www.tidyverse.org/) these days. The `readr` documentation is a little lacking in that it's actually kind of hard to track down the single-character shortcuts for various column types. Without further ado:\n\n\n::: {.cell}\n\n```{.r .cell-code}\n\"-\" = col_skip()\n\"?\" = col_guess()\nc = col_character()\nD = col_date()\nd = col_double()\ni = col_integer()\nl = col_logical()\nn = col_number()\nT = col_datetime()\nt = col_time()\n```\n:::\n\n\nSource: https://github.com/tidyverse/readr/blob/master/R/col_types.R\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

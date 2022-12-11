@@ -1,0 +1,38 @@
+---
+title: "Resources"
+---
+
+<!-- TODO: Add resources from links in original website. -->
+
+### Other
+
+- [https://datastudio.google.com/u/0/](Google Looker Studio)
+
+
+### R Packages
+
+- [ROpenSci Universe](https://ropensci.r-universe.dev/ui#packages): The ROpenSci list of packages includes many that facilitate access to interesting datasets.
+
+- Programming
+  - [skimr](https://ropensci.r-universe.dev/ui#package:skimr): Quick summary statistics.
+  - [charlatan](https://ropensci.r-universe.dev/ui#package:charlatan): Make fake data, e.g., names.
+  - [bibtex](https://ropensci.r-universe.dev/ui#package:bibtex): Parse a `.bib` file. (Might be useful for this website. There are other related packages, e.g., [handlr.](https://ropensci.r-universe.dev/ui#package:handlr))
+  - [parzer](https://ropensci.r-universe.dev/ui#package:parzer): Parse messy latitudes and longitudes.
+- Weather
+  - [weathercan](https://docs.ropensci.org/weathercan/): R package to get ECCC weather data.
+  - [GSODR](https://ropensci.r-universe.dev/ui#package:GSODR): One of a few packages for downloading Global Summary of the Day weather data.
+  - [rnoaa](https://cran.r-project.org/web/packages/rnoaa/index.html): Client for many NOAA data sources.
+  - [stationaRy](https://cran.r-project.org/web/packages/stationaRy/index.html): Hourly weather data from around the world.
+  - [prism](https://ropensci.r-universe.dev/ui#package:prism): Access prism data.
+  - [Chirps and Chirts](https://ropensci.r-universe.dev/ui#package:chirps): Global reanalysis weather data, 1983-2016.
+- Disasters
+  - [rrricanes](https://ropensci.r-universe.dev/ui#package:rrricanes): Hurricane data since 1998.
+- Pollution
+  - [epair](https://ropensci.r-universe.dev/ui#package:epair): Help with parsing various EPA datasets.
+- Imagery
+  - [rsat](https://ropensci.r-universe.dev/ui#package:rsat): Search, download, and process satellite imagery from several free sources.
+  - [rnaturalearth](https://ropensci.r-universe.dev/ui#package:rnaturalearth): Natural earth imagery for mapping.
+- Transport
+  - [bikedata](https://ropensci.r-universe.dev/ui#package:bikedata): Public bicycle data.
+- Spatial
+  - [geonames](https://ropensci.r-universe.dev/ui#package:geonames): Access geonames.org API to get geography names.
