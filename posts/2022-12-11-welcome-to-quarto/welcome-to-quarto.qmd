@@ -2,13 +2,15 @@
 title: "Welcome to Quarto"
 description: "It's Quarto's world, we're all just living in it"
 author: "Patrick Baylis"
-date: "2022-12-11"
+date: 2022-12-11
 categories:
   - writing
   - coding
 ---
 
 About six months ago, the team at RStudio (now [Posit](https://posit.co/)) [released](https://posit.co/blog/announcing-quarto-a-new-scientific-and-technical-publishing-system/) Quarto v1.0, a new "open-source scientific and technical publishing system." At the time, it barely crossed my radar: it looked and sounded a lot like a repackaging of RMarkdown, so I quickly scanned the press release and immediately forgot about it. I'm already a heavy Markdown user -- whenever possible I prefer to write in plain text, or close to it, rather than in something with more complicated syntax like raw HTML or, god forbid, LaTeX. I thought that the tools I was using were good enough, and didn't feel the need to switch.
+
+
 
 It's only in the last few weeks that I've come to appreciate how much *better* Quarto is than everything it replaces, at least from what I've seen so far.^[And, it's being updated very rapidly. As I write this on a Sunday, I see the pre-release notes for v1.3 were also released [today](https://quarto.org/docs/prerelease/1.3.html).] So in the hopes of helping those of you who have ignored Quarto like I did, here are three specific ways that switching to Quarto has made my life easier:
 
