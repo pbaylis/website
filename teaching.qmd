@@ -4,9 +4,9 @@ title: "Teaching"
 
 <!-- TODO: How to refer to static files? -->
 
-- ECON 371: Economics of the environment $\cdot$ [Syllabus](ECON371-syllabus.pdf)
+- ECON 371: Economics of the environment $\cdot$ [Syllabus](pdf/ECON-371-syllabus-2022.pdf)
   - **Registration note:** Sadly, this course is often full and I am unable to make individual exceptions to add students. If this a required course for graduation please get in touch with the Economics Undergraduate Administrative Assistant ([contact](https://economics.ubc.ca/people/staff/)). Otherwise, some drops do occur early in the term so please keep an eye on registration.
   
-- ECON 494: Seminar in environmental economics $\cdot$ [Syllabus](ECON494-syllabus.pdf)
+- ECON 494: Seminar in environmental economics $\cdot$ [Syllabus](pdf/ECON-494-syllabus-2023.pdf)
 
-- ECON 573: Graduate environmental economics $\cdot$ [Syllabus](ECON573-syllabus.pdf)
+- ECON 573: Graduate environmental economics $\cdot$ [Syllabus](pdf/ECON-573-syllabus-2023.pdf)

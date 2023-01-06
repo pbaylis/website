@@ -9,6 +9,11 @@ title: "Resources"
 - [https://datastudio.google.com/u/0/](Google Looker Studio)
 
 
+### Data
+
+(Consolidate with blog post where I list data)
+- Pyregence (Open source fire forecasts) data sources: https://pyregence.org/wildfire-forecasting/data-repository/
+
 ### R Packages
 
 - [ROpenSci Universe](https://ropensci.r-universe.dev/ui#packages): The ROpenSci list of packages includes many that facilitate access to interesting datasets.
