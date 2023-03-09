@@ -100,4 +100,8 @@ USGS Climate Model Projections,https://data.gov/climate/portals/,Projection,,Glo
 Oil Production,https://ourworldindata.org/grapher/oil-production-by-country?country=QAT~OMN~SAU~NOR~IRQ~USA~ARE~CAN,Energy,,Global,1900,2022,Global oil production by country from when each country began producing or tracking their production. 
 Carbon Pricing Dashboard,https://carbonpricingdashboard.worldbank.org/,Energy,,Global,1990,2022,"Type of tax, status of taxes, and juristiction of taxes for every country. 68 carbon pricing initiatives are available in 46 countries with 36 subnational jurisdictions. These initiatives cover 23% of global emissions."
 Wildfire Incidents (FAMWEB),https://wfmi.nifc.gov/fire_reporting/annual_dataset_archive/index.html,Natural Disasters,,US,1972,2017,"Wildfire incident reports from all federal agencies, as captured in FAMWEB."
-ICIS-AIR,https://www.epa.gov/enviro/icis-air-overview,Pollution,,,,,Database of U.S. state and federal EPA inspections of facility environmental air quality violations. See: Cecato (2022).
+ICIS-AIR,https://www.epa.gov/enviro/icis-air-overview,Pollution,,US,,,Database of U.S. state and federal EPA inspections of facility environmental air quality violations. See: Cecato (2022).
+Berkeley Air Pollution Data,https://berkeleyearth.org/air-pollution-overview/,Pollution,,Global,,,Global Historical Air Quality Data
+NCEP/NARR Reanalysis Data,https://psl.noaa.gov/data/reanalysis/reanalysis.shtml,Weather,,Global,,,Gridded reanalysis data (32km cells)
+TerraClimate,https://climatedataguide.ucar.edu/climate-data/terraclimate-global-high-resolution-gridded-temperature-precipitation-and-other-water,Weather,,Global,,,Gridded reanalysis data (4km cells)
+NCAR Climate Data Guide,https://climatedataguide.ucar.edu/,Weather,,Global,,,Meta: Climate Data Guide

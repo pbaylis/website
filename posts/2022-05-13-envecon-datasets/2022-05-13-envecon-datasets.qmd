@@ -21,7 +21,7 @@ library(DT)
 
 
 ```{r,  include=F}
-sample <- read.csv("env-econ-datasets-sample.csv")
+sample <- read.csv("env-econ-datasets.csv")
 colnames(sample) = c('Source' , 'URL')
 sample$URL = paste0('<a href="',sample$URL,'" target="_blank">',sample$Source,'</a>')
 sample = subset(sample, select = -c(Source))
