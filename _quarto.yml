@@ -6,7 +6,7 @@ execute:
 
 website:
   title: Patrick Baylis
-  favicon: favicon-camping.png
+  favicon: "img/favicon-camping.png"
   navbar:
     title: Patrick Baylis
     left:

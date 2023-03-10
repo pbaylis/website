@@ -1,8 +1,11 @@
 ---
 title: "A catalog of datasets for environmental economics"
+author: Patrick Baylis
 layout: post
 date: 2022-05-13
-output: html_document
+format: 
+  html:
+    page-layout: full
 categories: [data]
 tags:
 - datasets
@@ -18,7 +21,7 @@ library(tidyverse)
 library(DT)
 ```
 
-
+<br>
 
 ```{r,  include=F}
 sample <- read.csv("env-econ-datasets.csv")
@@ -37,6 +40,7 @@ sample %>%   datatable(extensions = 'Buttons', filter = 'top', escape = FALSE,
 
 ```
 
+<br>
 
 ### Other catalogs
 
