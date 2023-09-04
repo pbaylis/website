@@ -2,26 +2,11 @@
 title: "Welcome!"
 ---
 
-<!-- TODO: -->
-<!-- - Have text wrap around welcome image. -->
-<!-- - Add an option to not render (currently problematic) posts. -->
-<!-- - Get freeze to work. Seems to be re-rendering everything... though there is a directory. So maybe it's just computation stuff. -->
-<!-- - So many blog posts are outdated. Add warnings to the top of them. -->
-<!-- - Also a good reminder of how quickly this knowledge goes stale... what have I learned that's really durable? -->
-
 <img style="float:right;" src="img/pbaylis-avatar2021-small.png">
-<!-- [![](img/pbaylis-avatar2021-small.png){float:right}] -->
 
-I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) at the [University of British Columbia](https://www.ubc.ca/) (UBC). I study how people respond to environmental threats like climate change, air pollution, and wildfires.
+I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) at the [University of British Columbia](https://www.ubc.ca/) (UBC). I study how people respond to environmental threats like wildfires, air pollution, and extreme temperatures.
 
-<!-- and a member of the [Centre for Food, Resource and Environmental Economics](https://cfree.landfood.ubc.ca/) (CFREE) -->
-
-<!-- **[Matt Lowe](https://mattlowe.site/) and I currently hiring a pre-doc RA for 2020 / 2021!** The RA will contribute to a set of field and natural experiment projects in behavioural development and environmental economics. You should apply [here](https://econjobmarket.org/positions/6466), be sure to fill in the separate survey on technical background, and e-mail me if you have any questions. -->
-
-<!-- * Patrick works on questions of **how people are affected by environmental shocks**, such as climate change and natural disasters. He is interested in the human response to these shocks - how they can attenuate or accentuate the problem? He does so using spatial tools and text-based analysis to better understand our responses. His papers on suicide and temperature, electricity and temperature, and his job market paper and related papers on the impact of temperature changes on expressed sentiment are all examples of this approach. 
-* His experimental work thinks about the solutions to such problems. How **can we respond better to environmental shocks**? His paper looking at how default bias affects take-up of time-varying pricing and his work examining the why people in Delhi don’t wear masks fall into this category. Privately, the next projects need to focus on interventions that *work* and have a *big effect*. This will require some *piloting*.-->
-
-Some of my recent [work](/research/) includes estimating the impact of temperature on tweets to understand preferences for climate change, assessing the implicit subsidy of federal wildfire suppression, projecting how climate change will alter peak electricity demand, and considering how consumers respond to defaults in electricity consumption. 
+Some of my recent [work](/research/) includes evaluating the effectiveness of wildland building homes on home survival in a wildfire, assessing the implicit subsidy of federal wildfire suppression, estimating the impact of temperature on tweets to understand preferences for climate change, and considering how consumers respond to defaults in electricity consumption. 
 
 Many of my projects use large datasets, natural language processing, spatial information, or all three; as a result, I do most of my data work in [R](https://www.r-project.org)/[RStudio](https://www.rstudio.com) and [Python](https://www.python.org). When not in front of my computer, you might find me [running](/img/IMG_0613.jpg), [baking sourdough](/posts/2020-04-12-bread-notes/2020-04-12-bread-notes.html), or [throwing a frisbee](/img/frisbee-montage.jpg).
 
