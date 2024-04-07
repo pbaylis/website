@@ -39,7 +39,7 @@ data("Fatalities")
 
 ### Rescale and relabel variables
 
-Next we need to do some cleaning up. I find it's useful to have my variables on similar scales for regressions and I want to make sure I'm describing those variables accurately, so before I do anythign I rescale and rename variable appropriately. This is also a good time to define a data dictionary here to clean up names in tables later.
+Next we need to do some cleaning up. I find it's useful to have my variables on similar scales for regressions and I want to make sure I'm describing those variables accurately, so before I do anything I rescale and rename variables appropriately. This is also a good time to define a data dictionary here to clean up displayed variable names later.
 
 ```{r rename-and-rescale}
 ## Rescale and label variables
