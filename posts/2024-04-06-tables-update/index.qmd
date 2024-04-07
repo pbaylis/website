@@ -153,7 +153,7 @@ setFixest_dict(var_dict)
 etable(models,
   cluster = ~state,
   drop = "Constant",
-  digits = "r2",
+  digits = "r3",
   digits.stats = 2,
   fitstat = c("n", "r2"),
   style.tex = style.tex("aer",

@@ -10,7 +10,7 @@ tags:
 ---
 
 ::: {.callout-note}
-I now have an updated version of this post. You can find it [here](/posts/2024-04-06-tables-update/tables-update.qmd).
+I now have an updated version of this post. You can find it [here](/posts/2024-04-06-tables-update/).
 :::
 
 There's not much that's sexy about a table. Everyone loves a good [figure](https://www.edwardtufte.com/tufte/minard), but you won't find many people singing the praises of a particularly well-constructed *table* in an academic paper. And yet, tables are the most common medium through which academic authors summarize datasets and relay results. 
