@@ -9,6 +9,10 @@ tags:
 - kable
 ---
 
+::: {.callout-note}
+I now have an updated version of this post. You can find it [here](/posts/2024-04-06-tables-update/tables-update.qmd).
+:::
+
 There's not much that's sexy about a table. Everyone loves a good [figure](https://www.edwardtufte.com/tufte/minard), but you won't find many people singing the praises of a particularly well-constructed *table* in an academic paper. And yet, tables are the most common medium through which academic authors summarize datasets and relay results. 
 
 So why don't tables get any love? Maybe it's because they usually aren't that interesting. Jammed full of dry, difficult-to-process numbers conveying a range of different types of information (means, standard deviations, parameter estimates, goodness-of-fit numbers, and so on), it's no wonder that the average reader, myself included, is more inclined to skip over the tables to get to the more fun and illustrative visual displays in the paper.
