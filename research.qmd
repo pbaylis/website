@@ -7,18 +7,17 @@ toc: true
 ## Working papers
 
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower, revisions requested at the *Journal of Political Economy*)
-  - [NBER Working Paper](https://www.nber.org/papers/w29621)
+  - [NBER Working Paper (December 2021)](https://www.nber.org/papers/w29621)
   - Selected media: [Headwaters Economics Blog Post](https://headwaterseconomics.org/natural-hazards/wildfire-suppression-costs-rising/) $\cdot$ [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) $\cdot$ [Marketplace](https://open.spotify.com/episode/69CT2YZ4JE0cOCuBJS0slX?si=25f2a86cf5594870) $\cdot$[The Weeds](https://megaphone.link/VMP8825632497) $\cdot$ [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) $\cdot$ [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego)
 
-- When We Change the Clock, Does the Clock Change Us? (with Severin Borenstein and Ed Rubin)
-  - [NBER Working Paper](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
+- Does Time Shift Behavior? The Clock- vs. Solar-time Tradeoff (with Severin Borenstein and Ed Rubin)
+  - [Working Paper](/pdf/time-june2024.pdf) $\cdot$ [NBER Working Paper (March 2023)](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
 
 - Is the Demand for Clean Air Too Low? Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
-  - [Working Paper](https://www.harshil.com/s/sahai_india_wtp.pdf)
+  - [Working Paper](/pdf/masks-nov2023.pdf)
   
 - Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, under submission)
-
-- Can Migration Mitigate Weather Damages? (with Bianca Cecato and Frederik Noack)
+  - [Working Paper](/pdf/time-june2024.pdf)
 
 ## Publications
 
