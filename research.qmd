@@ -11,13 +11,16 @@ toc: true
   - Selected media: [Headwaters Economics Blog Post](https://headwaterseconomics.org/natural-hazards/wildfire-suppression-costs-rising/) $\cdot$ [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) $\cdot$ [Marketplace](https://open.spotify.com/episode/69CT2YZ4JE0cOCuBJS0slX?si=25f2a86cf5594870) $\cdot$[The Weeds](https://megaphone.link/VMP8825632497) $\cdot$ [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) $\cdot$ [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego)
 
 - Does Time Shift Behavior? The Clock- vs. Solar-time Tradeoff (with Severin Borenstein and Ed Rubin)
-  - [Working Paper](/pdf/time-june2024.pdf) $\cdot$ [NBER Working Paper (March 2023)](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
+  - [Working Paper](/pdf/time-behavior.pdf) $\cdot$ [NBER Working Paper (March 2023)](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
 
 - Is the Demand for Clean Air Too Low? Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
-  - [Working Paper](/pdf/masks-nov2023.pdf)
+  - [Working Paper](/pdf/masks.pdf)
   
 - Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, under submission)
-  - [Working Paper](/pdf/time-june2024.pdf)
+  - [Working Paper](/pdf/time-behavior.pdf)
+  
+<!-- - Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton) -->
+<!--   - [Working Paper](/pdf/dspace-rct.pdf) -->
 
 ## Publications
 
@@ -37,17 +40,17 @@ toc: true
   - [Paper](https://cepr.org/sites/default/files/CovidEconomics51.pdf) $\cdot$ [SSRN Working Paper](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3601979) 
 - Temperature and Temperament: Evidence from Twitter (*Journal of Public Economics*, 2020)
   - [Paper](https://www.sciencedirect.com/science/article/abs/pii/S0047272720300256) $\cdot$ [Pre-print](/pdf/Baylis_TT_Paper_and_Appendix_20191223.pdf)
-  - Selected media:  [Popular Science](https://www.popsci.com/science-confirms-obvious-we-hate-being-hot),  [Washington Post](https://www.washingtonpost.com/news/wonk/wp/2016/01/07/clear-evidence-that-cold-days-are-better-than-hot-ones/?noredirect=on&utm_term=.1338bbea7602),  [Time](http://time.com/4172187/temperature-weather-hot-cold-preferences/),  [Weather Channel](https://weather.com/health/news/weather-makes-us-more-miserable),  [UC Newsroom](https://www.universityofcalifornia.edu/news/what-billion-tweets-tell-us-about-climate-change),  [Energy Institute](https://energyathaas.wordpress.com/2015/12/07/heat-and-happiness/),  [G-FEED](http://www.g-feed.com/2015/12/warming-makes-people-unhappy-evidence.html),  [Marginal Revolution](https://marginalrevolution.com/marginalrevolution/2016/01/do-you-get-grumpy-over-seventy-degrees-fahrenheit.html)
+  - Selected media:  [Popular Science](https://www.popsci.com/science-confirms-obvious-we-hate-being-hot) $\cdot$ [Washington Post](https://www.washingtonpost.com/news/wonk/wp/2016/01/07/clear-evidence-that-cold-days-are-better-than-hot-ones/?noredirect=on&utm_term=.1338bbea7602) $\cdot$ [Time](http://time.com/4172187/temperature-weather-hot-cold-preferences/) $\cdot$ [Weather Channel](https://weather.com/health/news/weather-makes-us-more-miserable) $\cdot$ [UC Newsroom](https://www.universityofcalifornia.edu/news/what-billion-tweets-tell-us-about-climate-change) $\cdot$ [Energy Institute](https://energyathaas.wordpress.com/2015/12/07/heat-and-happiness/) $\cdot$ [G-FEED](http://www.g-feed.com/2015/12/warming-makes-people-unhappy-evidence.html) $\cdot$ [Marginal Revolution](https://marginalrevolution.com/marginalrevolution/2016/01/do-you-get-grumpy-over-seventy-degrees-fahrenheit.html)
 - Rapidly Declining Remarkability of Temperature Anomalies May Obscure Public Perception of Climate Change (with Frances C. Moore, Nick Obradovich, and Flavio Lehner, *Proceedings of the National Academy of Sciences*, 2019)
   - [Paper](https://www.pnas.org/content/early/2019/02/15/1816541116)
-  - Selected media:  [New York Times](https://www.nytimes.com/2019/02/26/climate/what-is-extreme-weather.html),  [Washington Post (op-ed by Moore and Obradovich)](https://www.washingtonpost.com/weather/2019/02/25/data-are-frogs-dont-boil-we-might/)
+  - Selected media:  [New York Times](https://www.nytimes.com/2019/02/26/climate/what-is-extreme-weather.html) $\cdot$ [Washington Post (op-ed by Moore and Obradovich)](https://www.washingtonpost.com/weather/2019/02/25/data-are-frogs-dont-boil-we-might/)
 - Higher Temperatures Increase Suicide Rates in the United States and Mexico (with Marshall Burke, Felipe González, Sam Heft-Neal, Ceren Baysan, Sanjay Basu, and Solomon Hsiang, *Nature Climate Change*, 2018)
   - [Paper](http://em.rdcu.be/wf/click?upn=lMZy1lernSJ7apc5DgYM8fLeFU9SBVNVGySwNPJsu0A-3D_VU3-2B-2F8HBchm5dOaNevIAhP-2FsrdBAPzAm0rA-2B8dYvjp91uIGUxuZMmROi-2F6Eqk2dEeDOjay71-2FPLqxjXPntLgbnr7aL7PFwk89m5mkkKJA85bJ0q-2FF-2BV3rt1updqnxYlychJR-2BrxZPi0U9wjHq9p4AH3ys-2BYDzrFjajNsbSahaZFujVMoZaQz7eJu4lg-2FHO2m2SU87s2p5kcq4CTTitYYn3fyVEp8qKuhd5rvXuClipbHR5sl7hN-2FbCZbMdzmhS2OxAkqe4SuxwbogpRkFmJGaw-3D-3D) $\cdot$ [Comment](https://www.nature.com/articles/s41558-020-0791-3) $\cdot$ [Response](https://www.nature.com/articles/s41558-020-0792-2.epdf?sharing_token=0jD1JVoPl_7PZVgyUP74aNRgN0jAjWel9jnR3ZoTv0NEKVNoLOaLnn7fOjqRFq6Ji_BTSafl_-HrlVWUiE75uV0Ff9kc-ZK36llJ35pH6NM7OdBr3Ufc8aDRTgsD5CxJwZP5g19DfXFIRAgyfv2G712uxwREei87BGfGcUNLSFg%3D)
-  - Selected media:  [The Atlantic](https://www.theatlantic.com/science/archive/2018/07/high-temperatures-cause-suicide-rates-to-increase/565826/),  [The Guardian](https://www.theguardian.com/environment/2018/jul/23/rising-temperatures-linked-to-increased-suicide-rates),  [Reuters](https://www.reuters.com/article/us-usa-climatechange-suicide/rising-heat-linked-to-suicide-spikes-in-us-and-mexico-idUSKBN1KD1WR)
+  - Selected media:  [The Atlantic](https://www.theatlantic.com/science/archive/2018/07/high-temperatures-cause-suicide-rates-to-increase/565826/) $\cdot$ [The Guardian](https://www.theguardian.com/environment/2018/jul/23/rising-temperatures-linked-to-increased-suicide-rates) $\cdot$ [Reuters](https://www.reuters.com/article/us-usa-climatechange-suicide/rising-heat-linked-to-suicide-spikes-in-us-and-mexico-idUSKBN1KD1WR)
 - Weather Impacts Expressed Sentiment (with Nick Obradovich, Yury Kryvasheyeu, Haohui Chen, Lorenzo Coviello, Esteban Moro, Manuel Cebrian, and James H. Fowler, *PLoS One*, 2018)
   - [Paper](http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0195750)
   - Selected media:  [MIT Technology Review](https://www.technologyreview.com/s/608961/billion-tweet-study-proves-we-write-happier-messages-when-the-weather-is-good/)
 - Climate Change is Projected to Have Severe Impacts on the Frequency and Intensity of Peak Electricity Demand Across the United States (with Max Auffhammer and Catherine H. Hausman, *Proceedings of the National Academy of Sciences*, 2017)
   - [Paper](http://www.pnas.org/content/114/8/1886.full)
-  - Selected media:  [New York Times](https://www.nytimes.com/interactive/2017/06/22/climate/95-degree-day-maps.html),  [ARS Technica](https://arstechnica.com/science/2017/02/us-electric-grid-isnt-ready-to-handle-our-future-climate/)
+  - Selected media:  [New York Times](https://www.nytimes.com/interactive/2017/06/22/climate/95-degree-day-maps.html) $\cdot$ [ARS Technica](https://arstechnica.com/science/2017/02/us-electric-grid-isnt-ready-to-handle-our-future-climate/)
 
