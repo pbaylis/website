@@ -17,7 +17,7 @@ toc: true
   - [Working Paper](/pdf/masks.pdf)
   
 - Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, under submission)
-  - [Working Paper](/pdf/time-behavior.pdf)
+  - [Working Paper](/pdf/climate-migration.pdf)
   
 <!-- - Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton) -->
 <!--   - [Working Paper](/pdf/dspace-rct.pdf) -->
