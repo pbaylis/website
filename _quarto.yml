@@ -14,7 +14,7 @@ website:
         text: Home
       - href: research.qmd
         text: Research
-      - href: pdf/Baylis-CV.pdf
+      - href: pdf/Baylis_CV.pdf
         text: CV
       - href: teaching.qmd
         text: Teaching
