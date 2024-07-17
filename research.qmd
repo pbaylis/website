@@ -19,14 +19,12 @@ toc: true
 - Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, under submission)
   - [Working Paper](/pdf/climate-migration.pdf)
   
-<!-- - Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton) -->
-<!--   - [Working Paper](/pdf/dspace-rct.pdf) -->
+- Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton)
+  - [Working Paper](/pdf/dspace-rct.pdf) $\cdot$ [J-PAL blog post](https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon)
 
 
 ## Selected work in progress
 
-- Incentivizing Self-Protection From Wildfires (with Judson Boomhower and Bob Horton)
-  - [J-PAL blog post](https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon)
 - Labor Lock-in in the Fossil Fuel Industry (with Eva Lyubich and Katherine Wagner)
 - The Economic Consequences of Property Destruction (with Judson Boomhower, Jonathan Colmer and John Voorheis)
 - Barriers to Civic Action on Clean Air (with Shweta Bhogale and Teevrat Garg)
