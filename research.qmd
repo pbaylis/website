@@ -6,7 +6,7 @@ toc: true
 
 ## Working papers
 
-- Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower, revisions submitted at the *Journal of Political Economy*)
+- Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower, accepted at the *Journal of Political Economy*)
   - [NBER Working Paper (December 2021)](https://www.nber.org/papers/w29621)
   - Selected media: [Headwaters Economics Blog Post](https://headwaterseconomics.org/natural-hazards/wildfire-suppression-costs-rising/) $\cdot$ [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) $\cdot$ [Marketplace](https://open.spotify.com/episode/69CT2YZ4JE0cOCuBJS0slX?si=25f2a86cf5594870) $\cdot$[The Weeds](https://megaphone.link/VMP8825632497) $\cdot$ [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) $\cdot$ [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego)
 
@@ -31,6 +31,8 @@ toc: true
 - The Economic Consequences of Property Destruction (with Judson Boomhower, Jonathan Colmer and John Voorheis)
 - Barriers to Civic Action on Clean Air (with Shweta Bhogale and Teevrat Garg)
 - Adaptation and Insurance in the Agriculture Sector (with Talha Naeem, and Guglielmo Zappala)
+
+<!-- - Use IRA and BIL Programs to Build an Evidence Base for Effective Decarbonization Strategies (with Peter Christensen, Teevrat Garg, Shanjun Li, Gordon McCord, Erich Muehlegger, Erica Myers, Emma Noble Smith, David S. Rapson) -->
 <!-- - Heat and Longevity (with Munir Squires) -->
 <!-- - Requiring Defensible Space (with Tamma Carleton and Robert Heilmeyr) -->
 
