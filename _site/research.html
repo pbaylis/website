@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.4.553">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -214,17 +214,15 @@ window.Quarto = {
 <ul>
 <li><a href="./pdf/climate-migration.pdf">Working Paper</a></li>
 </ul></li>
+<li>Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton)
+<ul>
+<li><a href="./pdf/dspace-rct.pdf">Working Paper</a> <span class="math inline">\(\cdot\)</span> <a href="https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon">J-PAL blog post</a></li>
+</ul></li>
 </ul>
-<!-- - Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton) -->
-<!--   - [Working Paper](/pdf/dspace-rct.pdf) -->
 </section>
 <section id="selected-work-in-progress" class="level2">
 <h2 class="anchored" data-anchor-id="selected-work-in-progress">Selected work in progress</h2>
 <ul>
-<li>Incentivizing Self-Protection From Wildfires (with Judson Boomhower and Bob Horton)
-<ul>
-<li><a href="https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon">J-PAL blog post</a></li>
-</ul></li>
 <li>Labor Lock-in in the Fossil Fuel Industry (with Eva Lyubich and Katherine Wagner)</li>
 <li>The Economic Consequences of Property Destruction (with Judson Boomhower, Jonathan Colmer and John Voorheis)</li>
 <li>Barriers to Civic Action on Clean Air (with Shweta Bhogale and Teevrat Garg)</li>
@@ -373,6 +371,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -407,7 +423,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
