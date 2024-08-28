@@ -41,17 +41,17 @@ toc: true
 
 ## Working papers
 
-- Does Time Shift Behavior? The Clock- vs. Solar-time Tradeoff (with Severin Borenstein and Ed Rubin)
-  - [Working Paper](/pdf/time-behavior.pdf) $\cdot$ [NBER Working Paper (March 2023)](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
-
 - Is the Demand for Clean Air Too Low? Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
   - [Working Paper](/pdf/masks.pdf)
   
-- Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, under submission)
-  - [Working Paper](/pdf/climate-migration.pdf)
-  
 - Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton)
   - [Working Paper](/pdf/dspace-rct.pdf) $\cdot$ [J-PAL blog post](https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon)
+
+- Does Time Shift Behavior? The Clock- vs. Solar-time Tradeoff (with Severin Borenstein and Ed Rubin)
+  - [Working Paper](/pdf/time-behavior.pdf) $\cdot$ [NBER Working Paper (March 2023)](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
+  
+- Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich)
+  - [Working Paper](/pdf/climate-migration.pdf)
 
 
 ## Selected work in progress
