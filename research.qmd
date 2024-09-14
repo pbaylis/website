@@ -59,7 +59,7 @@ toc: true
 - Labor Lock-in in the Fossil Fuel Industry (with Eva Lyubich and Katherine Wagner)
 - The Economic Consequences of Property Destruction (with Judson Boomhower, Jonathan Colmer and John Voorheis)
 - Barriers to Civic Action on Clean Air (with Shweta Bhogale and Teevrat Garg)
-- Adaptation and Insurance in the Agriculture Sector (with Talha Naeem, and Guglielmo Zappala)
+- Adaptation and Insurance in the Agriculture Sector (with Talha Naeem and Guglielmo Zappala)
 
 <!-- - Use IRA and BIL Programs to Build an Evidence Base for Effective Decarbonization Strategies (with Peter Christensen, Teevrat Garg, Shanjun Li, Gordon McCord, Erich Muehlegger, Erica Myers, Emma Noble Smith, David S. Rapson) -->
 <!-- - Heat and Longevity (with Munir Squires) -->
