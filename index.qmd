@@ -6,7 +6,7 @@ title: "Welcome!"
 
 I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) at the [University of British Columbia](https://www.ubc.ca/) (UBC). I study how people respond to environmental threats like wildfires, air pollution, and extreme temperatures.
 
-Some of my recent [work](/research/) includes evaluating the effectiveness of wildland building homes on home survival in a wildfire, assessing the implicit subsidy of federal wildfire suppression, estimating the impact of temperature on tweets to understand preferences for climate change, and considering how consumers respond to defaults in electricity consumption. 
+Some of my recent [work](/research/) includes evaluating the effectiveness of wildland building codes on home survival during wildfires, assessing the implicit subsidy of federal wildfire suppression, and measuring demand for air quality improvements in Delhi.
 
 Many of my projects use large datasets, natural language processing, spatial information, or all three; as a result, I do most of my data work in [R](https://www.r-project.org)/[RStudio](https://www.rstudio.com) and [Python](https://www.python.org). When not in front of my computer, you might find me [running](/img/IMG_0613.jpg), [baking sourdough](/posts/2020-04-12-bread-notes/2020-04-12-bread-notes.html), or [throwing a frisbee](/img/frisbee-montage.jpg).
 
