@@ -1,0 +1,75 @@
+---
+title: "County-date sentiment dataset"
+description: "Releasing a dataset used in several of my papers"
+author: "Patrick Baylis"
+date: 2025-02-22
+draft: false
+format: 
+  html:
+    page-layout: full
+categories:
+  - data
+---
+
+## The data
+
+For those who want to cut to the chase, I am making a dataset of county-date average online sentiment available [here](https://github.com/pbaylis/county-sentiment-data/data/county-sentiment.csv.gz) for use by interested researchers. The following sections give a bit more detail on the data (and some of same info is included in the GitHub [repository](https://github.com/pbaylis/county-sentiment-data/)).
+
+## Backstory
+
+More than a decade(!) ago, I was a third-year Ph.D. student looking alternative ways to value the amenity value of daily climate patterns. In 2014, Twitter was a fairly new platform that let people to publicly post their thoughts and feelings. It also maintained a Streaming API that made it possible to download nearly all geolocated tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to my job market paper (which led to my first and current job), as well as several more papers. 
+
+::: {#fig-y2014 layout-ncol=2}
+
+![Discovered bread baking and macro photography](img/bread.JPG)
+
+![Discovered my excessive neck skin](img/chins.JPG)
+
+Other stuff that happened in my life in 2014
+:::
+
+Today, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire.^[I'm planning to micropost about this on BlueSky instead of Twitter, a first for me.] But I think the data I collected may still be useful to some researchers. So, I'm sharing a dataset of online sentiment the continental United States between 2014 and 2022. I've been happy to share this with students and other researchers on demand over the years, and it's been on my list to make it public for anyone to use for a while now.^[Unfortunately, according to the terms of the API I downloaded the tweets from, I cannot make the original tweets themselves available.]
+
+
+
+## Data construction
+
+I compute daily averages of county sentiment from 3.5 billion geolocated Twitter social media posts (tweets) that I collected using the (now-discontinued) Twitter Streaming API between 2014-05-22 and 2022-05-18. Each post's sentiment is computed using the compound score from the [VADER](https://github.com/vaderSentiment/vaderSentiment) sentiment analysis algorithm. 
+
+After computing the timezone and local datetime of each post, I compile averages by county-date (i.e., only county-dates with at least one tweet are included). The final dataset includes the following variables, where (*) indicates the unique keys:
+
+- `fips` (*): County FIPS identifier.
+- `date` (*): Date computed from local time
+- `sent`: Average sentiment `sent`
+- `N`: Number of tweets included in the average
+
+In total, the dataset includes 6,972,641 observations and represents 3,456,549,038 tweets.
+
+##  Descriptive statistics
+
+The figure below shows the number of tweets included in the data over time. There are a few gaps, typically due to my connection to the API failing for one reason or other. The downward trend in the number of tweets is (I think) due to a combination of declining Twitter activity during this time period and a smaller proportion of tweets being geolocated as a result of changes to the Twitter interface
+
+::: {#fig-ts layout-ncol=1}
+![Decline and gaps in tweets over time](img/tweets-ts.png){width=50%}
+
+Number of geolocated tweets over time
+:::
+
+
+
+The maps below show the spatial distributions of the number of tweets and average sentiment.
+
+::: {#fig-y2014 layout-ncol=2}
+
+![Number of tweets](img/tweets-map.png)
+
+![Average sentiment](img/sent-map.png)
+
+Maps of the number of tweets and average sentiment by county
+:::
+
+## Citation
+
+If you use this data, feel free to cite:
+
+Baylis, Patrick. "Temperature and temperament: Evidence from Twitter." *Journal of Public Economics* 184 (2020): 104161.

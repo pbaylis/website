@@ -23,7 +23,7 @@ website:
     right:
       - icon: github
         href: https://github.com/pbaylis
-      - icon: "{{< iconify logos:bluesky >}}"
+      - icon: "{{< iconify logos:bluesky >}}" # Not working yet..
         href: https://bsky.app/profile/batpaylis.bsky.social
     page-footer:  
       right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
