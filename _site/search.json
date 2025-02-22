@@ -649,5 +649,12 @@
     "title": "County-date sentiment dataset",
     "section": "Backstory",
     "text": "Backstory\nMore than a decade(!) ago, I was a third-year Ph.D. student looking alternative ways to value the amenity value of daily climate patterns. In 2014, Twitter was a fairly new platform that let people to publicly post their thoughts and feelings. It also maintained a Streaming API that made it possible to download nearly all geolocated tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to my job market paper (which led to my first and current job), as well as several more papers.\n\n\n\n\n\n\n\n\nDiscovered bread baking and macro photography\n\n\n\n\n\n\n\nDiscovered my excessive neck skin\n\n\n\n\n\n\nFigure 1: Other stuff that happened in my life in 2014\n\n\n\nToday, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire.1 But I think the data I collected may still be useful to some researchers. So, I’m sharing a dataset of online sentiment the continental United States between 2014 and 2022. I’ve been happy to share this with students and other researchers on demand over the years, and it’s been on my list to make it public for anyone to use for a while now.2"
+  },
+  {
+    "objectID": "posts/2025-02-22-tweet-data/index.html#citation",
+    "href": "posts/2025-02-22-tweet-data/index.html#citation",
+    "title": "County-date sentiment dataset",
+    "section": "Citation",
+    "text": "Citation\nIf you use this data, feel free to cite:\nBaylis, Patrick. “Temperature and temperament: Evidence from Twitter.” Journal of Public Economics 184 (2020): 104161."
   }
 ]

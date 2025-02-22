@@ -4,7 +4,7 @@ title: "Welcome!"
 
 <img style="float:right;" src="img/headshot2024-smallcircle.png">
 
-I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) at the [University of British Columbia](https://www.ubc.ca/) (UBC). I study how people respond to environmental threats like wildfires, air pollution, and extreme temperatures.
+I'm an assistant professor and environmental economist at the [Vancouver School of Economics](http://economics.ubc.ca/) at the [University of British Columbia](https://www.ubc.ca/) (UBC). I study how  people respond to environmental threats like wildfires, air pollution, and extreme temperatures.
 
 Some of my recent [work](/research/) includes evaluating the effectiveness of wildland building codes on home survival during wildfires, assessing the implicit subsidy of federal wildfire suppression, and measuring demand for air quality improvements in Delhi.
 
