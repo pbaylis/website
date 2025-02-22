@@ -23,7 +23,7 @@ website:
     right:
       - icon: github
         href: https://github.com/pbaylis
-      - text: "{{< fa brands bluesky >}}" # Not working yet..
+      - text: "{{< fa brands bluesky >}}" 
         href: https://bsky.app/profile/patrickbaylis.bsky.social
     page-footer:  
       right: "This page is built with ❤️ and [Quarto](https://quarto.org/)."
