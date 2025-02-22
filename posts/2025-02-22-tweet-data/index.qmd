@@ -1,5 +1,5 @@
 ---
-title: "County-date sentiment dataset"
+title: "New dataset: Daily average online sentiment by county"
 description: "Releasing a dataset used in several of my papers"
 author: "Patrick Baylis"
 date: 2025-02-22
@@ -13,7 +13,7 @@ categories:
 
 ## The data
 
-For those who want to cut to the chase, I am making a dataset of county-date average online sentiment available [here](https://github.com/pbaylis/county-sentiment-data/blob/main/data/county-sentiment.csv.gz) for use by interested researchers. The following sections give a bit more detail on the data (and some of same info is included in the GitHub [repository](https://github.com/pbaylis/county-sentiment-data/)).
+For those who want to cut to the chase, I am making a **dataset of county-date average online sentiment** available [here](https://github.com/pbaylis/county-sentiment-data/blob/main/data/county-sentiment.csv.gz) for use by interested researchers. The following sections give a bit more detail on the data (and some of same info is included in the GitHub [repository](https://github.com/pbaylis/county-sentiment-data/)).
 
 ## Backstory
 
@@ -70,6 +70,6 @@ Maps of the number of tweets and average sentiment by county
 
 ## Citation
 
-If you use this data, feel free to cite:
+I would be thrilled to hear how you use this in your researchg! If you do end up using it, feel free to cite:
 
 Baylis, Patrick. "Temperature and temperament: Evidence from Twitter." *Journal of Public Economics* 184 (2020): 104161.
