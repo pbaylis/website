@@ -32,7 +32,7 @@ More than a decade(!) ago, I was a third-year Ph.D. student looking alternative 
 Other stuff that happened in my life in 2014
 :::
 
-Today, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire. [In fact, I'm planning to transition from X to BlueSky myself. Unfortunately I have zero followers on BlueSky.] But I think the data I collected may still be useful to some researchers. I've been happy to share it with students and other researchers on demand over the years, and it's been on my list to make it public for anyone to use for a while now.^[Unfortunately, according to the terms of the API I downloaded the tweets from, I cannot make the original tweets themselves available.]
+Today, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire.^[In fact, I'm planning to transition from X to BlueSky myself. Unfortunately I have zero followers on BlueSky.] But I think the data I collected may still be useful to some researchers. I've been happy to share it with students and other researchers on demand over the years, and it's been on my list to make it public for anyone to use for a while now.^[Unfortunately, according to the terms of the API I downloaded the tweets from, I cannot make the original tweets themselves available.]
 
 ## Dataset construction
 

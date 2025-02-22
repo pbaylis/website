@@ -25,7 +25,7 @@
     "href": "posts/2025-02-22-tweet-data/index.html#backstory",
     "title": "New dataset: Daily average online sentiment by county",
     "section": "Backstory",
-    "text": "Backstory\nMore than a decade(!) ago, I was a third-year Ph.D. student looking alternative ways to value the amenity value of daily climate patterns. In 2014, Twitter was a fairly new platform that let people to publicly post their thoughts and feelings. It also maintained a Streaming API that made it possible to download nearly all geo-located tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to my job market paper (which led to my first and current job), as well as several more papers.\n\n\n\n\n\n\n\n\nDiscovered bread baking and macro photography\n\n\n\n\n\n\n\nDiscovered my excessive neck skin\n\n\n\n\n\n\nFigure 1: Other stuff that happened in my life in 2014\n\n\n\nToday, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire. [In fact, I’m planning to transition from X to BlueSky myself. Unfortunately I have zero followers on BlueSky.] But I think the data I collected may still be useful to some researchers. I’ve been happy to share it with students and other researchers on demand over the years, and it’s been on my list to make it public for anyone to use for a while now.1"
+    "text": "Backstory\nMore than a decade(!) ago, I was a third-year Ph.D. student looking alternative ways to value the amenity value of daily climate patterns. In 2014, Twitter was a fairly new platform that let people to publicly post their thoughts and feelings. It also maintained a Streaming API that made it possible to download nearly all geo-located tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to my job market paper (which led to my first and current job), as well as several more papers.\n\n\n\n\n\n\n\n\nDiscovered bread baking and macro photography\n\n\n\n\n\n\n\nDiscovered my excessive neck skin\n\n\n\n\n\n\nFigure 1: Other stuff that happened in my life in 2014\n\n\n\nToday, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire.1 But I think the data I collected may still be useful to some researchers. I’ve been happy to share it with students and other researchers on demand over the years, and it’s been on my list to make it public for anyone to use for a while now.2"
   },
   {
     "objectID": "posts/2025-02-22-tweet-data/index.html#data-construction",
@@ -53,7 +53,7 @@
     "href": "posts/2025-02-22-tweet-data/index.html#footnotes",
     "title": "New dataset: Daily average online sentiment by county",
     "section": "Footnotes",
-    "text": "Footnotes\n\n\nUnfortunately, according to the terms of the API I downloaded the tweets from, I cannot make the original tweets themselves available.↩︎"
+    "text": "Footnotes\n\n\nIn fact, I’m planning to transition from X to BlueSky myself. Unfortunately I have zero followers on BlueSky.↩︎\nUnfortunately, according to the terms of the API I downloaded the tweets from, I cannot make the original tweets themselves available.↩︎"
   },
   {
     "objectID": "posts/2022-12-11-welcome-to-quarto/welcome-to-quarto.html",
