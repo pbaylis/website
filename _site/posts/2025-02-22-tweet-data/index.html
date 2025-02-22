@@ -177,9 +177,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-data" id="toc-the-data" class="nav-link active" data-scroll-target="#the-data">The data</a></li>
+  <li><a href="#in-brief" id="toc-in-brief" class="nav-link active" data-scroll-target="#in-brief">In brief</a></li>
   <li><a href="#backstory" id="toc-backstory" class="nav-link" data-scroll-target="#backstory">Backstory</a></li>
-  <li><a href="#data-construction" id="toc-data-construction" class="nav-link" data-scroll-target="#data-construction">Data construction</a></li>
+  <li><a href="#dataset-construction" id="toc-dataset-construction" class="nav-link" data-scroll-target="#dataset-construction">Dataset construction</a></li>
   <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive statistics</a></li>
   <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
   </ul>
@@ -192,13 +192,15 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<section id="the-data" class="level2">
-<h2 class="anchored" data-anchor-id="the-data">The data</h2>
-<p>For those who want to cut to the chase, I am making a <strong>dataset of county-date average online sentiment</strong> available <a href="https://github.com/pbaylis/county-sentiment-data/blob/main/data/county-sentiment.csv.gz">here</a> for use by interested researchers. The following sections give a bit more detail on the data (and some of same info is included in the GitHub <a href="https://github.com/pbaylis/county-sentiment-data/">repository</a>).</p>
+<section id="in-brief" class="level2">
+<h2 class="anchored" data-anchor-id="in-brief">In brief</h2>
+<p>I am making a dataset of <strong>daily average online sentiment by county</strong> available for use by interested researchers. You can download the dataset <a href="https://github.com/pbaylis/county-sentiment-data/blob/main/data/county-sentiment.csv.gz">here</a>.</p>
+<p>Each observation represents the average sentiment of geo-located tweets for a county-day between 2014 and 2022. I’ve used datasets similar to this one in several different papers to see how people’s online responses vary with, e.g., <a href="https://www.sciencedirect.com/science/article/abs/pii/S0047272720300256">weather</a> and <a href="https://www.nature.com/articles/s41562-022-01396-6">wildfire smoke</a>. I’m excited to see how else they might be used!</p>
+<p>The following sections give a bit more detail on the data (see also the GitHub <a href="https://github.com/pbaylis/county-sentiment-data/">repository</a>).</p>
 </section>
 <section id="backstory" class="level2">
 <h2 class="anchored" data-anchor-id="backstory">Backstory</h2>
-<p>More than a decade(!) ago, I was a third-year Ph.D.&nbsp;student looking alternative ways to value the amenity value of daily climate patterns. In 2014, Twitter was a fairly new platform that let people to publicly post their thoughts and feelings. It also maintained a Streaming API that made it possible to download nearly all geolocated tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to my job market paper (which led to my first and current job), as well as several more papers.</p>
+<p>More than a decade(!) ago, I was a third-year Ph.D.&nbsp;student looking alternative ways to value the amenity value of daily climate patterns. In 2014, Twitter was a fairly new platform that let people to publicly post their thoughts and feelings. It also maintained a Streaming API that made it possible to download nearly all geo-located tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to my job market paper (which led to my first and current job), as well as several more papers.</p>
 <div id="fig-y2014" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-y2014-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -226,11 +228,11 @@ Figure&nbsp;1: Other stuff that happened in my life in 2014
 </figcaption>
 </figure>
 </div>
-<p>Today, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> But I think the data I collected may still be useful to some researchers. So, I’m sharing a dataset of online sentiment the continental United States between 2014 and 2022. I’ve been happy to share this with students and other researchers on demand over the years, and it’s been on my list to make it public for anyone to use for a while now.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>Today, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire. [In fact, I’m planning to transition from X to BlueSky myself. Unfortunately I have zero followers on BlueSky.] But I think the data I collected may still be useful to some researchers. I’ve been happy to share it with students and other researchers on demand over the years, and it’s been on my list to make it public for anyone to use for a while now.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </section>
-<section id="data-construction" class="level2">
-<h2 class="anchored" data-anchor-id="data-construction">Data construction</h2>
-<p>I compute daily averages of county sentiment from 3.5 billion geolocated Twitter social media posts (tweets) that I collected using the (now-discontinued) Twitter Streaming API between 2014-05-22 and 2022-05-18. Each post’s sentiment is computed using the compound score from the <a href="https://github.com/vaderSentiment/vaderSentiment">VADER</a> sentiment analysis algorithm.</p>
+<section id="dataset-construction" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-construction">Dataset construction</h2>
+<p>I compute daily averages of county sentiment from 3.5 billion geo-located Twitter social media posts (tweets) that I collected using the (now-discontinued) Twitter Streaming API between 2014-05-22 and 2022-05-18. Each post’s sentiment is computed using the compound score from the <a href="https://github.com/vaderSentiment/vaderSentiment">VADER</a> sentiment analysis algorithm.</p>
 <p>After computing the timezone and local datetime of each post, I compile averages by county-date (i.e., only county-dates with at least one tweet are included). The final dataset includes the following variables, where (*) indicates the unique keys:</p>
 <ul>
 <li><code>fips</code> (*): County FIPS identifier.</li>
@@ -242,7 +244,7 @@ Figure&nbsp;1: Other stuff that happened in my life in 2014
 </section>
 <section id="descriptive-statistics" class="level2">
 <h2 class="anchored" data-anchor-id="descriptive-statistics">Descriptive statistics</h2>
-<p>The figure below shows the number of tweets included in the data over time. There are a few gaps, typically due to my connection to the API failing for one reason or other. The downward trend in the number of tweets is (I think) due to a combination of declining Twitter activity during this time period and a smaller proportion of tweets being geolocated as a result of changes to the Twitter interface</p>
+<p>The figure below shows the number of tweets included in the data over time. There are a few gaps, typically due to my connection to the API failing for one reason or other. The downward trend in the number of tweets is (I think) due to a combination of declining Twitter activity during this time period and a smaller proportion of tweets being geo-located as a result of changes to the Twitter interface</p>
 <div id="fig-ts" class="quarto-layout-panel">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -258,7 +260,7 @@ Figure&nbsp;1: Other stuff that happened in my life in 2014
 </div>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Number of geolocated tweets over time
+Figure&nbsp;2: Number of geo-located tweets over time
 </figcaption>
 </figure>
 </div>
@@ -303,8 +305,7 @@ Figure&nbsp;3: Maps of the number of tweets and average sentiment by county
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>I’m planning to micropost about this on BlueSky instead of Twitter, a first for me.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>Unfortunately, according to the terms of the API I downloaded the tweets from, I cannot make the original tweets themselves available.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Unfortunately, according to the terms of the API I downloaded the tweets from, I cannot make the original tweets themselves available.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
