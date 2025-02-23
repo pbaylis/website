@@ -7,6 +7,10 @@ execute:
 website:
   title: Patrick Baylis
   favicon: "img/favicon-camping.png"
+  google-analytics: 
+    tracking-id: "G-EC2GDDXRGY"
+    storage: "none"
+    anonymize-ip: true
   navbar:
     title: Patrick Baylis
     left:

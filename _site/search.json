@@ -593,5 +593,12 @@
     "title": "New dataset: Daily average online sentiment by county",
     "section": "",
     "text": "I am making a dataset of daily average online sentiment by county available for use by interested researchers. You can download the dataset here.\nEach observation represents the average sentiment of geo-located tweets for a county-day between 2014 and 2022. I’ve used datasets similar to this one in several different papers to see how people’s online responses vary with, e.g., weather and wildfire smoke. I’m excited to see how else they might be used!\nThe following sections give a bit more detail on the data (see also the GitHub repository)."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Welcome!",
+    "section": "",
+    "text": "I’m an assistant professor and environmental economist at the Vancouver School of Economics at the University of British Columbia (UBC). I study how people respond to environmental threats like wildfires, air pollution, and extreme temperatures.\nSome of my recent work includes evaluating the effectiveness of wildland building codes on home survival during wildfires, assessing the implicit subsidy of federal wildfire suppression, and measuring demand for air quality improvements in Delhi.\nMany of my projects use large datasets, natural language processing, spatial information, or all three; as a result, I do most of my data work in R/RStudio and Python. When not in front of my computer, you might find me running, baking sourdough, or throwing a frisbee.\nBefore I joined UBC, I was a postdoctoral fellow at the Stanford Center on Food Security and the Environment, a graduate student in Agricultural and Resource Economics at UC-Berkeley, and a research assistant at the Energy Institute at Haas. I am also a proud alumnus of Carleton College."
   }
 ]
