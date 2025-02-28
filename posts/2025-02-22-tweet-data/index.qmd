@@ -23,7 +23,7 @@ The following sections give a bit more detail on the data (see also the GitHub [
 
 More than a decade ago, I was a third-year Ph.D. student looking for alternative ways to measure how people value differences in the climate they experience day-to-day. At the time, Twitter was a new social media platform that let people publicly post their thoughts about, well, anything. It had a large userbase and many of those users elected to include their location (usually the city or neighborhood they were in, not their specific address or geographical coordinates). It struck me that I could use these posts to measure sentiment across the U.S. at a very granular level.
 
-Luckily for me, Twitter also had a public Streaming API that made it possible to download nearly all geo-located tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to the "Temperature and Temperament" [paper](https://www.sciencedirect.com/science/article/abs/pii/S0047272720300256) (which led to my first and current academic job here at UBC) as well as several more papers with coauthors after that.
+Luckily for me, Twitter also had a public Streaming API that made it possible to download nearly all geo-located tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to the "Temperature and Temperament" [paper](https://www.sciencedirect.com/science/article/abs/pii/S0047272720300256).
 
 ::: {#fig-y2014 layout-ncol=2}
 
@@ -74,6 +74,6 @@ Maps of the number of tweets and average sentiment by county
 
 ## Citation
 
-I would be thrilled to hear how you use this in your researchg! If you do end up using it, feel free to cite:
+I would be thrilled to hear how you use this in your research! If you do end up using it, feel free to cite:
 
 Baylis, Patrick. "Temperature and temperament: Evidence from Twitter." *Journal of Public Economics* 184 (2020): 104161.
