@@ -57,8 +57,10 @@ toc: true
 
 ## Selected work in progress
 
-- Labor Lock-in in the Fossil Fuel Industry (with Eva Lyubich and Katherine Wagner)
 - The Distribution and Consequences of Disaster Property Losses: Evidence from Tax Returns of Wildfire Victims (with Judson Boomhower, Jonathan Colmer and John Voorheis)
+
+- Labor Lock-in in the Fossil Fuel Industry (with Eva Lyubich and Katherine Wagner)
+
 - Adaptation and Insurance in the Agriculture Sector (with Talha Naeem and Guglielmo Zappala)
 
 <!-- - Heat and Longevity (with Munir Squires) -->
@@ -67,6 +69,6 @@ toc: true
 ## Other writing
 
 - How to Spend One Trillion Dollars: The US Decarbonization Conundrum (with Peter Christensen, Teevrat Garg, Shanjun Li, Gordon C. McCord, Erich Muehlegger, Erica Myers, Emma Noble Smith, and David S. Rapson, comment in *Nature*, 2024)
-  - [Paper](https://www.nature.com/articles/d41586-024-03474-3)
+  - [Comment](https://www.nature.com/articles/d41586-024-03474-3)
 - Book Review: The Carbon Tax Question: Clarifying Canada’s Most Consequential Policy Debate (by Thomas F. Pedersen). *BC Studies*, 2024.
   - [Review](https://bcstudies.com/book_film_review/the-carbon-tax-question-clarifying-canadas-most-consequential-policy-debate/)
