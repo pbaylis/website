@@ -1,0 +1,39 @@
+---
+title: "Movement is medicine"
+description: ""
+author: "Patrick Baylis"
+date: 2025-04-16
+draft: true
+format: 
+  html:
+    page-layout: full
+categories:
+  - running
+  - knee
+---
+
+(This is a digression from my usual fare of economics and data science-y posts to talk about trying to maintain a different love: exercise.)
+
+In December of last year, after 15 months of increasing pain and stiffness in my left knee, I finally worked my way through the slow digestive tract of the Canadian health care system to a sports medicine doctor and an MRI appointment. The MRI revealed a complex tear in my left medial meniscus and multiple areas of cartilage damage. Upon getting the readout of the MRI and during a 15-minute appointment, the sports med doc told me that it was "very unlikely" that I would be able to do any more significant running in the future. The structural damage to the meniscus and the progression of cartilage degradation meant that (I was told) the impact forces of running would lead to further weakening in the knee joint and would require a full replacement far sooner than was medically acceptable.
+
+As you might expect, this wasn't welcome news. Transitioning from frisbee to running in 2020 opened up a thrilling new world of endurance activities for me, not to mention all of the wonderful people I've met and become close with through my increasing involvement in the sport. I spent the next few weeks mourning the loss of future runs and the friendships I hoped to build through shared miles. Athletics, in some form or another, has formed a key part of my identify for my entire life. I wondered what it might look like now.
+
+Partly out a professional inclination towards scientific evidence and partly out of sheer desperation, I began to look for other perspectives. I ran across research articles from the last few years that suggested that the conventional understanding of the progression of cartilage damage (menisci are also made of cartilage) might not be quite right. Since most cartilage has little to no bloodflow, the prevailing view was that degradation is a one-way process: damaged joints (like my knee) can only get worse over time; never better. This why the vocabulary that is often used for conditions like mine (including osteoarthritis, which affects around half a billion people globally) includes terms like "bone-on-bone", "wear and tear", or "degenerative joint disease." 
+
+But the new science of cartilage is a bit more nuanced. Without doing anything near justice to this literature, recent increases in knowledge ahve revealed that cartilage can repair and remodel itself over time given the right inflammatory environment and the appropriate amount of loading. This is consistent with work that finds that running itself is not associated with increased knee damage even among those with existing osteoarthritis (see, e.g., Lo et al in Clinical Rheumatology 2018).
+
+With this research in mind, I came into contact with two physiotherapists who both felt strongly that, given patience, strength training, and a very gradual progression back to running I should be able to run marathons and longer again. It felt worth trying, so I put my trust in their expertise and got to work.
+
+Over the next 4-5 months I began to gradually increase my running volume while also working to correct muscle weaknesses that had appeared over the last year of pain-impaired running. One of the most helpful tips I got from my physios was the value of short but frequency bouts of exercise. The cartilage strengthening process takes 6-8 hours to "reset", so I would often run for 20 minutes in the morning, recover during the day, and run or bike again for 20 minutes in the evening.
+
+So far, it's working. In fact, it's working much faster than I or my physios expected. Gradual, careful increase of my weekly running load has allowed me to do far more than I expect on a single day. Last month, I surprised myself by completing a 50km race (I expected to drop at 25km or earlier). And on Saturday, I ran 100km through the Columbia River Gorge, another race I thought I would have to drop out of well before halfway.
+
+This isn't meant to be a dunk on the doctor I saw, or that anyone with knee damage should expect to be able to run in the future. It's not even a claim that the choice I've made--to continue to push my knee and to fight to keep running--is a good idea. I don't think I know that yet. The steady improvement in symptoms and pain suggests that I'm on the right track, but I could be wrong. Ask me in a year.
+
+But I'm sharing this now because I think I have learned some generally useful information for those who have similar joint injuries.
+
+First, take the information from an MRI with a grain of salt. Medical imaging has a kind of scientific allure: we want to know exactly what our joints look like, and an MRI basically gives us that. But there is a huge, well-documented gap between the structural appearance of joints and how they actually function. If we gave every 40 year old a knee MRI, around a quarter of them would have an undiagnosed meniscus tear. And they would be totally fine.
+
+Second, always get multiple opinions when faced with a big, life-changing medical decision. No matter who it is, every professional has their biases and blind spots. Through this process I've come to appreciate practitioners who admit their own uncertainty and who are interested in being a partner who can support me in my health--rather than a boss who tells me what to do (and not do) with my body.
+
+Third, and getting back to the title of this post, movement is medicine. When my knee was really hard up, I found that a bike trainer could give me the needed loading and stimulus to spur on cartilage strengthening and remodeling. Almost everything in our body remodels itself in one way or another when given the appropriate stimulus, and joints are no exception. I am convinced that moderate loading twice a day has been a huge factor in getting me to where I am today.

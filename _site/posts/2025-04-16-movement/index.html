@@ -7,10 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Patrick Baylis">
-<meta name="dcterms.date" content="2025-02-22">
-<meta name="description" content="Releasing a dataset used in several of my papers">
+<meta name="dcterms.date" content="2025-04-16">
 
-<title>New dataset: Daily average online sentiment by county – Patrick Baylis</title>
+<title>Movement is medicine – Patrick Baylis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,6 +85,7 @@ gtag('js', new Date());
   });
 gtag('config', 'G-EC2GDDXRGY', { 'anonymize_ip': true});
 </script>
+<meta name="quarto:status" content="draft">
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -94,7 +94,7 @@ gtag('config', 'G-EC2GDDXRGY', { 'anonymize_ip': true});
 <body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
-  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+  <header id="quarto-header" class="headroom fixed-top quarto-banner"><div id="quarto-draft-alert" class="alert alert-warning"><i class="bi bi-pencil-square"></i>Draft</div>
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
@@ -149,21 +149,17 @@ gtag('config', 'G-EC2GDDXRGY', { 'anonymize_ip': true});
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page-left">
-      <h1 class="title">New dataset: Daily average online sentiment by county</h1>
-                  <div>
-        <div class="description">
-          Releasing a dataset used in several of my papers
-        </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">data</div>
+    <div class="quarto-title column-page">
+      <h1 class="title">Movement is medicine</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">running</div>
+                <div class="quarto-category">knee</div>
               </div>
                   </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page-left">
+  <div class="quarto-title-meta column-page">
 
       <div>
       <div class="quarto-title-meta-heading">Author</div>
@@ -175,7 +171,7 @@ gtag('config', 'G-EC2GDDXRGY', { 'anonymize_ip': true});
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 22, 2025</p>
+        <p class="date">April 16, 2025</p>
       </div>
     </div>
     
@@ -186,143 +182,33 @@ gtag('config', 'G-EC2GDDXRGY', { 'anonymize_ip': true});
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#in-brief" id="toc-in-brief" class="nav-link active" data-scroll-target="#in-brief">In brief</a></li>
-  <li><a href="#backstory" id="toc-backstory" class="nav-link" data-scroll-target="#backstory">Backstory</a></li>
-  <li><a href="#dataset-construction" id="toc-dataset-construction" class="nav-link" data-scroll-target="#dataset-construction">Dataset construction</a></li>
-  <li><a href="#descriptive-statistics" id="toc-descriptive-statistics" class="nav-link" data-scroll-target="#descriptive-statistics">Descriptive statistics</a></li>
-  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
-  </ul>
-</nav>
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
 
 
 
 
 
-<section id="in-brief" class="level2">
-<h2 class="anchored" data-anchor-id="in-brief">In brief</h2>
-<p>I am making a dataset of <strong>daily average online sentiment by county</strong> available for use by interested researchers. You can download the dataset <a href="https://github.com/pbaylis/county-sentiment-data/blob/main/data/county-sentiment.csv.gz">here</a>.</p>
-<p>Each observation represents the average sentiment of geo-located tweets for a county-day between 2014 and 2022. I’ve used datasets similar to this one in several different papers to see how people’s online responses vary with, e.g., <a href="https://www.sciencedirect.com/science/article/abs/pii/S0047272720300256">weather</a> and <a href="https://www.nature.com/articles/s41562-022-01396-6">wildfire smoke</a>. I’m excited to see how else they might be used!</p>
-<p>The following sections give a bit more detail on the data (see also the GitHub <a href="https://github.com/pbaylis/county-sentiment-data/">repository</a>).</p>
-</section>
-<section id="backstory" class="level2">
-<h2 class="anchored" data-anchor-id="backstory">Backstory</h2>
-<p>More than a decade ago, I was a third-year Ph.D.&nbsp;student looking for alternative ways to measure how people value differences in the climate they experience day-to-day. At the time, Twitter was a new social media platform that let people publicly post their thoughts about, well, anything. It had a large userbase and many of those users elected to include their location (usually the city or neighborhood they were in, not their specific address or geographical coordinates). It struck me that I could use these posts to measure sentiment across the U.S. at a very granular level.</p>
-<p>Luckily for me, Twitter also had a public Streaming API that made it possible to download nearly all geo-located tweets in real time. I set up an old server in our shared grad student office and it hoovered up tweets for the next few years. That dataset led to the “Temperature and Temperament” <a href="https://www.sciencedirect.com/science/article/abs/pii/S0047272720300256">paper</a>.</p>
-<div id="fig-y2014" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-y2014-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/bread.JPG" class="img-fluid figure-img"></p>
-<figcaption>Discovered bread baking and macro photography</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/chins.JPG" class="img-fluid figure-img"></p>
-<figcaption>Discovered a new talent</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-y2014-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Other stuff that happened in my life in 2014
-</figcaption>
-</figure>
-</div>
-<p>Today, Twitter (now X) is owned by Elon Musk and is generally regarded a garbage fire. But the data I collected may still be useful to some researchers. I’ve been happy to share it with students and other researchers on demand over the years, but I haven’t yet made it publicly available.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
-</section>
-<section id="dataset-construction" class="level2">
-<h2 class="anchored" data-anchor-id="dataset-construction">Dataset construction</h2>
-<p>I compute daily averages of county sentiment from 3.5 billion geo-located Twitter social media posts (tweets) that I collected using the (now-discontinued) Twitter Streaming API between 2014-05-22 and 2022-05-18. Each post’s sentiment is computed using the compound score from the <a href="https://github.com/vaderSentiment/vaderSentiment">VADER</a> sentiment analysis algorithm.</p>
-<p>After computing the timezone and local datetime of each post, I compile averages by county-date (i.e., only county-dates with at least one tweet are included). The final dataset includes the following variables, where (*) indicates the unique keys:</p>
-<ul>
-<li><code>fips</code> (*): County FIPS identifier.</li>
-<li><code>date</code> (*): Date computed from local time</li>
-<li><code>sent</code>: Average sentiment <code>sent</code></li>
-<li><code>N</code>: Number of tweets included in the average</li>
-</ul>
-<p>In total, the dataset includes 6,972,641 observations and represents 3,456,549,038 tweets.</p>
-</section>
-<section id="descriptive-statistics" class="level2">
-<h2 class="anchored" data-anchor-id="descriptive-statistics">Descriptive statistics</h2>
-<p>The figure below shows the number of tweets included in the data over time. There are a few gaps, typically due to my connection to the API failing for one reason or other. The downward trend in the number of tweets is (I think) due to a combination of declining Twitter activity during this time period and a smaller proportion of tweets being geo-located as a result of changes to the Twitter interface</p>
-<div id="fig-ts" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/tweets-ts.png" class="img-fluid figure-img" style="width:50.0%"></p>
-<figcaption>Decline and gaps in tweets over time</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Number of geo-located tweets over time
-</figcaption>
-</figure>
-</div>
-<p>The maps below show the spatial distributions of the number of tweets and average sentiment.</p>
-<div id="fig-y2014" class="quarto-layout-panel">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-y2014-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/tweets-map.png" class="img-fluid figure-img"></p>
-<figcaption>Number of tweets</figcaption>
-</figure>
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="img/sent-map.png" class="img-fluid figure-img"></p>
-<figcaption>Average sentiment</figcaption>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-y2014-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Maps of the number of tweets and average sentiment by county
-</figcaption>
-</figure>
-</div>
-</section>
-<section id="citation" class="level2">
-<h2 class="anchored" data-anchor-id="citation">Citation</h2>
-<p>I would be thrilled to hear how you use this in your research! If you do end up using it, feel free to cite:</p>
-<p>Baylis, Patrick. “Temperature and temperament: Evidence from Twitter.” <em>Journal of Public Economics</em> 184 (2020): 104161.</p>
+<p>(This is a digression from my usual fare of economics and data science-y posts to talk about trying to maintain a different love: exercise.)</p>
+<p>In December of last year, after 15 months of increasing pain and stiffness in my left knee, I finally worked my way through the slow digestive tract of the Canadian health care system to a sports medicine doctor and an MRI appointment. The MRI revealed a complex tear in my left medial meniscus and multiple areas of cartilage damage. Upon getting the readout of the MRI and during a 15-minute appointment, the sports med doc told me that it was “very unlikely” that I would be able to do any more significant running in the future. The structural damage to the meniscus and the progression of cartilage degradation meant that (I was told) the impact forces of running would lead to further weakening in the knee joint and would require a full replacement far sooner than was medically acceptable.</p>
+<p>As you might expect, this wasn’t welcome news. Transitioning from frisbee to running in 2020 opened up a thrilling new world of endurance activities for me, not to mention all of the wonderful people I’ve met and become close with through my increasing involvement in the sport. I spent the next few weeks mourning the loss of future runs and the friendships I hoped to build through shared miles. Athletics, in some form or another, has formed a key part of my identify for my entire life. I wondered what it might look like now.</p>
+<p>Partly out a professional inclination towards scientific evidence and partly out of sheer desperation, I began to look for other perspectives. I ran across research articles from the last few years that suggested that the conventional understanding of the progression of cartilage damage (menisci are also made of cartilage) might not be quite right. Since most cartilage has little to no bloodflow, the prevailing view was that degradation is a one-way process: damaged joints (like my knee) can only get worse over time; never better. This why the vocabulary that is often used for conditions like mine (including osteoarthritis, which affects around half a billion people globally) includes terms like “bone-on-bone”, “wear and tear”, or “degenerative joint disease.”</p>
+<p>But the new science of cartilage is a bit more nuanced. Without doing anything near justice to this literature, recent increases in knowledge ahve revealed that cartilage can repair and remodel itself over time given the right inflammatory environment and the appropriate amount of loading. This is consistent with work that finds that running itself is not associated with increased knee damage even among those with existing osteoarthritis (see, e.g., Lo et al in Clinical Rheumatology 2018).</p>
+<p>With this research in mind, I came into contact with two physiotherapists who both felt strongly that, given patience, strength training, and a very gradual progression back to running I should be able to run marathons and longer again. It felt worth trying, so I put my trust in their expertise and got to work.</p>
+<p>Over the next 4-5 months I began to gradually increase my running volume while also working to correct muscle weaknesses that had appeared over the last year of pain-impaired running. One of the most helpful tips I got from my physios was the value of short but frequency bouts of exercise. The cartilage strengthening process takes 6-8 hours to “reset”, so I would often run for 20 minutes in the morning, recover during the day, and run or bike again for 20 minutes in the evening.</p>
+<p>So far, it’s working. In fact, it’s working much faster than I or my physios expected. Gradual, careful increase of my weekly running load has allowed me to do far more than I expect on a single day. Last month, I surprised myself by completing a 50km race (I expected to drop at 25km or earlier). And on Saturday, I ran 100km through the Columbia River Gorge, another race I thought I would have to drop out of well before halfway.</p>
+<p>This isn’t meant to be a dunk on the doctor I saw, or that anyone with knee damage should expect to be able to run in the future. It’s not even a claim that the choice I’ve made–to continue to push my knee and to fight to keep running–is a good idea. I don’t think I know that yet. The steady improvement in symptoms and pain suggests that I’m on the right track, but I could be wrong. Ask me in a year.</p>
+<p>But I’m sharing this now because I think I have learned some generally useful information for those who have similar joint injuries.</p>
+<p>First, take the information from an MRI with a grain of salt. Medical imaging has a kind of scientific allure: we want to know exactly what our joints look like, and an MRI basically gives us that. But there is a huge, well-documented gap between the structural appearance of joints and how they actually function. If we gave every 40 year old a knee MRI, around a quarter of them would have an undiagnosed meniscus tear. And they would be totally fine.</p>
+<p>Second, always get multiple opinions when faced with a big, life-changing medical decision. No matter who it is, every professional has their biases and blind spots. Through this process I’ve come to appreciate practitioners who admit their own uncertainty and who are interested in being a partner who can support me in my health–rather than a boss who tells me what to do (and not do) with my body.</p>
+<p>Third, and getting back to the title of this post, movement is medicine. When my knee was really hard up, I found that a bike trainer could give me the needed loading and stimulus to spur on cartilage strengthening and remodeling. Almost everything in our body remodels itself in one way or another when given the appropriate stimulus, and joints are no exception. I am convinced that moderate loading twice a day has been a huge factor in getting me to where I am today.</p>
 
 
-</section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Unfortunately, according to the terms of the API I downloaded the tweets from, I cannot make the original tweets themselves available.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
