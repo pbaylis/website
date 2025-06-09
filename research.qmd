@@ -7,7 +7,7 @@ toc: true
 ## Peer-Reviewed Publications
 
 - Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, conditionally accepted as a short paper at the *Journal of Public Economics*, 2025)
-  - [Working Paper](/pdf/climate-migration.pdf)
+  - [Pre-print](/pdf/climate-migration.pdf) $\cdot$ [Replication package](https://www.openicpsr.org/openicpsr/project/232122/version/V1/view)
 - Barriers to Civic Action on Clean Air (with Shweta Bhogale and Teevrat Garg, conditionally accepted based on pre-results review at the *Journal of Development Economics*, 2025)
   - [Registered Report Stage 1](https://afosterri.org/jdepreresults/wp-content/uploads/2025/03/bhogale-baylis-garg-civic-action-air-pollution-DEVEC-D-24-01866_-c1896270df03812cb069982b21db90d1.pdf)
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower, accepted at the *Journal of Political Economy*, 2024)
