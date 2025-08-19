@@ -6,15 +6,15 @@ toc: true
 
 ## Peer-Reviewed Publications
 
-- Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, conditionally accepted as a short paper at the *Journal of Public Economics*, 2025)
+- Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, *Journal of Public Economics* (short paper), 2025)
   - [Pre-print](/pdf/climate-migration.pdf) $\cdot$ [Replication package](https://www.openicpsr.org/openicpsr/project/232122/version/V1/view)
 - Barriers to Civic Action on Clean Air (with Shweta Bhogale and Teevrat Garg, conditionally accepted based on pre-results review at the *Journal of Development Economics*, 2025)
   - [Registered Report Stage 1](https://afosterri.org/jdepreresults/wp-content/uploads/2025/03/bhogale-baylis-garg-civic-action-air-pollution-DEVEC-D-24-01866_-c1896270df03812cb069982b21db90d1.pdf)
 - Mandated vs. Voluntary Adaptation to Natural Disasters: The Case of U.S. Wildfires (with Judson Boomhower, accepted at the *Journal of Political Economy*, 2024)
-  - [NBER Working Paper (December 2021)](https://www.nber.org/papers/w29621)
+  - [Pre-print](/pdf/buildingcodes-preprint.pdf) $\cdot$ [NBER Working Paper (December 2021)](https://www.nber.org/papers/w29621)
   - Selected media: [Headwaters Economics Blog Post](https://headwaterseconomics.org/natural-hazards/wildfire-suppression-costs-rising/) $\cdot$ [New York Times](https://www.nytimes.com/2022/01/26/us/wildfire-development-california-legal.html) $\cdot$ [Marketplace](https://open.spotify.com/episode/69CT2YZ4JE0cOCuBJS0slX?si=25f2a86cf5594870) $\cdot$[The Weeds](https://megaphone.link/VMP8825632497) $\cdot$ [Marketwatch](https://www.marketwatch.com/story/enforcing-building-codes-in-california-helped-reduce-the-risk-of-structural-loss-in-a-wildfire-by-40-11641316060) $\cdot$ [LA Times](https://www.latimes.com/california/story/2022-01-28/california-wildfire-retrofits-rural-san-diego) $\cdot$ [Washington Post (2025 LA fires)](https://www.washingtonpost.com/climate-environment/interactive/2025/la-fires-altadena-destruction-homes-weather/) $\cdot$ [The New Yorker (2025 LA fires)](https://www.newyorker.com/magazine/2025/02/03/inside-the-fight-against-a-los-angeles-inferno)
 - Quantifying Fire-Specific Smoke Severity (with Jeff Wen, Marshall Burke, and Judson Boomhower, *Proceedings of the National Academy of Sciences*, 2023)
-  - [Paper](https://www.pnas.org/doi/10.1073/pnas.2309325120) $\cdot$ [Preprint](https://eartharxiv.org/repository/view/5060/)
+  - [Paper](https://www.pnas.org/doi/10.1073/pnas.2309325120) $\cdot$ [Pre-print](https://eartharxiv.org/repository/view/5060/)
   - Selected media: [New York Times 1](https://www.nytimes.com/2023/05/17/opinion/wildfires-smoke-pollution-distance.html) $\cdot$ [New York Times 2](https://www.nytimes.com/2023/06/28/climate/tracing-wildfire-smoke-health.html)
 - The Economic Incidence of Wildfire Suppression in the United States (with Judson Boomhower, previously titled "Moral Hazard, Wildfires, and the Economic Incidence of Natural Disasters," *AEJ: Applied Economics*, 2023) 
   - [Paper](https://www.aeaweb.org/articles?id=10.1257/app.20200662) $\cdot$ [NBER Working Paper](https://www.nber.org/papers/w26550.pdf)
