@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="dcterms.date" content="2021-01-22">
 
-<title>Partial predictions – Patrick Baylis</title>
+<title>Patrick Baylis - Partial predictions</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -34,7 +34,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -119,7 +119,7 @@ gtag('js', new Date());
 gtag('config', 'G-EC2GDDXRGY', { 'anonymize_ip': true});
 </script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
@@ -164,7 +164,7 @@ window.Quarto = {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -202,7 +202,7 @@ window.Quarto = {
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-            <div class="quarto-navbar-tools">
+          <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -236,7 +236,7 @@ window.Quarto = {
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
     </div>
 <!-- main -->
@@ -254,13 +254,13 @@ window.Quarto = {
 </figure>
 </div>
 <p>These models, however, usually include lots of controls, including fixed effects. Consider the following (fairly generic) estimating equation:</p>
-<p><span class="math display">\[y_{it} = f(T; \beta) + \phi_i + \varepsilon_{it}\]</span> This model includes unit fixed effects (<span class="math inline">\(\phi_i\)</span> and <span class="math inline">\(\phi_t\)</span>}). We include these usually it’s only reasonable to interpret the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(f(T)\)</span> as causal <strong>if</strong> we have accounted for potential confounding factors in the cross-sectional and time-series relationships between climate and the outcome. Put another way, it wouldn’t make much sense to attribute the difference between the GDP per capita of Switzerland and the GDP per capita of Mexico to the differences in climate alone, so instead we control for those countries’ average characteristics using fixed effects and estimate the causal relationship using only <strong>residual variation</strong> in temperature and the outcome. That is to say, we zoom in on years when Switzerland was, say, exceptionally warm and compare its GDP per capita to years when it was exceptionally cold, and then do the same for Mexico.</p>
+<p><span class="math display">\[y_{it} = f(T; \beta) + \phi_i + \varepsilon_{it}\]</span> This model includes unit fixed effects (<span class="math inline">\(\phi_i\)</span>). We include these usually it’s only reasonable to interpret the relationship between <span class="math inline">\(y\)</span> and <span class="math inline">\(f(T)\)</span> as causal <strong>if</strong> we have accounted for potential confounding factors in the cross-sectional relationships between climate and the outcome<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. Put another way, it wouldn’t make much sense to attribute the difference between the GDP per capita of Switzerland and the GDP per capita of Mexico to the differences in climate alone, so instead we control for those countries’ average characteristics using fixed effects and estimate the causal relationship using only <strong>residual variation</strong> in temperature and the outcome. That is to say, we zoom in on years when Switzerland was, say, exceptionally warm and compare its GDP per capita to years when it was exceptionally cold, and then do the same for Mexico.</p>
 <p>Computationally, this could mean including a large set of fixed effects, so estimating these models via ordinary least-squares (OLS) using dummy variables is a nonstarter for settings with thousands of fixed effects, computationally speaking. Instead, we use programs such as <a href="https://lrberge.github.io/fixest/"><code>fixest</code></a> (there are many others, but <code>fixest</code> is the best one I know of, right now), which use fancy mathematical tricks to alleviate the computational burden.</p>
 <p>One of the most intuitive ways to consider the relationships we estimate, particularly when <span class="math inline">\(f(T)\)</span> is non-linear, is to just plot it, with standard errors included. That’s where we run into some issues. Unlike the base R function <code>lm</code>, <code>fixest</code> does not have a native prediction function that can supply standard errors. This is for a good reason: strictly speaking, predicting the outcome <span class="math inline">\(y\)</span> <strong>requires</strong> that we observe the variance-covariance matrix (call it the “vcov”) for all of the terms, including the fixed effects. But one of the side effects of the mathematical tricks we use is that we can no longer obtain the full vcov.</p>
-<p>So, we’re basically sunk if we want to plot <span class="math inline">\(\hat{y}\)</span> with standard errors included. But what if we’re just interested in the relationship between <span class="math inline">\(T\)</span> and <span class="math inline">\(y\)</span>, holding all the other controls constant? I.e., what if we just want to plot the response function <span class="math inline">\(f(T)\)</span>? In that case, and assuming a linear-in-parameters model<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, we only need the vcov for the coefficients related to the variable we’re allowing to change, in this case <span class="math inline">\(T\)</span>.</p>
+<p>So, we’re basically sunk if we want to plot <span class="math inline">\(\hat{y}\)</span> with standard errors included. But what if we’re just interested in the relationship between <span class="math inline">\(T\)</span> and <span class="math inline">\(y\)</span>, holding all the other controls constant? I.e., what if we just want to plot the response function <span class="math inline">\(f(T)\)</span>? In that case, and assuming a linear-in-parameters model<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, we only need the vcov for the coefficients related to the variable we’re allowing to change, in this case <span class="math inline">\(T\)</span>.</p>
 <p>To see how this works, consider that a response function is really just the expected value of the outcome across a range of <span class="math inline">\(T\)</span> (say, 0 to 40) minus <span class="math inline">\(\hat{y}\)</span> at a single value of <span class="math inline">\(T\)</span> (say, 20 C). That is, for T = 40, the expected value of</p>
 <p><span class="math display">\[E[y_{it}|T=40] - E[y_{it}|T = 20] = f(T=40; \hat{\beta}) + \phi_i - f(T=20; \hat{\beta}) - \phi_i = f(T=40; \hat{\beta}) - f(T=20; \hat{\beta})\]</span></p>
-<p>As you can see, the fixed effects drop out, so for this linear-in-parameters model at least we don’t need the entire vcov to generate standard errors for each point on the response curve. So far as I know, though, there’s no easy way to run this kind of prediction without a bit of wrangling. Typically, I’ve used <code>survey::svycontrast</code> to do this sort of thing (see <a href="https://www.patrickbaylis.com/blog/2018-04-12-svycontrasts/">here</a>), but it always felt a bit fiddly. So the following code lets us do this kind of partial prediction easily, by just passing the variables we want to predict over.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p>
+<p>As you can see, the fixed effects drop out, so for this linear-in-parameters model at least we don’t need the entire vcov to generate standard errors for each point on the response curve. So far as I know, though, there’s no easy way to run this kind of prediction without a bit of wrangling. Typically, I’ve used <code>survey::svycontrast</code> to do this sort of thing (see <a href="https://www.patrickbaylis.com/blog/2018-04-12-svycontrasts/">here</a>), but it always felt a bit fiddly. So the following code lets us do this kind of partial prediction easily, by just passing the variables we want to predict over.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -365,8 +365,9 @@ window.Quarto = {
 <div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
 
 <ol>
-<li id="fn1"><p>I’m not actually sure we need to assume this, but someone smarter than me can work out the math of what we could do in the non-linear-in-parameters case.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>This code borrows from code written by Kenny Bell in this StackOverflow <a href="https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package">post</a>.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn1"><p>Typically we’d include time fixed effects as well, but I skip them here for brevity.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>I’m not actually sure we need to assume this, but someone smarter than me can work out the math of what we could do in the non-linear-in-parameters case.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>This code borrows from code written by Kenny Bell in this StackOverflow <a href="https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package">post</a>.<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
 </section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -404,7 +405,18 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const onCopySuccess = function(e) {
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -436,47 +448,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
-  }
-  const getTextToCopy = function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-  }
-  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-    text: getTextToCopy
   });
-  clipboard.on('success', onCopySuccess);
-  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
-    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-      text: getTextToCopy,
-      container: window.document.getElementById('quarto-embedded-source-code-modal')
-    });
-    clipboardModal.on('success', onCopySuccess);
-  }
-    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-    var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp('/' + window.location.host + '/');
-    var isInternal = (href) => {
-        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
-    }
-    // Inspect non-navigation links and adorn them if external
- 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-    for (var i=0; i<links.length; i++) {
-      const link = links[i];
-      if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
-      }
-    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -511,11 +483,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
