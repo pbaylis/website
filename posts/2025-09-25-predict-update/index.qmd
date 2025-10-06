@@ -9,7 +9,8 @@ format:
   html:
     page-layout: full
 categories:
-  - data
+  - R
+  - econometrics
 ---
 
 In a [2021 post](/posts/2021-01-22-predict-partial/), I shared code for plotting **response functions** from models with high-dimensional fixed effects (like those produced by [fixest](https://lrberge.github.io/fixest/)). This approach is useful when we want to show how an outcome changes with respect to temperature. I’m happy to report that that code is now basically obsolete thanks to the [marginaleffects](https://github.com/vincentarelbundock/marginaleffects) package. This post shows how to plot such functions.
@@ -43,7 +44,7 @@ data$y <- 1 + 3 * data$x - 2 * data$x^2 + as.numeric(data$id == "A") * 3 + rnorm
 
 # Fit a model that accounts for group means
 fit_feols <- feols(y ~ x + I(x^2) | id, data = data)
-etable(fit_feols, markdown = T)
+etable(fit_feols)
 ```
 
 ### Plot the response function
