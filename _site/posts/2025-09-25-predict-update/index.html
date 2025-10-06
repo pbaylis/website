@@ -57,7 +57,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -254,13 +274,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#a-quick-review" id="toc-a-quick-review" class="nav-link active" data-scroll-target="#a-quick-review">A quick review</a></li>
+  <li><a href="#a-review-of-response-functions" id="toc-a-review-of-response-functions" class="nav-link active" data-scroll-target="#a-review-of-response-functions">A review of response functions</a></li>
   <li><a href="#simulation" id="toc-simulation" class="nav-link" data-scroll-target="#simulation">Simulation</a></li>
   <li><a href="#plot-the-response-function" id="toc-plot-the-response-function" class="nav-link" data-scroll-target="#plot-the-response-function">Plot the response function</a></li>
-  <li><a href="#overlay-humidity-modulation-30-50-70" id="toc-overlay-humidity-modulation-30-50-70" class="nav-link" data-scroll-target="#overlay-humidity-modulation-30-50-70">Overlay: humidity modulation (30%, 50%, 70%)</a></li>
-  <li><a href="#interpretation-extensions" id="toc-interpretation-extensions" class="nav-link" data-scroll-target="#interpretation-extensions">Interpretation &amp; extensions</a></li>
-  <li><a href="#common-pitfalls" id="toc-common-pitfalls" class="nav-link" data-scroll-target="#common-pitfalls">Common pitfalls</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
   </ul>
 </nav>
     </div>
@@ -271,170 +287,106 @@ window.Quarto = {
 
 
 
-<p>In a <a href="../../posts/2021-01-22-predict-partial/">2021 post</a> I shared code for plotting <strong>partial predictions</strong> from models with high-dimensional fixed effects (like those produced by <a href="https://lrberge.github.io/fixest/">fixest</a>), which is useful when we need a to plot a response function for how some outcome changes with respect to temperature. I am happy to report that that code is now basically obsolete thanks to the <a href="https://github.com/vincentarelbundock/marginaleffects">marginaleffects</a> package. This post shows how to plot such functions.</p>
-<section id="a-quick-review" class="level3">
-<h3 class="anchored" data-anchor-id="a-quick-review">A quick review</h3>
-<p>Temperature affects a lot of stuff. Researchers working in climate impacts often want to examine how an outcome is affected by temperature. For example, a relationship of significant interest to our literature is the link between temperature and mortality (TODO ADD CITES). The thing is, there’s a lot of good medical reasons to think that the effect might be <strong>non-linear</strong>, i.e., that mortality might be higher when it’s cold or hot than when the temperature is moderate. Finally, we might want to control for correlations between the outcome and climate that aren’t actually a result of the temperature, such as that Miami might just have higher mortality rates than Minnesota.</p>
+<p>In a <a href="../../posts/2021-01-22-predict-partial/">2021 post</a>, I shared code for plotting <strong>response functions</strong> from models with high-dimensional fixed effects (like those produced by <a href="https://lrberge.github.io/fixest/">fixest</a>). This approach is useful when we want to show how an outcome changes with respect to temperature. I’m happy to report that that code is now basically obsolete thanks to the <a href="https://github.com/vincentarelbundock/marginaleffects">marginaleffects</a> package. This post shows how to plot such functions.</p>
+<section id="a-review-of-response-functions" class="level3">
+<h3 class="anchored" data-anchor-id="a-review-of-response-functions">A review of response functions</h3>
+<p>Temperature affects a lot of stuff. Researchers working in climate impacts often want to examine how an outcome is affected by temperature. For example, a relationship of significant interest to our literature is the link between temperature and mortality (see, for example, <span class="citation" data-cites="carleton2022valuing">Carleton et al. (<a href="#ref-carleton2022valuing" role="doc-biblioref">2022</a>)</span>). The thing is, there’s a lot of good medical reasons to think that the effect might be <strong>nonlinear</strong>, such as that mortality might be higher when it’s cold or hot than when the temperature is moderate. Finally, we might want to control for correlations between the outcome and climate that aren’t actually a result of the temperature, such as that Miami might just have higher mortality rates than Minnesota for reasons that aren’t directly due to recent temperature fluctuations.</p>
 <p>In econometric-speak, a generic form of a model we could use to investigate this relationship (using only unit fixed effects for brevity) is:</p>
 <p><span class="math display">\[y_{it} = f(T; \beta) + \phi_i + \varepsilon_{it}\]</span></p>
 <p>where <span class="math inline">\(y_{it}\)</span> is the outcome of interest (e.g., log mortality), <span class="math inline">\(f(T; \beta)\)</span> is a flexible function of temperature (e.g., polynomial, splines), <span class="math inline">\(\phi_i\)</span> are unit fixed effects, and <span class="math inline">\(\varepsilon_{it}\)</span> is an error term.</p>
-<p>Our task is to reproduce an estimate of <span class="math inline">\(f(T; \beta)\)</span> that, holding everything else equal, shows how the outcome changes with temperature <em>relative to some baseline temperature</em>. We also want to get a sense of our certainty around that estimate, i.e., a confidence interval. That’s what I wrote a bunch of code back in 2021 to do, but now marginaleffects::prediction can do it for us.</p>
+<p>Our task is to reproduce an estimate of <span class="math inline">\(f(T; \beta)\)</span> that, holding everything else equal, shows how the outcome changes with temperature <em>relative to some baseline temperature</em>. In short, we want to <strong>compare the predicted value of the outcome <span class="math inline">\(y\)</span> at a range of plausible values for <span class="math inline">\(x\)</span> to its predicted value at a reference level of <span class="math inline">\(x\)</span></strong>.</p>
+<p>Note that I previously called these “partial predictions”, but I don’t think that’s universally agreed on terminology so I’ll call them “comparisons” here, since that’s what the <code>marginaleffects</code> package calls them. We also want to get a sense of our certainty around that estimate—that is, a confidence interval. That’s what I wrote a bunch of code to do back in 2021, but now <code>marginaleffects::comparisons()</code> can do it for us.</p>
 </section>
 <section id="simulation" class="level3">
 <h3 class="anchored" data-anchor-id="simulation">Simulation</h3>
-<p>We’ll simulate this with a made-up outcome and temperature data, so we can control the “data-generating process.” and confirm that the model is reproducing what we are hoping for. We’ll also throw an extra element: we’ll allow the outcome to be affected by humidity as well, and the <em>interaction</em> of temperature and humidity. This is meant to capture the fact that humans tend to be more affected by heat when humidity is higher. The following generates the made-up data and estimates the appropriate model to extract <span class="math inline">\(f(T)\)</span>.</p>
+<p>I’ll follow the previous post and simulate some panel data with a nonlinear relationship between temperature and an outcome.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(marginaleffects)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Simulate panel data: 50 counties x 200 days ---</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>n_county <span class="ot">&lt;-</span> <span class="dv">50</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>n_day    <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>county   <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">"c"</span>, <span class="dv">1</span><span class="sc">:</span>n_county), <span class="at">each =</span> n_day))</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>day      <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_day, <span class="at">times =</span> n_county)</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Weather: temperature (C) &amp; relative humidity (%)</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="dv">10</span> <span class="sc">+</span> <span class="dv">10</span> <span class="sc">*</span> <span class="fu">sin</span>(<span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>day<span class="sc">/</span><span class="dv">200</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(n_county<span class="sc">*</span>n_day, <span class="dv">0</span>, <span class="dv">3</span>)</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>rh   <span class="ot">&lt;-</span> <span class="dv">50</span> <span class="sc">+</span> <span class="dv">15</span> <span class="sc">*</span> <span class="fu">cos</span>(<span class="dv">2</span><span class="sc">*</span>pi<span class="sc">*</span>day<span class="sc">/</span><span class="dv">200</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(n_county<span class="sc">*</span>n_day, <span class="dv">0</span>, <span class="dv">7</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Outcome: nonlinear in temp, modest in RH, county FE</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fl">0.1</span><span class="sc">*</span>temp <span class="sc">-</span> <span class="fl">0.003</span><span class="sc">*</span>temp<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fl">0.002</span><span class="sc">*</span>rh <span class="sc">+</span> <span class="fl">0.0005</span><span class="sc">*</span>temp<span class="sc">*</span>rh <span class="sc">+</span> </span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>     <span class="fu">rnorm</span>(n_county<span class="sc">*</span>n_day, <span class="dv">0</span>, <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">rnorm</span>(n_county, <span class="dv">0</span>, <span class="fl">0.6</span>)[county]</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(y, temp, rh, county, day)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Flexible model with county fixed effects and nonlinear terms</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="co"># (Include interaction to allow humidity to modulate heat effects)</span></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>mod <span class="ot">&lt;-</span> <span class="fu">feols</span>(y <span class="sc">~</span> temp <span class="sc">+</span> <span class="fu">I</span>(temp<span class="sc">^</span><span class="dv">2</span>) <span class="sc">+</span> rh <span class="sc">+</span> temp<span class="sc">:</span>rh <span class="sc">|</span> county, <span class="at">data =</span> dat)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, marginaleffects, fixest, cowplot)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># DGP</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>N <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">rnorm</span>(N), <span class="at">id =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>), <span class="at">times =</span> N<span class="sc">/</span><span class="dv">2</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>data<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> data<span class="sc">$</span>x <span class="sc">-</span> <span class="dv">2</span> <span class="sc">*</span> data<span class="sc">$</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">as.numeric</span>(data<span class="sc">$</span>id <span class="sc">==</span> <span class="st">"A"</span>) <span class="sc">*</span> <span class="dv">3</span> <span class="sc">+</span> <span class="fu">rnorm</span>(N, <span class="dv">0</span>, <span class="dv">10</span>) </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Fit a model that accounts for group means</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>fit_feols <span class="ot">&lt;-</span> <span class="fu">feols</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>) <span class="sc">|</span> id, <span class="at">data =</span> data)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(fit_feols, <span class="at">markdown =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>OLS estimation, Dep. Var.: y
-Observations: 10,000 
-Fixed-effects: county: 50
-Standard-errors: Clustered (county) 
-           Estimate Std. Error   t value   Pr(&gt;|t|)    
-temp       0.099634   0.003555  28.02696  &lt; 2.2e-16 ***
-I(temp^2) -0.002994   0.000097 -30.95988  &lt; 2.2e-16 ***
-rh         0.001701   0.000718   2.36837 2.1855e-02 *  
-temp:rh    0.000514   0.000059   8.64719 1.9909e-11 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-RMSE: 0.505792     Adj. R2: 0.723522
-                 Within R2: 0.537695</code></pre>
+<pre><code>&lt;div class = "etable"&gt;&lt;img src = "./images/etable/etable_tex_2025-10-06_1502688034.png"&gt;&lt;/div&gt;</code></pre>
 </div>
 </div>
 </section>
 <section id="plot-the-response-function" class="level3">
 <h3 class="anchored" data-anchor-id="plot-the-response-function">Plot the response function</h3>
-<p>Now we want to plot the response function with the <code>predictions</code> function from the <code>marginaleffects</code> package. We create some fake data (which needs to include <em>all</em> the variables in the model, but only temperature needs to vary).</p>
-<p>TODO: I don’t know how to get the CI to be 0 at some holdout value. So I guess I don’t really know what we’re producing here. Maybe I actually want comparisons? I guess I need to read the stupid manual.</p>
+<p>Now we want to plot the response function using the <code>comparisons()</code> function from the <code>marginaleffects</code> package. We create some fake data (which needs to include <em>all</em> the variables in the model, though only <code>x</code> needs to vary). The function doesn’t behave exactly as one might expect, but with a little <a href="https://stackoverflow.com/questions/79782144/r-marginaleffectscomparisons-not-generating-expected-outputs/79782164#79782164">help</a> from a fellow UBC researcher on Stack Overflow, I worked out how to make it do what I needed.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">temp   =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">35</span>, <span class="at">by =</span> <span class="dv">1</span>),</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">rh     =</span> <span class="dv">40</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">county =</span> <span class="fu">factor</span>(<span class="st">"c1"</span>, <span class="at">levels =</span> <span class="fu">levels</span>(dat<span class="sc">$</span>county))</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>x_ref <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="co"># reference x value</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>x_pred <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="fl">0.1</span>) <span class="co"># x values we want to compare to our reference</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Construct variables we need to pass to comparisons()</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>comps <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">hi =</span> x_ref, <span class="at">lo =</span> x_pred)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>pr <span class="ot">&lt;-</span> marginaleffects<span class="sc">::</span><span class="fu">predictions</span>(mod, <span class="at">newdata =</span> grid)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pr, <span class="fu">aes</span>(<span class="at">x =</span> temp, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> <span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Response Function f(temp)"</span>,</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Levels: E[y|X] with county FE; evaluated at RH = 40%"</span>,</span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Temperature (°C)"</span>,</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"E[y|X]"</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>pred_df <span class="ot">&lt;-</span> <span class="fu">comparisons</span>(fit_feols, </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">variables =</span> <span class="fu">list</span>(<span class="st">"x"</span> <span class="ot">=</span> comps), </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">x =</span> x_pred))</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>pred_df<span class="sc">$</span>x <span class="ot">&lt;-</span> x_pred</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"lightblue"</span>) <span class="sc">+</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/plot-response-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="overlay-humidity-modulation-30-50-70" class="level2">
-<h2 class="anchored" data-anchor-id="overlay-humidity-modulation-30-50-70">Overlay: humidity modulation (30%, 50%, 70%)</h2>
+<p>And that’s it! Well, almost. I don’t want to remember the fancy footwork above every time, so I include a small helper function that packages it all up in a somewhat generic form.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>
-Attaching package: 'dplyr'</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:stats':
-
-    filter, lag</code></pre>
-</div>
-<div class="cell-output cell-output-stderr">
-<pre><code>The following objects are masked from 'package:base':
-
-    intersect, setdiff, setequal, union</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>rh_vals <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">50</span>, <span class="dv">70</span>)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>grid_multi <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">temp   =</span> <span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">35</span>, <span class="at">by =</span> <span class="dv">1</span>),</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rh     =</span> rh_vals</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">county =</span> <span class="fu">factor</span>(<span class="st">"c1"</span>, <span class="at">levels =</span> <span class="fu">levels</span>(dat<span class="sc">$</span>county)))</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>pr_multi <span class="ot">&lt;-</span> marginaleffects<span class="sc">::</span><span class="fu">predictions</span>(mod, <span class="at">newdata =</span> grid_multi) <span class="sc">|&gt;</span></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rh =</span> <span class="fu">factor</span>(rh, <span class="at">levels =</span> rh_vals))</span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pr_multi, <span class="fu">aes</span>(<span class="at">x =</span> temp, <span class="at">y =</span> estimate, <span class="at">color =</span> rh, <span class="at">fill =</span> rh)) <span class="sc">+</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">alpha =</span> <span class="fl">0.15</span>, <span class="at">linewidth =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Response Function f(temp) across RH levels"</span>,</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"County FE model; E[y|X] evaluated at RH ∈ {30, 50, 70}%"</span>,</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Temperature (°C)"</span>,</span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"E[y|X]"</span>,</span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> <span class="st">"RH (%)"</span>,</span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill  =</span> <span class="st">"RH (%)"</span></span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>get_comparisons <span class="ot">&lt;-</span> <span class="cf">function</span>(model, varname, x_vals, x_ref) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  comps <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">hi =</span> x_ref, <span class="at">lo =</span> x_vals)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  variables_list <span class="ot">&lt;-</span> <span class="fu">list</span>(comps)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(variables_list) <span class="ot">&lt;-</span> varname</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  pred_df <span class="ot">&lt;-</span> <span class="fu">comparisons</span>(fit_feols, </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">variables =</span> variables_list, </span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">newdata =</span> <span class="fu">datagrid</span>(<span class="at">x =</span> x_vals))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  pred_df<span class="sc">$</span>x <span class="ot">&lt;-</span> comps<span class="sc">$</span>lo</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(pred_df)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Using the function, compare over a smaller range with a different reference x</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>pred_df2 <span class="ot">&lt;-</span> <span class="fu">get_comparisons</span>(fit_feols, <span class="st">"x"</span>, <span class="at">x_vals =</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">2</span>, <span class="fl">0.01</span>), <span class="at">x_ref =</span> <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot again</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(pred_df2, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> conf.low, <span class="at">ymax =</span> conf.high), <span class="at">fill =</span> <span class="st">"red"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/plot-w-function-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-</section>
-<section id="interpretation-extensions" class="level2">
-<h2 class="anchored" data-anchor-id="interpretation-extensions">Interpretation &amp; extensions</h2>
-<ul>
-<li>The lines trace the <strong>predicted outcome</strong> at each °C, holding RH fixed. Nonlinearities (quadratic + interaction) shape the curve.</li>
-<li>Replace <code>county</code> with <strong>unit × time FE</strong> (e.g., <code>| county + factor(day)</code>), or add seasonality and trends as needed.</li>
-<li>To study humidity modulation, vary the <code>rh</code> value in <code>grid</code> and overlay multiple curves (as above).</li>
-</ul>
-</section>
-<section id="common-pitfalls" class="level2">
-<h2 class="anchored" data-anchor-id="common-pitfalls">Common pitfalls</h2>
-<ul>
-<li>Wrap polynomial terms with <code>I()</code> (e.g., <code>I(temp^2)</code>) so R treats them as arithmetic.</li>
-<li>Ensure <strong>factor levels</strong> in <code>newdata</code> match the modeling data (<code>factor(..., levels = levels(dat$factor))</code>).</li>
-<li>Predictions do not include FE uncertainty; interpret them as conditional on the chosen FE level.</li>
-</ul>
-</section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
-<ul>
-<li><code>fixest</code> documentation: <code>?feols</code></li>
-<li><code>marginaleffects</code> vignettes: <code>vignette("marginaleffects")</code> and <code>?predictions</code></li>
-</ul>
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-carleton2022valuing" class="csl-entry" role="listitem">
+Carleton, Tamma, Amir Jina, Michael Delgado, Michael Greenstone, Trevor Houser, Solomon Hsiang, Andrew Hultgren, et al. 2022. <span>“Valuing the Global Mortality Consequences of Climate Change Accounting for Adaptation Costs and Benefits.”</span> <em>The Quarterly Journal of Economics</em> 137 (4): 2037–2105.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
