@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -69,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="../../img/favicon-camping.png" rel="icon" type="image/png">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
 <script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../../site_libs/bootstrap/bootstrap-a14e3238c51140e99ccc48519b6ed9ce.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/bootstrap/bootstrap-ff63373b1067ca6f91cf1456aa1f00a2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/all.min.css" rel="stylesheet">
 <link href="../../site_libs/quarto-contrib/fontawesome6-1.2.0/latex-fontsize.css" rel="stylesheet">
 <script id="quarto-search-options" type="application/json">{
@@ -106,20 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
-<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-EC2GDDXRGY"></script>
-
-<script type="text/javascript">
-
-window.dataLayer = window.dataLayer || [];
-function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
- 
-  gtag('consent', 'default', {
-    'ad_storage': 'denied',
-    'analytics_storage': 'denied'
-  });
-gtag('config', 'G-EC2GDDXRGY', { 'anonymize_ip': true});
-</script>
+<script data-goatcounter="https://patrickbaylis.goatcounter.com/count" async="" src="//gc.zgo.at/count.js"></script>
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -132,6 +120,8 @@ gtag('config', 'G-EC2GDDXRGY', { 'anonymize_ip': true});
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../../index.html">
     <span class="navbar-title">Patrick Baylis</span>
     </a>
@@ -258,11 +248,11 @@ Note
 <p>Also known as summary statistics, or descriptive statistics, data summary tables deliver summarizing information about the variables used in analyses.</p>
 <p>We’ll use the <code>Fatalities</code> dataset from the <code>AER</code> package as our sample dataset. This is a panel dataset with around 30 variables relating to traffic fatalities in the United States. First, we’ll do some quick setup, load the data, and preview it using <a href="https://www.rdocumentation.org/packages/tibble/versions/3.0.1/topics/glimpse"><code>glimpse</code></a> (a much more useful alternative to <code>head</code>, in my view).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, kableExtra, AER)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, kableExtra, AER)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Load fatalities panel data</span></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Fatalities"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(Fatalities)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(Fatalities)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 336
 Columns: 34
@@ -305,7 +295,7 @@ $ gsp          &lt;dbl&gt; -0.022124760, 0.046558253, 0.062797837, 0.027489973, 
 <p>That’s a lot of variables! But we’re not going to summarize all of them. Suppose we think the main drivers of traffic fatalities in a state are the price of beer, how much people make, how much people drive, and how many people live there. If those are the variables we’re focused on, we might want to give the reader a sense for their distributions to help contextualize the remainder of the paper. That’s really the goal of a good summary statistics table: to provide context.</p>
 <p>There are some great tools that will generate summaries for you (my favorite is <a href="https://vincentarelbundock.github.io/modelsummary/articles/datasummary.html"><code>modelsummary::datasummary</code></a>), but I find that most of the time I prefer to build them by hand. function.] This gives me a clearer sense for what is in the data, and ensures that I don’t get lazy and just generate some default set of statistics, since those are not terribly informative or easy to read.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> Fatalities <span class="sc">%&gt;%</span> <span class="do">## Rescale variables</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> Fatalities <span class="sc">%&gt;%</span> <span class="do">## Rescale variables</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">beertax =</span> beertax <span class="sc">*</span> <span class="dv">100</span>,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">income =</span> income <span class="sc">/</span> <span class="dv">1000</span>,</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">miles =</span> miles <span class="sc">/</span> <span class="dv">1000</span>,</span>
@@ -327,7 +317,7 @@ $ gsp          &lt;dbl&gt; -0.022124760, 0.046558253, 0.062797837, 0.027489973, 
 <span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">Median =</span> <span class="fu">median</span>(value), </span>
 <span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">P5 =</span> <span class="fu">quantile</span>(value, <span class="at">p =</span> <span class="fl">0.05</span>), </span>
 <span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">P95 =</span> <span class="fu">quantile</span>(value, <span class="at">p =</span> <span class="fl">0.95</span>))</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>summary</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>summary</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
   ` `                          Mean Median     P5    P95
@@ -343,12 +333,12 @@ $ gsp          &lt;dbl&gt; -0.022124760, 0.046558253, 0.062797837, 0.027489973, 
 <p>If you’re familiar with the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> this code will be fairly intuitive. I rescale the variables so that they display well with the same number of digits<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, select the variables I want to display, pivot the data into a <code>long</code> format, and finally summarize all of the variables using the same summary functions. I like re-labeling both the variables and the summary functions here to their final, human-readable versions that I’ll use in the table, since it reduces redundancy and extra typing.</p>
 <p>The final step is to actually save the TeX output. <a href="https://www.rdocumentation.org/packages/kableExtra/versions/1.3.4/topics/kbl"><code>kableExtra::kbl</code></a> does basically all of the work for us here.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(summary, </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(summary, </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">format =</span> <span class="st">"latex"</span>, </span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">linesep =</span> <span class="st">""</span>,</span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">digits =</span> <span class="dv">1</span>, </span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">booktabs =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 \begin{tabular}[t]{lrrrr}
@@ -372,15 +362,15 @@ Vehicle fatalities (1000s) &amp; 0.9 &amp; 0.7 &amp; 0.1 &amp; 2.8\\
 <p>That’s right, it’s time to regress!! Linear regression is most economists’ analytic weapon of choice, including mine. I like the <a href="https://lrberge.github.io/fixest/"><code>fixest</code></a> package for many reasons, but for our purposes today the most salient one is that it includes a very nice table-making function called <code>etable</code> (again, for a very good alternative see <a href="https://vincentarelbundock.github.io/modelsummary/articles/modelsummary.html"><code>modelsummary</code></a>, especially if you want to make HTML tables).</p>
 <p>First, let’s estimate a few models.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>models <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>models[[<span class="st">"OLS"</span>]] <span class="ot">&lt;-</span> <span class="fu">feols</span>(fatal <span class="sc">~</span> unemp <span class="sc">+</span> income <span class="sc">+</span> beertax <span class="sc">+</span> miles, <span class="at">data =</span> data)</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>models[[<span class="st">"+ State FE"</span>]] <span class="ot">&lt;-</span> <span class="fu">feols</span>(fatal <span class="sc">~</span> unemp <span class="sc">+</span> income <span class="sc">+</span> beertax <span class="sc">+</span> miles <span class="sc">|</span> state, <span class="at">data =</span> data)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>models[[<span class="st">"+ Year FE"</span>]] <span class="ot">&lt;-</span> <span class="fu">feols</span>(fatal <span class="sc">~</span> unemp <span class="sc">+</span> income <span class="sc">+</span> beertax <span class="sc">+</span> miles <span class="sc">|</span> state <span class="sc">+</span> year, <span class="at">data =</span> data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>models[[<span class="st">"+ Year FE"</span>]] <span class="ot">&lt;-</span> <span class="fu">feols</span>(fatal <span class="sc">~</span> unemp <span class="sc">+</span> income <span class="sc">+</span> beertax <span class="sc">+</span> miles <span class="sc">|</span> state <span class="sc">+</span> year, <span class="at">data =</span> data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Here we’ve estimated three models that vary only in their included fixed effects. The first model, “OLS”, includes only the covariates. The second and third add state and year fixed effects, respectively. This kind of buildup table shows how the parameter estimates change as we condition on more covariates (which are just the additional fixed effects here). For the record, this is just a demonstration exercise; I wouldn’t interpret any of these coefficients as very likely to represent their true “causal” analogues. To show the results, I’ll use the <code>etable</code> function.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dict_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"fatal"</span> <span class="ot">=</span> <span class="st">"Vehicle fatalities (1000s)"</span>,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>dict_names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"fatal"</span> <span class="ot">=</span> <span class="st">"Vehicle fatalities (1000s)"</span>,</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>                <span class="st">"unemp"</span> <span class="ot">=</span> <span class="st">"Unemployment rate"</span>,</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                <span class="st">"income"</span> <span class="ot">=</span> <span class="st">"Income"</span>,</span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                <span class="st">"beertax"</span> <span class="ot">=</span> <span class="st">"Beer tax (cents)"</span>,</span>
@@ -401,7 +391,7 @@ Vehicle fatalities (1000s) &amp; 0.9 &amp; 0.7 &amp; 0.1 &amp; 2.8\\
 <span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                             <span class="at">fixef.where =</span> <span class="st">"var"</span>,</span>
 <span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                             <span class="at">yesNo =</span> <span class="fu">c</span>(<span class="st">"Yes"</span>, <span class="st">"No"</span>)),</span>
 <span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">tex =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>\begingroup
 \centering
@@ -437,7 +427,7 @@ Vehicle fatalities (1000s) &amp; 0.9 &amp; 0.7 &amp; 0.1 &amp; 2.8\\
 <section id="the-final-product" class="level2">
 <h2 class="anchored" data-anchor-id="the-final-product">The final product</h2>
 <p>It’s time to put it all together! Below is a minimal “container” TeX code for these two tables, with sample captions and notes.</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode latex code-with-copy"><code class="sourceCode latex"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="bu">\documentclass</span>{<span class="ex">article</span>}</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">threeparttable</span>}</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>{<span class="ex">booktabs</span>}</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">\usepackage</span>[capitalise]{<span class="ex">cleveref</span>}</span>
@@ -473,7 +463,7 @@ Vehicle fatalities (1000s) &amp; 0.9 &amp; 0.7 &amp; 0.1 &amp; 2.8\\
 <span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">\end</span>{<span class="ex">threeparttable</span>}</span>
 <span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">table</span>}</span>
 <span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="kw">\end</span>{<span class="ex">document</span>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>And here’s a screenshot of what that looks like once compiled.</p>
 <p><img src="tablemaking-pdf-output.png" class="img-fluid"></p>
 <p>So… maybe there IS something a little sexy about tables?</p>
@@ -539,13 +529,14 @@ Vehicle fatalities (1000s) &amp; 0.9 &amp; 0.7 &amp; 0.1 &amp; 2.8\\
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
