@@ -21,7 +21,7 @@ If you don't like the way those look, now is a good time to bail.
 
 ### Load stuff
 
-First, we gotta load some stuff. I'm going to use [`pacman`](https://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html) for package management, the [`tidyverse`](https://www.tidyverse.org/) for general data manipulation, `AER` for some data on automobile fatatalies, [`modelsummary`](https://modelsummary.com/) for summary statistics, [`kableExtra`](https://bookdown.org/yihui/rmarkdown-cookbook/kableextra.html) for some extra table formatting, and the inimitable [`fixest`](https://lrberge.github.io/fixest/) for estimating regressions and making the regression tables. 
+First, we gotta load some stuff. I'm going to use [`pacman`](https://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html) for package management, the [`tidyverse`](https://www.tidyverse.org/) for general data manipulation, `AER` for some data on automobile fatalities, [`modelsummary`](https://modelsummary.com/) for summary statistics, [`kableExtra`](https://bookdown.org/yihui/rmarkdown-cookbook/kableextra.html) for some extra table formatting, and the inimitable [`fixest`](https://lrberge.github.io/fixest/) for estimating regressions and making the regression tables. 
 
 ::: {.callout-note}
 We owe these package authors a huge thank-you for making our lives easier. **If you use them, don't forget to cite them in your papers and buy them a beverage of their choice when you meet them in person!** 
@@ -39,7 +39,7 @@ data("Fatalities")
 
 ### Rescale and relabel variables
 
-Next we need to do some cleaning up. I find it's useful to have my variables on similar scales for regressions and I want to make sure I'm describing those variables accurately, so before I do anything I rescale and rename variables appropriately. This is also a good time to define a data dictionary here to clean up displayed variable names later.
+Next we need to do some cleaning up. I find it's useful to have my variables on similar scales for regressions, and I want to make sure I'm describing those variables accurately, so before I do anything I rescale and rename variables appropriately. This is also a good time to define a data dictionary to clean up displayed variable names later.
 
 ```{r rename-and-rescale}
 ## Rescale and label variables
@@ -103,7 +103,7 @@ counts
 
 ### Turn into LaTeX
 
-Now we can combine the two tables and save them as `.tex` files. This requires a tiny bit of hacking to jam the tables together. Note that save the output using the `output = "latex_tabular"` option to get only the tabular environment. This is useful because it lets me set captions and tables notes in the LaTeX document itself.
+Now we can combine the two tables and save them as `.tex` files. This requires a tiny bit of hacking to jam the tables together. Note the call to `kbl` and the options it uses yield only the `tabular` portion of the table in the output. This is useful because it lets me set captions and table notes in the LaTeX document itself.
 
 ```{r summary-stats-latex}
 # To combine, align first names
@@ -114,13 +114,15 @@ summary_stats <- bind_rows(variable_distributions, counts)
 # Replace NAs with empty strings
 summary_stats[is.na(summary_stats)] <- " "
 
-datasummary_df(
+kbl(
   summary_stats,
-  output = "kableExtra"
+  format = "latex",
+  booktabs = T,
+  linesep = ""
 ) %>%
   group_rows("Variables", start_row = 1, end_row = nrow(variable_distributions), bold = F, italic = T) %>%
   group_rows("Counts", start_row = nrow(variable_distributions) + 1, end_row = nrow(summary_stats), bold = F, italic = T) %>%
-  write_lines("summary-stats.tex")
+  save_kable("summary-stats.tex")
 ```
 
 ## Regression estimates
@@ -129,7 +131,7 @@ I'm a big fan of `fixest` for estimating regressions. It is extremely fast for m
 
 ### Estimate regression models
 
-My tables often use similar sets of control variables with different sets of fixed effects. Content note: this is a regression annual automobile fatalities on a few variables, including the unemployment rate, income, beer taxes, and miles driven. The causal inference economist in me is required to disclose that I don't think we're estimating true causal effects here, but it's a nice example for a table. I use use `etable` at the end of this chunk for a quick view of the estimates.
+My tables often use similar sets of control variables with different sets of fixed effects. Content note: this is a regression of annual automobile fatalities on a few variables, including the unemployment rate, income, beer taxes, and miles driven. The causal inference economist in me is required to disclose that I don't think we're estimating true causal effects here, but it's a nice example for a table. I use `etable` at the end of this chunk for a quick view of the estimates.
 
 ```{r estimate-models}
 

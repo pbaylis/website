@@ -252,7 +252,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <section id="load-stuff" class="level3">
 <h3 class="anchored" data-anchor-id="load-stuff">Load stuff</h3>
-<p>First, we gotta load some stuff. I’m going to use <a href="https://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html"><code>pacman</code></a> for package management, the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> for general data manipulation, <code>AER</code> for some data on automobile fatatalies, <a href="https://modelsummary.com/"><code>modelsummary</code></a> for summary statistics, <a href="https://bookdown.org/yihui/rmarkdown-cookbook/kableextra.html"><code>kableExtra</code></a> for some extra table formatting, and the inimitable <a href="https://lrberge.github.io/fixest/"><code>fixest</code></a> for estimating regressions and making the regression tables.</p>
+<p>First, we gotta load some stuff. I’m going to use <a href="https://trinker.github.io/pacman/vignettes/Introduction_to_pacman.html"><code>pacman</code></a> for package management, the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> for general data manipulation, <code>AER</code> for some data on automobile fatalities, <a href="https://modelsummary.com/"><code>modelsummary</code></a> for summary statistics, <a href="https://bookdown.org/yihui/rmarkdown-cookbook/kableextra.html"><code>kableExtra</code></a> for some extra table formatting, and the inimitable <a href="https://lrberge.github.io/fixest/"><code>fixest</code></a> for estimating regressions and making the regression tables.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -275,7 +275,7 @@ Note
 </section>
 <section id="rescale-and-relabel-variables" class="level3">
 <h3 class="anchored" data-anchor-id="rescale-and-relabel-variables">Rescale and relabel variables</h3>
-<p>Next we need to do some cleaning up. I find it’s useful to have my variables on similar scales for regressions and I want to make sure I’m describing those variables accurately, so before I do anything I rescale and rename variables appropriately. This is also a good time to define a data dictionary here to clean up displayed variable names later.</p>
+<p>Next we need to do some cleaning up. I find it’s useful to have my variables on similar scales for regressions, and I want to make sure I’m describing those variables accurately, so before I do anything I rescale and rename variables appropriately. This is also a good time to define a data dictionary to clean up displayed variable names later.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Rescale and label variables</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> Fatalities <span class="sc">%&gt;%</span></span>
@@ -352,7 +352,7 @@ Note
 </section>
 <section id="turn-into-latex" class="level3">
 <h3 class="anchored" data-anchor-id="turn-into-latex">Turn into LaTeX</h3>
-<p>Now we can combine the two tables and save them as <code>.tex</code> files. This requires a tiny bit of hacking to jam the tables together. Note that save the output using the <code>output = "latex_tabular"</code> option to get only the tabular environment. This is useful because it lets me set captions and tables notes in the LaTeX document itself.</p>
+<p>Now we can combine the two tables and save them as <code>.tex</code> files. This requires a tiny bit of hacking to jam the tables together. Note the call to <code>kbl</code> and the options it uses yield only the <code>tabular</code> portion of the table in the output. This is useful because it lets me set captions and table notes in the LaTeX document itself.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To combine, align first names</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(counts)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(counts)] <span class="ot">&lt;-</span> <span class="fu">names</span>(variable_distributions)[<span class="dv">1</span><span class="sc">:</span><span class="fu">ncol</span>(counts)]</span>
@@ -362,13 +362,15 @@ Note
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Replace NAs with empty strings</span></span>
 <span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>summary_stats[<span class="fu">is.na</span>(summary_stats)] <span class="ot">&lt;-</span> <span class="st">" "</span></span>
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_df</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">kbl</span>(</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  summary_stats,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"kableExtra"</span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_rows</span>(<span class="st">"Variables"</span>, <span class="at">start_row =</span> <span class="dv">1</span>, <span class="at">end_row =</span> <span class="fu">nrow</span>(variable_distributions), <span class="at">bold =</span> F, <span class="at">italic =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_rows</span>(<span class="st">"Counts"</span>, <span class="at">start_row =</span> <span class="fu">nrow</span>(variable_distributions) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">end_row =</span> <span class="fu">nrow</span>(summary_stats), <span class="at">bold =</span> F, <span class="at">italic =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">write_lines</span>(<span class="st">"summary-stats.tex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">format =</span> <span class="st">"latex"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">booktabs =</span> T,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">linesep =</span> <span class="st">""</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_rows</span>(<span class="st">"Variables"</span>, <span class="at">start_row =</span> <span class="dv">1</span>, <span class="at">end_row =</span> <span class="fu">nrow</span>(variable_distributions), <span class="at">bold =</span> F, <span class="at">italic =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_rows</span>(<span class="st">"Counts"</span>, <span class="at">start_row =</span> <span class="fu">nrow</span>(variable_distributions) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">end_row =</span> <span class="fu">nrow</span>(summary_stats), <span class="at">bold =</span> F, <span class="at">italic =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">save_kable</span>(<span class="st">"summary-stats.tex"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 </section>
@@ -377,7 +379,7 @@ Note
 <p>I’m a big fan of <code>fixest</code> for estimating regressions. It is extremely fast for models with lots of observations and fixed effects, and it includes a very nice set of functions for summarizing regression output. First we’ll estimate the models, then we’ll make the table.</p>
 <section id="estimate-regression-models" class="level3">
 <h3 class="anchored" data-anchor-id="estimate-regression-models">Estimate regression models</h3>
-<p>My tables often use similar sets of control variables with different sets of fixed effects. Content note: this is a regression annual automobile fatalities on a few variables, including the unemployment rate, income, beer taxes, and miles driven. The causal inference economist in me is required to disclose that I don’t think we’re estimating true causal effects here, but it’s a nice example for a table. I use use <code>etable</code> at the end of this chunk for a quick view of the estimates.</p>
+<p>My tables often use similar sets of control variables with different sets of fixed effects. Content note: this is a regression of annual automobile fatalities on a few variables, including the unemployment rate, income, beer taxes, and miles driven. The causal inference economist in me is required to disclose that I don’t think we’re estimating true causal effects here, but it’s a nice example for a table. I use <code>etable</code> at the end of this chunk for a quick view of the estimates.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>fmla <span class="ot">&lt;-</span> <span class="st">"fatal1000s ~ unemprate + income1000s + beertax + miles1000s"</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
