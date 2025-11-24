@@ -278,7 +278,7 @@ window.Quarto = {
 <span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">class</span>(object) <span class="sc">==</span> <span class="st">"fixest"</span>) {</span>
 <span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        B <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">coef</span>(object))</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        df <span class="ot">&lt;-</span> <span class="fu">attributes</span>(<span class="fu">vcov</span>(fit_feols, <span class="at">attr =</span> T))<span class="sc">$</span>dof.K</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        df <span class="ot">&lt;-</span> <span class="fu">attributes</span>(<span class="fu">vcov</span>(fit_feols, <span class="at">attr =</span> T))<span class="sc">$</span>df.K</span>
 <span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> <span class="cf">if</span> (<span class="fu">class</span>(object) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"lm"</span>, <span class="st">"felm"</span>)) { </span>
 <span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>        B <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(object<span class="sc">$</span>coef)</span>
 <span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>        df <span class="ot">&lt;-</span> object<span class="sc">$</span>df.residual</span>
@@ -338,16 +338,10 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Note that this function also works with <code>lm</code> and <code>felm</code>, though there’s little reason to use it for <code>lm</code> given that <code>predict.lm</code> works (and provides more functionality).</p>
+<p>Note that this function also works with <code>lm</code>, though I’m not sure why you would use it given that <code>predict.lm</code> provides all of the functionality above and more.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> data)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>preds_lm <span class="ot">&lt;-</span> <span class="fu">predict_partial</span>(fit_lm, newdata, <span class="at">se.fit =</span> T, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lfe)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Loading required package: Matrix</code></pre>
-</div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit_felm <span class="ot">&lt;-</span> <span class="fu">felm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>), <span class="at">data =</span> data)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>preds_felm <span class="ot">&lt;-</span> <span class="fu">predict_partial</span>(fit_felm, newdata, <span class="at">se.fit =</span> T, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>preds_lm <span class="ot">&lt;-</span> <span class="fu">predict_partial</span>(fit_lm, newdata, <span class="at">se.fit =</span> T, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>In any case, I’m happy to finally close this issue, given that it’s been on my mind for <a href="https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package">almost six years</a>.</p>
 

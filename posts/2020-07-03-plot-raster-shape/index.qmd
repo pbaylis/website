@@ -1,0 +1,60 @@
+---
+title: "Overlaying a raster and shapefile"
+description: "A quick example of how to plot a raster and shapefile overlay in R"
+author: "Patrick Baylis"
+date: 2020-07-03
+draft: false
+format: 
+  html:
+    page-layout: full
+categories:
+  - R
+  - spatial
+---
+
+::: {.callout-note}
+# 2025 Update
+
+I've updated this post to use a different raster dataset (the National Burned Area Composite) and the `bcmaps` package to get a shapefile of British Columbia. The basic approach is the same, though the code has been modernized a bit.
+:::
+
+I'm often overlaying rasters with shapefiles in order to get, for example, the area burned in BC over the last 40+ years. I've found that it's very important that I **map my data** when I'm doing this sort of thing, to make sure that I'm not making any boneheaded mistakes (e.g., using the wrong projection). 
+
+Here's an example of a map like that, where the color of the cells indicates whether or not we have data there, plus the code I used to create it. You'll need to download the raster file yourself (see comments in code).
+
+![BC Burned Area Overlay (1972-2024)](map.png)
+
+```{r, eval = F}
+pacman::p_load(raster, tidyverse, sf, cowplot, ncdf4, bcmaps)
+
+# Load 250m National Burned Area Composite
+# HTML Source: https://cwfis.cfs.nrcan.gc.ca/ha/nfdb?type=nbac&year=9999
+# Source: https://cwfis.cfs.nrcan.gc.ca/downloads/nbac/NBAC_MRB_1972to2024_250m.tif.zip
+nbac_rast <- raster("~/Downloads/NBAC_MRB_1972to2024_250m.tif/NBAC_MRB_1972to2024_250m.tif")
+
+# Load a shapefile of BC and transform to raster CRS
+bc_rd <- bc_bound() %>% st_transform(proj4string(nbac_rast))
+
+# Crop raster to extent of BC
+nbac_rast <- crop(nbac_rast, extent(bc_rd))
+
+# Downsample raster for faster plotting
+nbac_rast <- aggregate(nbac_rast, fact = 10)
+
+nbac_rast <- as.data.frame(nbac_rast, xy = TRUE)
+names(nbac_rast)[3] <- "value"
+nbac_rast <- nbac_rast %>% 
+  mutate(data_present = factor(!is.na(value), levels = c(FALSE, TRUE), labels = c("No", "Yes")))
+
+# Make a plot with the shapefile and boxes for the raster cells, where gray cells indicate no data.
+p <- ggplot(data = nbac_rast) + 
+  geom_sf(data = bc_rd, fill = NA, colour = "black") + 
+  geom_tile(data = nbac_rast, mapping = aes(x = x, y = y, fill = data_present), alpha = 0.5) + 
+  scale_fill_viridis_d(name = "Burned? (1972-2024)", labels = c("No", "Yes"), option = "E") +
+  theme_map() 
+
+save_plot("map.png", plot = p)
+```
+
+
+

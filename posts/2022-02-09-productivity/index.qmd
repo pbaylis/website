@@ -1,5 +1,6 @@
 ---
 title: "Productivity and the work habits that work (for me)"
+description: "Thoughts on productivity, habits, and tools to (try to) do good work while not burning out."
 layout: post
 date: 2022-02-09
 categories: productivity

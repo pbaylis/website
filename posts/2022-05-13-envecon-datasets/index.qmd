@@ -1,5 +1,6 @@
 ---
-title: "A catalog of datasets for environmental economics"
+title: "Datasets for environmental economics"
+description: "A (work-in-progress) catalog of datasets relevant to environmental economics research"
 author: Patrick Baylis
 layout: post
 date: 2022-05-13

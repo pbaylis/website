@@ -1,5 +1,7 @@
 ---
 title: "Making better tables"
+description: "A guide to making better data summary and regression tables in R and LaTeX"
+author: "Patrick Baylis"
 layout: post
 date: 2021-05-30
 categories: analysis
