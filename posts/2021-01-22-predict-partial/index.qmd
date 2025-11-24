@@ -12,6 +12,11 @@ categories:
   - prediction
 ---
 
+::: {.callout-note}
+## 2025 Update
+The approach detailed here has been made (mostly) obsolete by the `comparisons()` function in the [marginaleffects](https://github.com/vincentarelbundock/marginaleffects) package. I wrote up a similar post using that package [here](/posts/2025-09-25-predict-update/). That being said, the `predict_partial` function below is still useful to me when I'm trying to do something very particular, so I leave it up for posterity.
+:::
+
 In climate economics and in other settings, we often would like to estimate a **response function**, or the outcome as a function of some covariate, i.e., $y = f(T)$. Most of the time, $T$ stands for temperature. Figure 3 in [Carleton and Hsiang (2016)](https://science.sciencemag.org/content/353/6304/aad9837) documents a bunch of different response functions from the literature.
 
 ![Carleton and Hsiang (2016), Figure 3](carleton-hsiang-fig3.png)
@@ -58,7 +63,7 @@ predict_partial <- function(object, newdata, se.fit = FALSE,
     
     if (class(object) == "fixest") {
         B <- as.numeric(coef(object))
-        df <- attributes(vcov(fit_feols, attr = T))$dof.K
+        df <- attributes(vcov(fit_feols, attr = T))$df.K
     } else if (class(object) %in% c("lm", "felm")) { 
         B <- as.numeric(object$coef)
         df <- object$df.residual
@@ -112,14 +117,11 @@ ggplot(plot_df, aes(x = x, y = fit)) +
     theme_cowplot()
 ```
 
-Note that this function also works with `lm` and `felm`, though there's little reason to use it for `lm` given that `predict.lm` works (and provides more functionality).
+Note that this function also works with `lm`, though I'm not sure why you would use it given that `predict.lm` provides all of the functionality above and more.
 
 ```{r}
 fit_lm <- lm(y ~ x + I(x^2), data = data)
 preds_lm <- predict_partial(fit_lm, newdata, se.fit = T, interval = "confidence")
-library(lfe)
-fit_felm <- felm(y ~ x + I(x^2), data = data)
-preds_felm <- predict_partial(fit_felm, newdata, se.fit = T, interval = "confidence")
 ```
 
 In any case, I'm happy to finally close this issue, given that it's been on my mind for [almost six years](https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package).

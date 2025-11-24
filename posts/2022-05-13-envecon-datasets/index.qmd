@@ -1,13 +1,15 @@
 ---
-title: "A catalog of datasets for environmental economics"
-description: "A curated list of datasets useful for applied environmental economics research"
-author: "Patrick Baylis"
+title: "Datasets for environmental economics"
+description: "A (work-in-progress) catalog of datasets relevant to environmental economics research"
+author: Patrick Baylis
+layout: post
 date: 2022-05-13
 format: 
   html:
     page-layout: full
-categories:
-  - data
+categories: [data]
+tags:
+- datasets
 ---
 
 With the help of Keith Kirchner, one of our all-star graduate students, I've started to put together a catalog of datasets relevant to environmental economics research. I teach several classes where research design is a main emphasis, and many students have found it useful to have a list of datasets that are out there as they begin thinking about potential research ideas.

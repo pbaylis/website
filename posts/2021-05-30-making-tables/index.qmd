@@ -1,15 +1,14 @@
 ---
 title: "Making better tables"
-description: "Best practices for generating data summary and regression tables in R using kableExtra and fixest"
+description: "A guide to making better data summary and regression tables in R and LaTeX"
 author: "Patrick Baylis"
+layout: post
 date: 2021-05-30
-format: 
-  html:
-    page-layout: full
-categories:
-  - R
-  - latex
-  - analysis
+categories: analysis
+tags:
+- latex
+- fixest
+- kable
 ---
 
 ::: {.callout-note}

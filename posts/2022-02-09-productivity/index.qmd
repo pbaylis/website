@@ -1,15 +1,12 @@
 ---
 title: "Productivity and the work habits that work (for me)"
-description: "Principles, habits, and tools for doing good work sustainably as an academic researcher"
-author: "Patrick Baylis"
+description: "Thoughts on productivity, habits, and tools to (try to) do good work while not burning out."
+layout: post
 date: 2022-02-09
-format: 
-  html:
-    page-layout: full
-categories:
-  - productivity
-  - habits
-  - academia
+categories: productivity
+tags:
+- habits
+- productivity
 ---
 
 ::: {.callout-note}

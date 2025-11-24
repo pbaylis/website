@@ -1,49 +1,57 @@
 ---
 title: "Overlaying a raster and shapefile"
-description: "Visualizing raster and vector data together to verify spatial operations"
+description: "A quick example of how to plot a raster and shapefile overlay in R"
 author: "Patrick Baylis"
 date: 2020-07-03
+draft: false
 format: 
   html:
     page-layout: full
 categories:
   - R
   - spatial
-  - GIS
 ---
 
-I'm often overlaying rasters with shapefiles in order to get, for example, the average weather for Indonesia. I've found that it's immensely important that I __map my data__ when I'm doing this sort of thing, to make sure that I'm not making any boneheaded mistakes (e.g., using the wrong projection). Here's an example of a map like that, where the color of the cells indicates whether or not we have data there, plus the code I used to create it.
+::: {.callout-note}
+# 2025 Update
 
-![Indonesia + UDel precip raster overlay](/img/map.png)
+I've updated this post to use a different raster dataset (the National Burned Area Composite) and the `bcmaps` package to get a shapefile of British Columbia. The basic approach is the same, though the code has been modernized a bit.
+:::
+
+I'm often overlaying rasters with shapefiles in order to get, for example, the area burned in BC over the last 40+ years. I've found that it's very important that I **map my data** when I'm doing this sort of thing, to make sure that I'm not making any boneheaded mistakes (e.g., using the wrong projection). 
+
+Here's an example of a map like that, where the color of the cells indicates whether or not we have data there, plus the code I used to create it. You'll need to download the raster file yourself (see comments in code).
+
+![BC Burned Area Overlay (1972-2024)](map.png)
 
 ```{r, eval = F}
-library(tidyverse)
-library(sf)
-library(raster)
-library(cowplot)
+pacman::p_load(raster, tidyverse, sf, cowplot, ncdf4, bcmaps)
 
-# Load UDEL raster data
-# Source: ftp://ftp.cdc.noaa.gov/Datasets/udel.airt.precip/precip.mon.ltm.v501.nc
-rast <- raster("precip.mon.ltm.v501.nc")
+# Load 250m National Burned Area Composite
+# HTML Source: https://cwfis.cfs.nrcan.gc.ca/ha/nfdb?type=nbac&year=9999
+# Source: https://cwfis.cfs.nrcan.gc.ca/downloads/nbac/NBAC_MRB_1972to2024_250m.tif.zip
+nbac_rast <- raster("~/Downloads/NBAC_MRB_1972to2024_250m.tif/NBAC_MRB_1972to2024_250m.tif")
 
-# Load Indonesia shapefile, tranform to raster CRS, and simplify for performance
-# Source: https://gadm.org/download_country_v3.html
-poly <- readRDS("IDN_adm1.sf.rds") %>% 
-  st_transform(proj4string(rast)) %>%
-  st_simplify(0.01, preserveTopology = TRUE)
+# Load a shapefile of BC and transform to raster CRS
+bc_rd <- bc_bound() %>% st_transform(proj4string(nbac_rast))
 
-# Crop global raster to extent of polygon
-rast <- crop(rast, extent(poly))
+# Crop raster to extent of BC
+nbac_rast <- crop(nbac_rast, extent(bc_rd))
 
-rast_df <- as.data.frame(rast, xy = TRUE)
-names(rast_df)[3] <- "value"
+# Downsample raster for faster plotting
+nbac_rast <- aggregate(nbac_rast, fact = 10)
+
+nbac_rast <- as.data.frame(nbac_rast, xy = TRUE)
+names(nbac_rast)[3] <- "value"
+nbac_rast <- nbac_rast %>% 
+  mutate(data_present = factor(!is.na(value), levels = c(FALSE, TRUE), labels = c("No", "Yes")))
 
 # Make a plot with the shapefile and boxes for the raster cells, where gray cells indicate no data.
-p <- ggplot(data = rast_df) + 
-  geom_sf(data = poly, fill = NA, colour = "blue", size = 0.25) + 
-  geom_tile(data = rast_df %>% filter(is.na(value)), mapping = aes(x = x, y = y), size = 0.25, fill = NA, color = alpha("gray", 0.25)) +
-  geom_tile(data = rast_df %>% filter(!is.na(value)), mapping = aes(x = x, y = y), size = 0.25, fill = NA, color = alpha("red", 0.5)) +
-  theme_map()
+p <- ggplot(data = nbac_rast) + 
+  geom_sf(data = bc_rd, fill = NA, colour = "black") + 
+  geom_tile(data = nbac_rast, mapping = aes(x = x, y = y, fill = data_present), alpha = 0.5) + 
+  scale_fill_viridis_d(name = "Burned? (1972-2024)", labels = c("No", "Yes"), option = "E") +
+  theme_map() 
 
 save_plot("map.png", plot = p)
 ```
