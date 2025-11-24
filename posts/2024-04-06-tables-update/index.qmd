@@ -1,6 +1,6 @@
 ---
 title: "Making LaTeX tables that look nice (2024 update)"
-description: ""
+description: "An updated guide to creating clean summary and regression tables using modelsummary, fixest, and kableExtra"
 author: "Patrick Baylis"
 date: 2024-04-06
 format: 
@@ -9,6 +9,7 @@ format:
 categories:
   - R
   - latex
+  - analysis
 ---
 
 I haven't been very good at updating the blog recently,^[An understatement. I've been very bad at updating it.] but it feels like as good a time as any for an update on how to make basic but nice-looking LaTeX tables with relatively little coding effort. This post is an update to this [post from 2021](/posts/2021-05-30-making-tables/2021-05-30-making-tables.qmd), which was itself an update to a [post from 2019](/posts/2019-11-25-r-reg-tables/2019-11-25-r-reg-tables.qmd). I'll leave the discussion of philosophies around table-making to the 2021 post and get right to the good stuff: we're going to make these two tables.

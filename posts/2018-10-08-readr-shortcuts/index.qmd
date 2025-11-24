@@ -1,0 +1,30 @@
+---
+title: "Things I forget: readr shortcuts"
+description: "Single-character shortcuts for readr column type specifications"
+author: "Patrick Baylis"
+date: 2018-10-08
+format:
+  html:
+    page-layout: full
+categories:
+  - R
+  - data-import
+  - reference
+---
+
+`readr` is a the swiss-army knife of data ingestion: it's my tool of choice for reading in text data in R, not least because I'm spending more time using the [tidyverse](https://www.tidyverse.org/) these days. The `readr` documentation is a little lacking in that it's actually kind of hard to track down the single-character shortcuts for various column types. Without further ado:
+
+```{r, eval = F}
+"-" = col_skip()
+"?" = col_guess()
+c = col_character()
+D = col_date()
+d = col_double()
+i = col_integer()
+l = col_logical()
+n = col_number()
+T = col_datetime()
+t = col_time()
+```
+
+Source: https://github.com/tidyverse/readr/blob/master/R/col_types.R

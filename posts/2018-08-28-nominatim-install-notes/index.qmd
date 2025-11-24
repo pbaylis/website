@@ -1,0 +1,72 @@
+---
+title: "Nominatim for offline geocoding"
+description: "Installation and setup notes for offline geocoding with Nominatim"
+author: "Patrick Baylis"
+date: 2018-08-28
+format:
+  html:
+    page-layout: full
+categories:
+  - geocoding
+  - tools
+  - postgresql
+---
+
+I needed to geocode around 20 million addresses. Normally I could just pay geocod.io to do this for me, but because of the contractual confidentiality requirements around these addresses, it had to be done offline. So I went hunting for an offline geocoder and decided to go with Nominatim, though a blog post I found after I had mostly completed the install suggested that there may be better options: according to this helpful [blog](https://danpelota.com/blog/geocoder-showdown-part-3/), Nominatim is most accurate _within the range of addresses it geocodes_, but it doesn't geocode many addresses.  
+
+# Nominatim installation 
+
+I built Nominatim 3.2.0 on my Ubuntu 18.04 system following these [instructions](http://nominatim.org/release-docs/latest/appendix/Install-on-Ubuntu-18/). I didn't _intend_ to install Nominatim on a fresh system, but since I accidentally wiped out my old OS remotely (oops), that is what happened. 
+
+## Modifications to installation procedure
+The tutorial is quite good, but there are a few things that I had to figure out and/or do differently:
+
+- It wasn't totally obvious when to switch over to nominatim user, but it seems clear that the import should be done while logged in to that account.
+- Also had to set a password with `sudo passwd nominatim` before I could log into the account to install
+- The Apache configuration instructions are a little premature, need to actually install Nominatim first
+- I installed osmium to merge files (`sudo apt-get install osmium-tool`)
+  - `osmium merge file1.pbf file2.pbf file3.pbf...
+- Modified the code to set up the Apache webserver to point to the correct Nominatim directory
+- Skipped special key phrases
+- Note that TIGER setup script (and some other scripts) need to be run from within the `build/` directory
+- Did not install any update capability (I want a static db)
+
+Also, a useful hint: If you screw up the database import or just want to redo it, you can drop the database using `dropdb nominatim`. 
+
+## Postgresql configuration
+My server has 24 cores, 128GB memory, and a 500GB SSD. These are the settings in `/etc/postgresql/10/main/postgresql.conf` that I used:
+
+```{bash, eval = FALSE}
+shared_buffers (4GB)
+maintenance_work_mem (16GB)
+work_mem (50MB)
+effective_cache_size (24GB)
+synchronous_commit = off
+checkpoint_timeout = 10min
+checkpoint_completion_target = 0.9
+fsync (off) -- (for import only, then set to on)
+full_page_writes (off) -- (for import only, then set to on)
+```
+
+
+# Script to call Nominatim (python)
+
+The underlying address data (and Nominatim itself) is not perfect. To try to account for possible missing responses, I resend queries as necessary until some response is obtained. The script I use in python and uses [geopy](https://geopy.readthedocs.io/en/stable/), pointed at my local Nominatim install.
+
+## Search hierarchy
+Note that Nominatim will return no result if it has an excess of information. For example, 729 Oneida Pl., Madison WI 53713 returns no result (bad ZIP), but 729 Oneida Pl., Madison WI works.  Search hierarchy:
+
+1. NUMBER, ADDRESS, CITY, STATE, ZIP
+2. NUMBER, ADDRESS, ZIP
+2. NUMBER, ADDRESS, CITY, STATE
+3. ZIP
+4. CITY, STATE
+
+Note also that if you feed it a bad number (e.g., 600 Oneida Pl., Madison WI 53711, which does not exist) it will pick the centroid of the street. 
+
+## Parallelization
+Parallelizing the code provides a HUGE boost to performance. I use the `multiprocessing` Python package, which makes it relatively straightforward. Since I'm already using [pandas](https://pandas.pydata.org) in the code, I tried to use [swifter](https://github.com/jmcarpenter2/swifter) to simplify the code, but I wasn't able to get it to work.
+
+# Other useful references
+- https://andrewwhitby.com/2014/12/18/nominatim-on-ec2/
+- https://blog.bigbinary.com/2018/08/21/setting-up-a-high-performance-geocoder.html

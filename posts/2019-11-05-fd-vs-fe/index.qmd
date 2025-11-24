@@ -1,0 +1,51 @@
+---
+title: "FD vs FE and new tidyr commands"
+description: "Demonstrating the numerical equivalence of first differences and fixed effects for two periods using tidyr"
+author: "Patrick Baylis"
+date: 2019-11-05
+format: 
+  html:
+    page-layout: full
+categories:
+  - R
+  - econometrics
+---
+
+For two periods, first differences is numerically equivalent to a fixed effect model. The following code reproduces that result, using the (new) `pivot_longer` and `pivot_wider` commands from `tidyr`. 
+
+```r
+library(tidyverse)
+library(lfe)
+library(broom)
+
+# Create some fake data
+
+data <- as_tibble(expand.grid(group = c("A", "B"),
+                              period = 0:1))
+
+data <- data %>% 
+    mutate(x = rnorm(nrow(.)))  %>% 
+    mutate(y = 3*x + period * 1.5 + rnorm(nrow(.)))
+
+# Long differences ----
+
+# Reshape long-then-wide so that variable names are row IDs, take differences, reshape wide again to get differences
+ld <- data %>% 
+    pivot_longer(c(x, y),
+                 names_to = "var") %>%
+    pivot_wider(id_cols = c(group, var),
+                names_from = period,
+                names_prefix = "period",
+                values_from = "value") %>%
+    mutate(diff = period1 - period0) %>%
+    pivot_wider(id_cols = c(group), 
+                names_from = var,
+                names_prefix = "diff_",
+                values_from = diff)
+
+# LD
+tidy(lm(diff_y ~ diff_x - 1, data = ld))
+
+# FE
+tidy(lm(y ~ x + group, data = data))
+```

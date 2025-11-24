@@ -1,0 +1,58 @@
+---
+title: "How to save a stream of tweets"
+description: "Comparing strategies for saving Twitter streaming data, including SQLite databases, JSON files, and MongoDB, with trade-offs in storage space and processing efficiency."
+author: "Patrick Baylis"
+date: 2016-05-18
+format: 
+  html:
+    page-layout: full
+categories:
+  - data
+  - Python
+  - MongoDB
+  - JSON
+  - Twitter
+---
+
+::: {.callout-note}
+Update (July 2020): I no longer use this process, since now I save the raw tweets as JSONs and convert to CSVs for processing later. This takes up more hard drive space, but preserves the raw data.
+:::
+
+The Twitter Streaming API returns each tweet as a JSON. My current implementation transforms that multi-level JSON object into a flat set of key-value pairs and saves those to a SQLite database. That transformation does not preserve the considerable amount of data available in the JSON, however.
+
+Today, I wanted to determine better strategy for saving the entire JSON. Major considerations are, in no particular order, storage space required, ability to consume throughput, and the time required to extra the raw data into a format ready for analysis. My working assumption from is that client will be consuming roughly 2.4 million tweets per day, though in reality it is probably more like 1.5. Three options on the table, including the current system:
+
+1. Current system: Save to relational DB on download
+    - Pros
+        - 0.3 gb per day (roughly)
+        - Fairly fast to move to analysis
+        - Could be better for real-time
+    - Cons
+        - Lossy, we may want data for other projects
+        - Kludgy code, data transformations make it more breakable
+2. JSON files: Save raw JSON, compress all tweets at the end of the day
+    - Pros
+        - Saves all data
+        - No need to deal with MongoDB
+        - When updating dataset, can just import dates not already included
+        - Cleaner code
+    - Cons
+        - 1 gb per day (using daily `bz2` compression)
+        - 2.4m files created per day (file system stress)
+        - Compression is time-consuming (file system stress)
+        - Preparation for analysis could be time-consuming
+        - (Long-term) Difficult to use for real-time system?
+3. MongoDB: Save JSON to MongoDB
+    - Pros
+        - Saves all data
+        - Little stress on file system
+        - Transformation to data analysis should be easier than with files
+        - Elegant, cleaner code
+    - Cons
+        - 1 gb per day (using zlib)
+        - `zlib` compression is comparable to `bz2`; code below
+        `db.create_collection('test', storageEngine={'wiredTiger':{'configString':'block_compressor=zlib'}})
+        `
+        - Lack of knowledge about using MongoDB: unknown unknowns?
+
+Until I have a server with a sufficient amount of space, I'm inclined to let the linux box continue to do its thing. Once I have access to a server with 1TB+ space, I like the MongoDB option.

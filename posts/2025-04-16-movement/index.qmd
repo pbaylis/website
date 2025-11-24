@@ -1,6 +1,6 @@
 ---
 title: "Movement is medicine"
-description: ""
+description: "How new research on cartilage repair and gradual loading helped me return to ultrarunning after a devastating knee injury"
 author: "Patrick Baylis"
 date: 2025-04-16
 draft: true
@@ -10,6 +10,7 @@ format:
 categories:
   - running
   - knee
+  - health
 ---
 
 (This is a digression from my usual fare of economics and data science-y posts to talk about trying to maintain a different love: exercise.)

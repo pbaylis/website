@@ -1,0 +1,146 @@
+---
+title: "Econometrics for Dummies: GMM"
+description: "A simple introduction to the Generalized Method of Moments"
+author: "Patrick Baylis"
+date: 2019-04-16
+draft: true
+format:
+  html:
+    page-layout: full
+categories:
+  - econometrics
+  - statistics
+  - tutorial
+---
+
+I'm embarassed to admit that a lot "core" econometric concepts are vague to me. I (sometimes) remember a lecture or two on them in graduate school, but having never had need to implement them myself, I would be hard-pressed to describe cogently what they are, let alone code them up. To fill these gaps, this series will review some of these concepts in the simplest terms possible, since that -- for me -- is the best way to learn.
+
+GMM, or the Generalized Method of Moments, is one such concept. To better understand it, we'll need to start from some more basic principles that may or may not be familiar. First, we'll discuss moments, then the (ungeneralized) method of moments, and finally GMM itself.
+
+# Moments
+
+"Moments" are just fancy ways of describing the distibutions of random variables. You'll see shortly that you're already familiar with a couple of them. Given a random variable $X$ (and some unrestrictive assumptions about its distribution), the mathematical definition of a "raw moment" is:
+
+$$ E[X^n] $$
+The mean is actually the first raw moment, and the only raw moment we really use. We typically define it as $\mu = E[X]$. Beyond the mean, all of the other moments we use in practice are "central moments", which are in general given as and are the expectation of the $n$-exponentiated difference between $X$ and its mean $u$:
+
+$$ \mu_n = E[(X - \mu)^n] $$
+
+The most familiar central moment is the second central moment, which we call the variance. We often write the variance as $\sigma = E[(X - \mu)^2] = E[X^2] - E[X]^2$. You can get that second equality with a little bit of algebra.
+
+The subsequent central moments are called the "skewness" and "kurtosis". They can help describe more complex distributions. Note that, for example, the mean and variance and sufficient to describe any normally-distributed random variable. 
+
+Besides these population moments, there are sample moments, which look very similar and are defined as follows
+
+\begin{align*}
+M_k &= \frac{1}{n} \sum_{i=1}^n X_i^k \\ 
+M_k^* &= \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^k 
+\end{align*}
+
+# Method of Moments
+
+The (simple) method of moments is the oldest way to estimate population parameters from observed data. The idea is really simple: suppose you have a random variable from a known distribution with unknown parameters. To estimate those parameters, you just set the population moments equal to the sample moments. It asserts, based on the Law of Large Numbers, that given a set of draws $i = 1, \ldots, N$ from the random variable X, we can estimate the $n$th population moment with the $n$th sample moment as follows:
+
+$$ \frac{1}{N} \sum_{i=1}^N X_i^n = E[X^n] $$
+If we do this for as many moments as define our data-generating process (here, the distribution), we'll have $n$ equations with $n$ unknowns, which we can simply solve.
+
+## A trivial example 
+
+Here's a trivial example of how this works ([source](https://newonlinecourses.science.psu.edu/stat414/node/193/)). Suppose we observe a set of random variables $X_1, \ldots, X_n$ drawn from a normal distribution with unknown mean $\mu$ and variance $\sigma^2$. We want to derive the estimators for these parameters using the method of moments. First, we can compute the population moments. We'll use the first moment about the origin and the second moment about the mean. These are 
+
+$$ E[X] = \mu $$
+$$ E[X^2] - E[X]^2 = \sigma^2 $$
+
+Next, we compute the sample moments. These are going to look very similar, except now these represent real observations from our sample.
+
+$$ M_1 = \frac{1}{n} \sum_{i=1}^n X_i = \bar{X} $$
+$$ M_2^* = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2 $$
+
+The "trick" to the method of moments is that we can just set the population moments equal to the sample moments and solve for the parameters $\hat{\mu}$ and $\hat{\sigma}^2$, which now have hats because they're estimators. So we have:
+
+$$\hat{\mu} = \bar{X}$$
+
+and 
+
+$$\hat{\sigma}^2 = \frac{1}{n} \sum_{i=1}^n (X_i - \bar{X})^2$$ 
+
+Now we solve for $\hat{\mu}$ and $\hat{\sigma^2}$. But wait -- these equations have already been solved! So we're done.
+
+## A (slightly) less trivial example
+
+That feels a bit too on the nose to be informative, so let's try this again but instead we'll use the raw moments for both the first and second moments. Skipping to the second moment (since we already did the first raw moment above), we get the population moment:
+
+$$ E[X^2] = E[X^2] - E[X]^2 + E[X]^2 = Var(X) + E[X]^2 = \sigma^2 + \mu^2 $$
+
+Note that we used the definition of population variance, AKA the central moment, to derive this formula for the raw variance. Now we can compute the sample equivalent:
+
+$$ M_2 = \frac{1}{n} \sum_{i = 1}^{n} X_i^2 $$
+Setting this equal to our expression above gives
+
+\begin{align*}
+\sigma^2 + \mu^2 &=  \frac{1}{n} \sum_{i = 1}^{n} X_i^2 \\
+\sigma^2 &=  \frac{1}{n} \sum_{i = 1}^{n} X_i^2 - \mu^2 \\
+\hat{\sigma}^2 &= \frac{1}{n} \sum_{i = 1}^{n} (X_i - \bar{X})^2
+\end{align*}
+
+Note that getting from the second to the third lines requires a few algebraic steps that I skip.
+
+## OLS as an MOM estimator 
+
+Start with a data generating process that takes the following form:
+
+$$ y = \alpha + \beta x + u $$ 
+
+Note that we want to estimate both $\alpha$ and $\beta$, so we need _two_ moment conditions. We'll start with the (benign) assumption that $E[u] = 0$. This assumption is benign because we included the intercept, $\alpha$. 
+
+The other assumption we'll need is that $\text{Cov}(x, u) = 0$. This isn't so benign. This is an _unconfoundedness_ assumption, which basically asserts that this model doesn't suffer from any endogeneity problems. Since this is a blog post and not an econometrics class, that's as far as we'll go on that. 
+
+\begin{align*}
+E[u] &= 0 \\
+&= E[y - \alpha - \beta x] \\
+&= E[y] - E[\alpha] - E[\beta x] \\
+\alpha &= E[y] - \beta E[x]
+\end{align*}
+This is our estimator for $\alpha$, but we need to come up with an estimator for $\beta$ as well.
+
+To do this, we start with our second moment condition and the definition of covariance:
+\begin{align*}
+\text{Cov}(x,u) &= E[(x - E[x])(u - E[u])] \\
+&= E[xu - uE[x]] \\
+&= E[xu] - E[x]E[u] \\
+&= E[xu] \\
+&= E[x(y - \alpha - \beta x)] \\
+&= E[xy] - \alpha E[x] - \beta E[x^2] \\
+&= E[xy] - (E[y] - \beta E[x]) E[x] - \beta E[x^2] \\
+&= E[xy] - E[x]E[y] - \beta (E[x]^2 - E[x^2]) \\
+\beta &= \frac{E[xy] - E[x]E[y]}{E[x]^2 - E[x^2]} \\
+\end{align*}
+The above also uses that $E[u]  = 0$ and that $E[x]$ is a constant.  This should look familiar. This is the same result you can obtain from the first order conditions for OLS, but no calculus was required. From here, we simply put hats on $\alpha$ and $\beta$, replace the population expectations with sample expectations, and call it a day.
+
+Reference: http://www.nathanielhiggins.com/uploads/3/6/4/2/3642182/deriving-ols.pdf
+
+## Single-IV as an MOM estimator
+
+## Links
+
+- Method of moments [wiki](https://en.wikipedia.org/wiki/Method_of_moments_(statistics))
+- RandomServices [method of moments](http://www.randomservices.org/random/point/Moments.html)
+- Berkeley Statistics [notes](https://www.stat.berkeley.edu/~vigre/activities/bootstrap/2006/wickham_stati.pdf)
+
+# Generalized Method of Moments (GMM)
+
+One key to the method of moments estimator is that we have the same number of moment conditions as parameters to estimate. But what if we have _more_ moments than parameters, as is the case in some regression settings (e.g., when one has multiple instruments). GMM helps us combine all of these moments optimally. 
+
+## Simple example of GMM
+
+## IV with multiple instruments
+
+## Links
+
+- Penn State [STAT 414/415](https://newonlinecourses.science.psu.edu/stat414/node/193/)
+- StackExchange: [Difference between Method of Moments and GMM](https://stats.stackexchange.com/questions/287/what-is-the-difference-relationship-between-method-of-moments-and-gmm)
+- https://www.youtube.com/watch?v=pIIEmUEnjhY
+- https://www.stata.com/meeting/germany10/germany10_drukker.pdf
+
+Next up... Maximum Likelihood Estimation!
+- Peter Zsohar's GMM [notes](http://www.ksh.hu/statszemle_archive/2012/2012_K16/2012_K16_150.pdf)

@@ -1,0 +1,23 @@
+---
+title: "Things I forget: tmux for headless SSH use"
+description: "Quick reference for using tmux to run long-running SSH commands"
+author: "Patrick Baylis"
+date: 2018-09-11
+format:
+  html:
+    page-layout: full
+categories:
+  - productivity
+  - ssh
+  - tmux
+---
+
+How to run something through SSH that takes a long time without having to stay logged in:
+
+1. Log into ssh
+2. Execute `tmux`
+3. Type command
+4. `CTRL-b d` to detach tmux. You can exit ssh.
+5. When returning to server, execute `tmux attach`
+
+[Reference](https://hackernoon.com/a-gentle-introduction-to-tmux-8d784c404340)

@@ -1,6 +1,6 @@
 ---
 title: "The Knee Project: Backstory"
-description: ""
+description: "The journey from running marathons and ultras to a complex meniscus tear diagnosis and uncertain future"
 author: "Patrick Baylis"
 date: 2024-12-17
 draft: true
@@ -8,8 +8,9 @@ format:
   html:
     page-layout: full
 categories:
-  - R
-  - latex
+  - running
+  - knee
+  - health
 ---
 
 In my non-academic life, I'm a lifelong athlete. I played soccer as a kid, ultimate frisbee for most of my early adulthood, and since 2020 I've been an increasingly avid runner. I started with a mile, then a 5k, then a 10k, and, well, you know how it goes after that. As of 2024, I've run three marathons (two successfully, one not so much), three 50ks, and a 100k (pictured below). And for a 38 year old dude with little running background, I'm reasonably competitive. My best marathon was at Boston in 2023, where I ran a little over 2:40, and I can sometimes occasionally sniff the podium at local trail events.

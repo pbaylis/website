@@ -1,0 +1,110 @@
+---
+title: "Generating regression tables in R"
+description: "A workflow for creating flexible regression tables using stargazer and custom formatting"
+author: "Patrick Baylis"
+date: 2019-11-25
+format: 
+  html:
+    page-layout: full
+categories:
+  - R
+  - tables
+  - LaTeX
+---
+
+I often need to document the statistical results I [estimate](/posts/2019-06-11-making-regressions-purrr/) in table format. I have tried many, many things over the years, and none of my solutions are perfect, including the one I'm about to describe. But, it is now... pretty good. 
+
+First, I define a function that takes a list of fitted models (`models`) and some other variables and outputs a list of pieces that I can create a table with. See below for the function definition.
+
+```{r define-pieces-function, results = 'hide', message = F}
+library(stargazer)
+
+#' @param models A list of fitted models that stargazer can process
+#' @param keep Length 1 character vector of variables to display in table
+#' @param covariate.labels Labels for keep
+#' @param digits Number of digits to use for numbers in the table
+#'
+#' @return List of pieces of a tabular with named items header, inner, and footer
+make_tex_pieces <- function(models, keep, covariate.labels, digits = 2) {
+  # models: a 
+  # Use stargazer, but keep as little extra stuff as possible
+  tex_raw <- stargazer(models, 
+                       keep = keep, covariate.labels = covariate.labels, 
+                       digits = digits, 
+                       table.layout = "t", no.space = T, align = T)
+  
+  # Split up into header, footer, and inner
+  idx0 <- grep("begin{tabular}", tex_raw, fixed = T) # Start of \begin{tabular}
+  idx1 <- grep("end{tabular}", tex_raw, fixed = T) # End of \begin{tabular}
+  
+  tex_header <- c(tex_raw[idx0], "\\toprule")
+  tex_footer <- c("\\bottomrule", tex_raw[idx1])
+  
+  # Remove [-1.8ex] and get the inside of the tabular
+  tex_inner <- gsub("\\\\[-[\\.0-9]+ex]", "", tex_raw[(idx0+1):(idx1-1)])
+  
+  # Return these as a 3 element list so that the user can insert header rows (column labels)
+  # and footer rows (summary statistics, fixed effects)
+  list(header = tex_header, inner = tex_inner, footer = tex_footer)
+}
+```
+
+Once I have that function defined, I can use it to create the inside part of the table: the `tabular` command. 
+
+```{r create-tabular, results = 'asis'}
+# Load a sample dataset and run regression
+data(cars)
+fit <- lm(speed ~ dist, data = cars)
+
+# Use the function we defined above to split the regression output into different pieces of a tabulr
+pieces <- make_tex_pieces(fit, "dist", "distance")
+
+# Put the pieces back together, adding a short panel with the count of observations
+latex_output <- c(pieces$header,
+                  pieces$inner,
+                  "\\midrule",
+                  sprintf("Observations & %.0f \\\\", length(fit$model$dist)),
+                  pieces$footer)
+
+# Write to file (I leave commented)
+# write(latex_output, "model-tabular.tex") 
+latex_output
+```
+
+Next, I use the LaTeX `threeparttable` package (also used in this [post](/posts/2018-10-11-beamer-resizing/)) to display the table. Here's a minimum example. 
+
+```
+\documentclass{article}
+
+\usepackage{booktabs} % Nice-looking tables
+\usepackage{dcolumn} % Booktabs column spacing
+\usepackage{threeparttable} % Align column caption, table, and notes
+
+% Flexible notes environment based on minipage
+\newenvironment{notes}[1][Notes]{\begin{minipage}[t]{\linewidth}\normalsize{\itshape#1: }}{\end{minipage}}
+
+\begin{document}
+
+\begin{table}
+  \centering
+  \begin{threeparttable}
+  \caption{My table}
+  \input{model-tabular.tex}
+    \begin{notes}
+    * p $<$ 0.1, ** p $<$ 0.05, *** p $<$ 0.01. This regression is not confounded at all.
+    \end{notes}
+  \end{threeparttable}
+\end{table}
+
+\end{document}
+```
+
+And here's the result. 
+
+![Table output](/img/auto-table-output.png)
+
+
+Other packages you might find useful:
+
+- [huxtable](https://hughjonesd.github.io/huxtable/) is a good solution for generating _quick_ regression tables for export to Markdown or HTML. I find its LaTeX output functions fairly cumbersome.
+- [kable/kableExtra](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html) are great for general purpose table creation, but can't easily process fitted model output.
