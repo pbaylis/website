@@ -1,6 +1,6 @@
 ---
-title: "Making LaTeX tables that look nice (2024 update)"
-description: ""
+title: "Nicer LaTeX tables in R"
+description: "A 2024 update on how to streamline making better-looking LaTeX tables in R"
 author: "Patrick Baylis"
 date: 2024-04-06
 format: 
@@ -116,7 +116,7 @@ summary_stats[is.na(summary_stats)] <- " "
 
 datasummary_df(
   summary_stats,
-  output = "latex_tabular"
+  output = "kableExtra"
 ) %>%
   group_rows("Variables", start_row = 1, end_row = nrow(variable_distributions), bold = F, italic = T) %>%
   group_rows("Counts", start_row = nrow(variable_distributions) + 1, end_row = nrow(summary_stats), bold = F, italic = T) %>%

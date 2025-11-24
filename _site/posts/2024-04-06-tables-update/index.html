@@ -8,8 +8,9 @@
 
 <meta name="author" content="Patrick Baylis">
 <meta name="dcterms.date" content="2024-04-06">
+<meta name="description" content="A 2024 update on how to streamline making better-looking LaTeX tables in R">
 
-<title>Making LaTeX tables that look nice (2024 update) – Patrick Baylis</title>
+<title>Nicer LaTeX tables in R – Patrick Baylis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -175,8 +176,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page-left">
-      <h1 class="title">Making LaTeX tables that look nice (2024 update)</h1>
-                                <div class="quarto-categories">
+      <h1 class="title">Nicer LaTeX tables in R</h1>
+                  <div>
+        <div class="description">
+          A 2024 update on how to streamline making better-looking LaTeX tables in R
+        </div>
+      </div>
+                          <div class="quarto-categories">
                 <div class="quarto-category">R</div>
                 <div class="quarto-category">latex</div>
               </div>
@@ -358,7 +364,7 @@ Note
 <span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_df</span>(</span>
 <span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  summary_stats,</span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"latex_tabular"</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">output =</span> <span class="st">"kableExtra"</span></span>
 <span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>) <span class="sc">%&gt;%</span></span>
 <span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_rows</span>(<span class="st">"Variables"</span>, <span class="at">start_row =</span> <span class="dv">1</span>, <span class="at">end_row =</span> <span class="fu">nrow</span>(variable_distributions), <span class="at">bold =</span> F, <span class="at">italic =</span> T) <span class="sc">%&gt;%</span></span>
 <span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_rows</span>(<span class="st">"Counts"</span>, <span class="at">start_row =</span> <span class="fu">nrow</span>(variable_distributions) <span class="sc">+</span> <span class="dv">1</span>, <span class="at">end_row =</span> <span class="fu">nrow</span>(summary_stats), <span class="at">bold =</span> F, <span class="at">italic =</span> T) <span class="sc">%&gt;%</span></span>
