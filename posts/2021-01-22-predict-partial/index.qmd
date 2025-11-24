@@ -50,26 +50,24 @@ predict_partial <- function(object, newdata, se.fit = FALSE,
         stop("predict_partial requires newdata and predicts for all group effects = 0.")
     }
     
-    object <- fit_feols; newdata <- newdata; se.fit = T; interval = "confidence"; level = 0.95
+    # object <- fit_lm; newdata <- newdata; se.fit = T; interval = "confidence"; level = 0.95
     
     # Extract terms object, removing response variable 
     tt <- terms(object)
     Terms <- delete.response(tt)
     
-    # Remove intercept
-    attr(Terms, "intercept") <- 0
-    
-    X <- model.matrix(Terms, data = newdata)
-    
     if (class(object) == "fixest") {
+        attr(Terms, "intercept") <- 0 # Remove intercept for fixest objects
         B <- as.numeric(coef(object))
         df <- attributes(vcov(fit_feols, attr = T))$df.K
     } else if (class(object) %in% c("lm", "felm")) { 
-        B <- as.numeric(object$coef)
+        B <- object$coef
         df <- object$df.residual
     } else {
         stop("class(object) should be lm, fixest, or felm.")
     }
+    
+    X <- model.matrix(Terms, data = newdata)
     
     fit <- data.frame(fit = as.vector(X %*% B))
     
@@ -94,7 +92,7 @@ predict_partial <- function(object, newdata, se.fit = FALSE,
 
 get_se <- function(r, sig) {
     # Compute linear combination, helper function for predict_partial
-    # Given numeric vector r (the constants) and vcov sig (the ), compute SE 
+    # Given numeric vector r (the constants) and vcov sig, compute SE 
     r <- matrix(r, nrow = 1)
     sqrt(r %*% sig %*% t(r))
 }
@@ -122,6 +120,7 @@ Note that this function also works with `lm`, though I'm not sure why you would 
 ```{r}
 fit_lm <- lm(y ~ x + I(x^2), data = data)
 preds_lm <- predict_partial(fit_lm, newdata, se.fit = T, interval = "confidence")
+
 ```
 
 In any case, I'm happy to finally close this issue, given that it's been on my mind for [almost six years](https://stackoverflow.com/questions/30491545/predict-method-for-felm-from-lfe-package).

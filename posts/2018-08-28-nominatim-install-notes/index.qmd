@@ -25,7 +25,7 @@ The tutorial is quite good, but there are a few things that I had to figure out 
 - Also had to set a password with `sudo passwd nominatim` before I could log into the account to install
 - The Apache configuration instructions are a little premature, need to actually install Nominatim first
 - I installed osmium to merge files (`sudo apt-get install osmium-tool`)
-  - `osmium merge file1.pbf file2.pbf file3.pbf...
+  - `osmium merge file1.pbf file2.pbf file3.pbf... -o mergedfile.pbf`
 - Modified the code to set up the Apache webserver to point to the correct Nominatim directory
 - Skipped special key phrases
 - Note that TIGER setup script (and some other scripts) need to be run from within the `build/` directory
