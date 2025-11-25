@@ -8,7 +8,7 @@
 
 <meta name="author" content="Patrick Baylis">
 <meta name="dcterms.date" content="2020-02-28">
-<meta name="description" content="A simple tidyverse approach to creating sensitivity curves for robustness analysis">
+<meta name="description" content="A simple tidyverse approach to creating specification curves for sensitivity analysis">
 
 <title>How to plot a specification curve – Patrick Baylis</title>
 <style>
@@ -179,7 +179,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <h1 class="title">How to plot a specification curve</h1>
                   <div>
         <div class="description">
-          A simple tidyverse approach to creating sensitivity curves for robustness analysis
+          A simple tidyverse approach to creating specification curves for sensitivity analysis
         </div>
       </div>
                           <div class="quarto-categories">
@@ -224,74 +224,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 
-<p>Like many researchers, I often want to plot a range of coefficient estimates to figure out if the results I’m finding are robust to other sensible specification and functional form choices. This kind of estimate is called a sensitivity curve (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2694998">Simonsohn, Simmons, and Nelson 2015</a>), and I <a href="https://twitter.com/ArielOrtizBobea/status/1233224906709618689">am</a> <a href="https://twitter.com/hhsievertsen/status/1188780383736909825">far</a> <a href="https://twitter.com/deaneckles/status/1171175422219866112">from</a> <a href="https://twitter.com/icymi_r/status/1208660197763362816">the</a> <a href="https://twitter.com/JoachimGassen/status/1122410367915823104">first</a> <a href="https://twitter.com/Bachl/status/1200325153902780417">to</a> <a href="https://twitter.com/JoachimGassen/status/1203326365715619840">do</a> <a href="https://twitter.com/thaddunning/status/1146505592682504194">it</a>. In fact, there are even a couple packages available: <a href="https://github.com/joachim-gassen/rdfanalysis">Joachim Gassen’s <code>rdfanalysis</code></a> and <a href="https://github.com/masurp/specr">Philipp Masur’s <code>specr</code></a> (I haven’t used either, yet).</p>
-<p>I wanted to roll my own, though. Since my code is fairly simple (less than 60 lines including comments and generous spacing) and uses the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, it may be helpful to other people too. First, here’s the output. It’s certainly not the prettiest version of a specification curve, but it gets the job done.</p>
-<div class="quarto-figure quarto-figure-center">
+<p>Like many researchers, I often want to plot a range of coefficient estimates to figure out if the results I’m finding are robust to other sensible specification and functional form choices. This kind of estimate is called a specification curve (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2694998">Simonsohn, Simmons, and Nelson 2015</a>), and I <a href="https://twitter.com/ArielOrtizBobea/status/1233224906709618689">am</a> <a href="https://twitter.com/hhsievertsen/status/1188780383736909825">far</a> <a href="https://twitter.com/deaneckles/status/1171175422219866112">from</a> <a href="https://twitter.com/icymi_r/status/1208660197763362816">the</a> <a href="https://twitter.com/JoachimGassen/status/1122410367915823104">first</a> <a href="https://twitter.com/Bachl/status/1200325153902780417">to</a> <a href="https://twitter.com/JoachimGassen/status/1203326365715619840">do</a> <a href="https://twitter.com/thaddunning/status/1146505592682504194">it</a>. In fact, there are even a couple packages available: <a href="https://github.com/joachim-gassen/rdfanalysis">Joachim Gassen’s <code>rdfanalysis</code></a> and <a href="https://github.com/masurp/specr">Philipp Masur’s <code>specr</code></a> (I haven’t used either, yet).</p>
+<p>I wanted to roll my own, though. Since my code is fairly simple (less than 60 lines including comments and generous spacing) and uses the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, it may be helpful to other people too.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, cowplot, fastDummies)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_cowplot</span>())</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>First, we create some fake estimates. This includes the point estimates, standard errors, and any variables that describe the specifications we “estimated”.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fe <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Unit"</span>, <span class="st">"Time"</span>, <span class="st">"Unit + Time"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Basic"</span>, <span class="st">"Some"</span>, <span class="st">"Full"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">expand.grid</span>(<span class="st">`</span><span class="at">Fixed Effects</span><span class="st">`</span> <span class="ot">=</span> fe, <span class="st">`</span><span class="at">Controls</span><span class="st">`</span> <span class="ot">=</span> controls))</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">est =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()), <span class="at">se =</span> <span class="fu">runif</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">0.1</span>))</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ci_l =</span> est <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se, <span class="at">ci_h =</span> est <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Next, we construct a typical coefficient plot that shows how the estimates and confidence intervals change across different categories.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>spec_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Fixed Effects"</span>, <span class="st">"Controls"</span>) <span class="co"># Could be set by user or figured out</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(est) <span class="sc">%&gt;%</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">h_order =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="co"># Sort on point estimates for horizontal ordering</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>coef_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(estimates, <span class="fu">aes</span>(<span class="at">x =</span> h_order, <span class="at">y =</span> est)) <span class="sc">+</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_l, <span class="at">ymax =</span> ci_h), <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Coefficient"</span>) <span class="sc">+</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Then we visualize the specifications themselves as a series of dot plots below the coefficient plot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>make_spec_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(category) {</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creates a dot plot for one specification category</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  specs <span class="ot">&lt;-</span> <span class="fu">dummy_cols</span>(estimates, <span class="at">select_columns =</span> category, <span class="at">remove_selected_columns =</span> T) <span class="sc">%&gt;%</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(h_order, <span class="fu">starts_with</span>(category)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(category), <span class="at">names_prefix =</span> <span class="fu">paste0</span>(category, <span class="st">"_"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(name))))</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  spec_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(specs, <span class="fu">aes</span>(<span class="at">x =</span> h_order, <span class="at">y =</span> name, <span class="at">alpha =</span> value)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_alpha_continuous</span>(<span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>())</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  spec_plot</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>spec_plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(spec_cols, make_spec_plot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Finally, we combine them for the final result:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plotlist =</span> <span class="fu">c</span>(<span class="fu">list</span>(coef_plot), spec_plots),</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">""</span>, spec_cols), <span class="at">label_size =</span> <span class="dv">8</span>, <span class="at">label_fontface =</span> <span class="st">"italic"</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">align =</span> <span class="st">"v"</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>combined_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
 <figure class="figure">
-<p><img src="../../img/specification-curve.png" class="img-fluid figure-img"></p>
-<figcaption>This is my specification curve. There are many like it, but this one is mine.</figcaption>
+<p><img src="index_files/figure-html/combine-plots-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
-<p>Second, here’s the code (also available as a <a href="https://gist.github.com/pbaylis/dbb0202786412afe80c42e19afec5284">gist</a>) that creates it.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create sensitivity curve of coefficient estimates</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(cowplot)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fastDummies)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Setup ----</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_cowplot</span>())</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Create some fake estimates to plot ----</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Required components: est, se, and any variables that describe specifications</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># These are the possible specifications we "estimated"</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>fe <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Unit"</span>, <span class="st">"Time"</span>, <span class="st">"Unit + Time"</span>)</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Basic"</span>, <span class="st">"Some"</span>, <span class="st">"Full"</span>)</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">expand.grid</span>(<span class="st">`</span><span class="at">Fixed Effects</span><span class="st">`</span> <span class="ot">=</span> fe, <span class="st">`</span><span class="at">Controls</span><span class="st">`</span> <span class="ot">=</span> controls))</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">est =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()), <span class="at">se =</span> <span class="fu">runif</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">0.1</span>))</span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot of the estimates ----</span></span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>spec_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Fixed Effects"</span>, <span class="st">"Controls"</span>) <span class="co"># Could be set by user or figured out</span></span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Note: This assumes the preferred ordering of the specification categories is the order in which they are given</span></span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ci_l =</span> est <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se, <span class="at">ci_h =</span> est <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> </span>
-<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(est) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">h_order =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="co"># Sort on point estimates for horizontal ordering</span></span>
-<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>coef_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(estimates, <span class="fu">aes</span>(<span class="at">x =</span> h_order, <span class="at">y =</span> est)) <span class="sc">+</span> </span>
-<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_l, <span class="at">ymax =</span> ci_h), <span class="at">size =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span> </span>
-<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Coefficient"</span>) <span class="sc">+</span> </span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>coef_plot</span>
-<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot of the specifications ----</span></span>
-<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a><span class="co"># Function to create a specification plot for a single category. </span></span>
-<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>make_spec_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(category) {</span>
-<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># category = spec_cols[1] # DEBUG</span></span>
-<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    specs <span class="ot">&lt;-</span> <span class="fu">dummy_cols</span>(estimates, <span class="at">select_columns =</span> category, <span class="at">remove_selected_columns =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>        <span class="fu">select</span>(h_order, <span class="fu">starts_with</span>(category)) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>        <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(category), <span class="at">names_prefix =</span> <span class="fu">paste0</span>(category, <span class="st">"_"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>        <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(name)))) </span>
-<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    spec_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(specs, <span class="fu">aes</span>(<span class="at">x =</span> h_order, <span class="at">y =</span> name, <span class="at">alpha =</span> value)) <span class="sc">+</span></span>
-<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>        <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>        <span class="fu">scale_alpha_continuous</span>(<span class="at">guide =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span> </span>
-<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>        <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>    spec_plot    </span>
-<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>spec_plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(spec_cols, make_spec_plot)</span>
-<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(<span class="at">plotlist =</span> <span class="fu">c</span>(<span class="fu">list</span>(coef_plot), spec_plots), </span>
-<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>          <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">""</span>, spec_cols), <span class="at">label_size =</span> <span class="dv">8</span>, <span class="at">label_fontface =</span> <span class="st">"italic"</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>,</span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>          <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">align =</span> <span class="st">"v"</span>)</span>
-<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="fu">save_plot</span>(<span class="st">"sensitivity-curve.png"</span>, combined_plot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<p>This approach is flexible and can be easily adapted to include more specification categories, different aesthetics, or other customizations. Happy plotting!</p>
 
 
 

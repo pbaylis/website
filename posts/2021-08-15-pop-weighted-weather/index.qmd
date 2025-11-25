@@ -43,7 +43,7 @@ In the tutorial that follows, we'll lean heavily on [exactextractr](https://gith
 
 Our first task is to load a bunch of packages. Besides `exactextractr`, we'll load many of the usual suspects. 
 
-```{r load-packages, message = F, warning = F, echo = F}
+```{r load-packages, message = F, warning = F, echo = T}
 pacman::p_load(tigris, exactextractr, raster, sf, tidyverse, cowplot, prism)
 ```
 
