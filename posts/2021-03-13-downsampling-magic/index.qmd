@@ -12,6 +12,12 @@ categories:
   - R
 ---
 
+::: {.callout-note}
+# Updates
+
+- Updated 2025-11-24 to use rasters that can be downloaded.
+:::
+
 It's time for another mapping post! For a recent project, I wanted to plot some **very** highly resolved raster data with ``ggplot2``, but I ran into a hiccup. In case it's useful to someone else, here's what I learned.
 
 First, some setup:
@@ -31,15 +37,15 @@ For this exercise, we'll use the Natural Earth II (downloaded [here](https://www
 First, we'll load the raster and try to plot it. Will it work?
 
 ```{r load-raster}
-tr <- terra::rast("~/Downloads/large-raster/NE2_HR_LC/NE2_HR_LC.tif")[[1]]
+tr <- terra::rast("~/Downloads/NE2_HR_LC_SR_W_DR/NE2_HR_LC_SR_W_DR.tif")[[1]]
 plot(tr)
 ```
 
-Wow, looks great! And it plotted in less than a second. How did `plot` (actually `terra::plot`) display hundreds of millions of pieces of information so quickly? It didn't, it turns out. Through the magic of **downsampling** (or aggregating, or downscaling, or ...), the function cleverly takes averages over larger areas, effectively creating a coarser raster with fewer cells. This makes no difference visually, since neither the human eye nor your monitor is capable of detecting or displaying the differences between the very tiny cells represented by the true data at this scale. So what is downsamping actually doing? Borrowing a visual from [here](https://www.onestopgis.com/GIS-Theory-and-Techniques/Raster-Data-Analysis/Other-Raster-Data-Operations/2-Raster-Data-Operation-Generalization.html):
+Wow, looks great! And it plotted in less than a second. How did `plot` (actually `terra::plot`) display hundreds of millions of pieces of information so quickly? It didn't, it turns out. Through the magic of **downsampling** (or aggregating, or downscaling, or ...), the function cleverly takes averages over larger areas, effectively creating a coarser raster with fewer cells. This makes no difference visually, since neither the human eye nor your monitor is capable of detecting or displaying the differences between the very tiny cells represented by the true data at this scale. So what is downsampling actually doing? Borrowing a visual from the ArcGIS [documentation](https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/aggregate.htm), downsampling is converting a high-resolution raster into a lower-resolutation raster.
 
-![[https://www.onestopgis.com/](OneStopGIS.com)](/img/downsampling-ex.png){ width=80% }
+![Downsampling or aggregating (Source: ArcMap Documentation)](downsampling-arc.png)
 
-You can think of the downsampling operation as converting a high-resolution raster like (a), above, into (b) by taking some summary (above, a mean) over sets of cells. By summarizing many cells into fewer cells, it leaves `plot` with a lot less work to do. 
+You can think of the downsampling operation as converting a high-resolution raster like the one on the left to a lower-resolution raster like the one on the right by taking some summary (above, a mean) over sets of cells. By summarizing many cells into fewer cells, it leaves `plot` with a lot less work to do. 
 
 But, let's say you've taken great pains to produce all of your other figures using the consistent visual styling offered by [``ggplot2``](https://ggplot2.tidyverse.org/). You might feel inexplicably compelled to try to want to plot this map using ``ggplot`` as well. Fortunately, this is doable, at least in principle: you can simply convert, or "fortify", the raster to `data.frame` that `ggplot` can use. Here's how we would do that:
 
@@ -58,10 +64,10 @@ tr_a_df <- as.data.frame(tr_a, xy = T)
 nrow(tr_a_df)
 ```
 
-Now we have 2 rather than 233 million rows. This is a lot, but actually well within the capabilities of `ggplot2::geom_raster`. Let's take a look:
+Now we have 2 million rather than 233 million rows. This is a lot, but actually well within the capabilities of `ggplot2::geom_raster`. Let's take a look:
 
 ```{r rast-ggplot}
-ggplot(tr_a_df, aes(x = x, y = y, fill = NE2_1)) + 
+ggplot(tr_a_df, aes(x = x, y = y, fill = NE2_HR_LC_SR_W_DR_1)) + 
   geom_raster() + 
   scale_fill_viridis_c(direction = -1)
 ```
@@ -85,7 +91,7 @@ And plot, this time with country boundaries.
 
 ```{r plot-boundaries}
 ggplot(world) + 
-  geom_raster(data = tr_p_a_df, mapping = aes(x = x, y = y, fill = NE2_1)) + 
+  geom_raster(data = tr_p_a_df, mapping = aes(x = x, y = y, fill = NE2_HR_LC_SR_W_DR_1)) + 
   geom_sf(colour = alpha("white", 0.5), fill = NA) + 
   scale_fill_viridis_c(direction = -1)
 ```

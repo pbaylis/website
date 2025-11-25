@@ -12,6 +12,12 @@ categories:
   - R
 ---
 
+::: {.callout-note}
+# Updates
+
+- Updated 2025-11-24 to reload WHP 2023 data and fix broken links. (Note that this actually changes the visual relationship between WHP and historical fires somewhat, since the 2023 data reflects more recent landscape changes.)
+:::
+
 I like making maps and thinking about wildfires. For a recent [project](https://www.nber.org/system/files/working_papers/w26550/w26550.pdf) examining the implicit subsidy of wildfire suppression (joint with the inimitable [Judson Boomhower](https://www.judsonboomhower.com/)), we used Wildfire Hazard Potential (WHP for short) [maps](https://www.firelab.org/project/wildfire-hazard-potential) from the U.S. Forest Service as a measure how likely various areas were to catch on fire.
 
 Today, I got to thinking: how much do these WHP maps predict actual wildfire? And, can I make some maps to help visualize this? I should say here that I am guilty of loving maps, possibly too much, and one of my favorite packages in R is [`sf`](https://github.com/r-spatial/sf/), which has --- in my view --- absolutely revolutionized spatial analysis in R. I don't think enough people know just how __easy__ `sf` makes this kind of mapping. Let's dig in.
@@ -19,21 +25,22 @@ Today, I got to thinking: how much do these WHP maps predict actual wildfire? An
 First, some preliminaries: load `sf` and a number of other helper packages. Using the `raster` package, I load the WHP raster downloaded from the link above. (Note: to run this code yourself, you'll need to download the relevant files and put them in a directory where the code can access them.)
 
 ```{r setup, message = F, warning = F}
-pacman::p_load(tidyverse, sf, cowplot, raster, scales)
+pacman::p_load(tidyverse, sf, cowplot, raster, scales, tigris)
 
 # Set some knitr options
 knitr::opts_knit$set(message = F, warning = F)
 
-# Load WHP raster
-whp <- raster("~/Desktop/fire-maps/whp2020_GeoTIF/whp2020_cnt_conus.tif")
+# Load WHP raster (270m that covers the entire U.S., there is also a 30m version that is split up by state but those files are much larger)
+# Source: https://www.fs.usda.gov/rds/archive/catalog/RDS-2015-0047-4
+whp <- raster("~/Downloads/Data/whp2023_GeoTIF/whp2023_cnt_conus.tif")
 ```
 
 ## Butte County, CA
 
 For this "analysis", I'm going to focus on Butte County, which is a bit north of Sacramento in northern California and contains a number of small towns that have, sadly, [been hard-hit](https://www.sfchronicle.com/california-wildfires/article/At-Station-62-shelter-from-the-firestorm-15576500.php) by wildfire in the last few decades. The most recent example of this was the devastating 2018 Camp Fire. To focus on Butte, I load a county [shapefile](https://catalog.data.gov/dataset/2015-cartographic-boundary-file-state-county-for-united-states-1-20000000) --- notice how easy `sf` makes it to quickly filter to Butte and to reproject to match the WHP raster. It also interfaces very well with `ggplot2`, part of the [`tidyverse`](https://www.tidyverse.org/) that we loaded earlier.
 
-```{r butte}
-butte <- st_read("~/Desktop/fire-maps/cb_2015_us_county_20m", quiet = T) %>%
+```{r butte, message = F, warning = F}
+butte <- counties(state = "CA", year = 2019, cb = TRUE, progress_bar = FALSE) %>%
   filter(GEOID == "06007") %>%
   st_transform(proj4string(whp))
 
@@ -55,10 +62,10 @@ But, we'd rather do our raster plotting using ggplot. This is easy as well --- w
 whp_df <- as.data.frame(whp, xy=TRUE)
 
 ggplot(butte) + 
-  geom_raster(data = whp_df, mapping = aes(x = x, y = y, fill = whp2020_cnt_conus)) + 
+  geom_raster(data = whp_df, mapping = aes(x = x, y = y, fill = Band_1)) + 
   geom_sf(fill = NA) + 
-  scale_fill_distiller(palette = "PuBuGn", direction = 1) + 
-  guides(fill = FALSE) + 
+  scale_fill_distiller(palette = "YlOrRd", direction = 1) + 
+  guides(fill = "none") + 
   theme_map()
 ```
 
@@ -67,7 +74,8 @@ ggplot(butte) +
 The next step is to see where wildfires have occurred and re-occurred in Butte over the years. To do this, we'll load another data source: historic [fire perimeters](https://frap.fire.ca.gov/frap-projects/fire-perimeters/) from CAL FIRE. This history runs all the way back to 1878 until the present day, although data sparsity varies over that time period. Still, we should be able to use it to get a rough sense for where, historically, fires have occurred. We'll load the perimeters and, like the WHP raster, crop them to Butte County.
 
 ```{r load-perims, message = F, warning = F, results = F}
-perims <- st_read("~/Desktop/fire-maps/fire19_1.gdb/", layer = "firep19_1")
+# Source: https://www.fire.ca.gov/what-we-do/fire-resource-assessment-program/fire-perimeters
+perims <- st_read("~/Downloads/fire24_1.gdb/", layer = "firep24_1")
 
 perims_butte <- perims %>% 
   st_cast("MULTIPOLYGON") %>% # Avoid Unknown WKB type 12 error
@@ -85,20 +93,19 @@ perims_butte_overlaps <- st_intersection(perims_butte) %>%
   arrange(n.overlaps)
 
 ggplot(butte) + 
-  geom_sf(data = perims_butte_overlaps, mapping = aes(fill = n.overlaps), colour = NA) + 
+  geom_sf(data = perims_butte_overlaps, aes(fill = n.overlaps)) + 
   geom_sf(fill = NA) + 
-  scale_fill_distiller(palette = "YlOrRd", direction = 1) + 
-  guides(fill = FALSE) + 
+  scale_fill_distiller(name = "Number of fires", palette = "YlOrRd", direction = 1) + 
   theme_map()
 ```
 
-There's a couple things to note here. First, even historically, fire does not strike the same areas many times over. This is likely because once an area has burned in a significant it takes a number of years before there's enough fuel build up. The second is that, visually speaking, the historical pattern of fires doesn't look all that similar to the wildfire hazard potential map. But we can go another step further here to see this a bit more clearly: we can combine the two maps.
+There's a couple things to note here. First, even historically, fire does not strike the same areas many times over. This is likely because once an area has burned in a significant way, it takes a number of years before there's enough fuel built back up that it can burn again. The second is that, visually speaking, the historical pattern of fires doesn't look all that similar to the wildfire hazard potential map. But we can go another step further here to see this a bit more clearly: we can combine the two maps.
 
 To combine the two maps, we have to decide which one to plot with color and which to plot some other way. In this case, I've chosen to stick with the original coloring for WHP and use transparency to represent the number of fires in each area. 
 
 ```{r plot-both}
 ggplot(butte) + 
-  geom_raster(data = whp_df, mapping = aes(x = x, y = y, fill = whp2020_cnt_conus)) + 
+  geom_raster(data = whp_df, mapping = aes(x = x, y = y, fill = Band_1)) + 
   geom_sf(data = perims_butte, fill = "black", colour = NA, alpha = 0.25) + 
   geom_sf(fill = NA) + 
   scale_fill_distiller(palette = "PuBuGn", direction = 1) + 
@@ -106,6 +113,6 @@ ggplot(butte) +
   theme_map()
 ```
 
-You can see that, in Butte County at least, there does appear to be a relationship between hazard potential and actual historical fire. But it's not especially strong. Some low hazard potential areas have been hit by fires many times over, and some high potential areas have never been hit. This is consistent with what fire managers will tell you: wildfires are incredibly unpredictable, and even the best fire models really struggle to anticipate which areas will burn. Moreover, it's worth keeping in mind that WHP isn't **designed** to exactly predict expected fire locations. As the [website](https://www.firelab.org/project/wildfire-hazard-potential) notes, "*our specific objective with the WHP map is to depict the relative potential for wildfire that would be difficult for suppression resources to contain*." 
+You can see that, in Butte County at least, there isn't much of a relationship between hazard potential and actual historical fire. Some low hazard potential areas have been hit by fires many times over, and some high potential areas have never been hit. But this is very likely mixing up cause and effect: the WHP (wildfire potential) map is built with landscape characteristics that reflect 2020 conditions, so only a couple of years after the devastating Camp Fire. Areas that have burned recently are likely to have lower hazard potential because there's less fuel to burn. To really assess how well WHP predicts fire, we'd need to look at how well it predicted fire before the map was made. A project for another day.
 
 That's it for now. Hopefully this has given you a sense for some of the capability --- and relative simplicity! --- of spatial work in R. Happy mapping!

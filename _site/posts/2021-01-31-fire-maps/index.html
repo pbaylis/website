@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Patrick Baylis">
-<meta name="dcterms.date" content="2020-02-28">
-<meta name="description" content="A simple tidyverse approach to creating specification curves for sensitivity analysis">
+<meta name="dcterms.date" content="2021-01-31">
+<meta name="description" content="Visualizing how well Wildfire Hazard Potential maps predict actual wildfires using sf and raster in R">
 
-<title>How to plot a specification curve – Patrick Baylis</title>
+<title>This map is on fire – Patrick Baylis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -175,23 +175,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- content -->
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-page">
-      <h1 class="title">How to plot a specification curve</h1>
+    <div class="quarto-title column-page-left">
+      <h1 class="title">This map is on fire</h1>
                   <div>
         <div class="description">
-          A simple tidyverse approach to creating specification curves for sensitivity analysis
+          Visualizing how well Wildfire Hazard Potential maps predict actual wildfires using sf and raster in R
         </div>
       </div>
                           <div class="quarto-categories">
+                <div class="quarto-category">wildfire</div>
+                <div class="quarto-category">maps</div>
                 <div class="quarto-category">R</div>
-                <div class="quarto-category">visualization</div>
-                <div class="quarto-category">econometrics</div>
               </div>
                   </div>
   </div>
     
   
-  <div class="quarto-title-meta column-page">
+  <div class="quarto-title-meta column-page-left">
 
       <div>
       <div class="quarto-title-meta-heading">Author</div>
@@ -203,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 28, 2020</p>
+        <p class="date">January 31, 2021</p>
       </div>
     </div>
     
@@ -214,11 +214,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#butte-county-ca" id="toc-butte-county-ca" class="nav-link active" data-scroll-target="#butte-county-ca">Butte County, CA</a></li>
+  <li><a href="#wildfire-hazard-potential-in-butte" id="toc-wildfire-hazard-potential-in-butte" class="nav-link" data-scroll-target="#wildfire-hazard-potential-in-butte">Wildfire Hazard Potential in Butte</a></li>
+  <li><a href="#history-of-wildfires-in-butte-county" id="toc-history-of-wildfires-in-butte-county" class="nav-link" data-scroll-target="#history-of-wildfires-in-butte-county">History of wildfires in Butte County</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
-<main class="content quarto-banner-title-block column-page" id="quarto-document-content">
+<main class="content quarto-banner-title-block column-page-left" id="quarto-document-content">
 
 
 
@@ -235,78 +243,133 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Updated 2025-11-24 to account for breaking package changes.</li>
+<li>Updated 2025-11-24 to reload WHP 2023 data and fix broken links. (Note that this actually changes the visual relationship between WHP and historical fires somewhat, since the 2023 data reflects more recent landscape changes.)</li>
 </ul>
 </div>
 </div>
-<p>Like many researchers, I often want to plot a range of coefficient estimates to figure out if the results I’m finding are robust to other sensible specification and functional form choices. This kind of estimate is called a specification curve (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2694998">Simonsohn, Simmons, and Nelson 2015</a>), and I <a href="https://twitter.com/ArielOrtizBobea/status/1233224906709618689">am</a> <a href="https://twitter.com/hhsievertsen/status/1188780383736909825">far</a> <a href="https://twitter.com/deaneckles/status/1171175422219866112">from</a> <a href="https://twitter.com/icymi_r/status/1208660197763362816">the</a> <a href="https://twitter.com/JoachimGassen/status/1122410367915823104">first</a> <a href="https://twitter.com/Bachl/status/1200325153902780417">to</a> <a href="https://twitter.com/JoachimGassen/status/1203326365715619840">do</a> <a href="https://twitter.com/thaddunning/status/1146505592682504194">it</a>. In fact, there are even a couple packages available: <a href="https://github.com/joachim-gassen/rdfanalysis">Joachim Gassen’s <code>rdfanalysis</code></a> and <a href="https://github.com/masurp/specr">Philipp Masur’s <code>specr</code></a> (I haven’t used either, yet).</p>
-<p>I wanted to roll my own, though. Since my code is fairly simple (less than 60 lines including comments and generous spacing) and uses the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, it may be helpful to other people too.</p>
+<p>I like making maps and thinking about wildfires. For a recent <a href="https://www.nber.org/system/files/working_papers/w26550/w26550.pdf">project</a> examining the implicit subsidy of wildfire suppression (joint with the inimitable <a href="https://www.judsonboomhower.com/">Judson Boomhower</a>), we used Wildfire Hazard Potential (WHP for short) <a href="https://www.firelab.org/project/wildfire-hazard-potential">maps</a> from the U.S. Forest Service as a measure how likely various areas were to catch on fire.</p>
+<p>Today, I got to thinking: how much do these WHP maps predict actual wildfire? And, can I make some maps to help visualize this? I should say here that I am guilty of loving maps, possibly too much, and one of my favorite packages in R is <a href="https://github.com/r-spatial/sf/"><code>sf</code></a>, which has — in my view — absolutely revolutionized spatial analysis in R. I don’t think enough people know just how <strong>easy</strong> <code>sf</code> makes this kind of mapping. Let’s dig in.</p>
+<p>First, some preliminaries: load <code>sf</code> and a number of other helper packages. Using the <code>raster</code> package, I load the WHP raster downloaded from the link above. (Note: to run this code yourself, you’ll need to download the relevant files and put them in a directory where the code can access them.)</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, cowplot, fastDummies)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_cowplot</span>())</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, sf, cowplot, raster, scales, tigris)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set some knitr options</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_knit<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> F, <span class="at">warning =</span> F)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Load WHP raster (270m that covers the entire U.S., there is also a 30m version that is split up by state but those files are much larger)</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: https://www.fs.usda.gov/rds/archive/catalog/RDS-2015-0047-4</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>whp <span class="ot">&lt;-</span> <span class="fu">raster</span>(<span class="st">"~/Downloads/Data/whp2023_GeoTIF/whp2023_cnt_conus.tif"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>First, we create some fake estimates. This includes the point estimates, standard errors, and any variables that describe the specifications we “estimated”.</p>
+<section id="butte-county-ca" class="level2">
+<h2 class="anchored" data-anchor-id="butte-county-ca">Butte County, CA</h2>
+<p>For this “analysis”, I’m going to focus on Butte County, which is a bit north of Sacramento in northern California and contains a number of small towns that have, sadly, <a href="https://www.sfchronicle.com/california-wildfires/article/At-Station-62-shelter-from-the-firestorm-15576500.php">been hard-hit</a> by wildfire in the last few decades. The most recent example of this was the devastating 2018 Camp Fire. To focus on Butte, I load a county <a href="https://catalog.data.gov/dataset/2015-cartographic-boundary-file-state-county-for-united-states-1-20000000">shapefile</a> — notice how easy <code>sf</code> makes it to quickly filter to Butte and to reproject to match the WHP raster. It also interfaces very well with <code>ggplot2</code>, part of the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> that we loaded earlier.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fe <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Unit"</span>, <span class="st">"Time"</span>, <span class="st">"Unit + Time"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Basic"</span>, <span class="st">"Some"</span>, <span class="st">"Full"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">expand.grid</span>(<span class="st">`</span><span class="at">Fixed Effects</span><span class="st">`</span> <span class="ot">=</span> fe, <span class="st">`</span><span class="at">Controls</span><span class="st">`</span> <span class="ot">=</span> controls))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">est =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()), <span class="at">se =</span> <span class="fu">runif</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">0.1</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ci_l =</span> est <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se, <span class="at">ci_h =</span> est <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Next, we construct a typical coefficient plot that shows how the estimates and confidence intervals change across different categories.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>spec_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Fixed Effects"</span>, <span class="st">"Controls"</span>) <span class="co"># Could be set by user or figured out</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(est) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">h_order =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="co"># Sort on point estimates for horizontal ordering</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>coef_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(estimates, <span class="fu">aes</span>(<span class="at">x =</span> h_order, <span class="at">y =</span> est)) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_l, <span class="at">ymax =</span> ci_h), <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Coefficient"</span>) <span class="sc">+</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Then we visualize the specifications themselves as a series of dot plots below the coefficient plot.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>make_spec_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(category) {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creates a dot plot for one specification category</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  specs <span class="ot">&lt;-</span> <span class="fu">dummy_cols</span>(estimates, <span class="at">select_columns =</span> category, <span class="at">remove_selected_columns =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(h_order, <span class="fu">starts_with</span>(category)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(category), <span class="at">names_prefix =</span> <span class="fu">paste0</span>(category, <span class="st">"_"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(name))))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  spec_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(specs, <span class="fu">aes</span>(<span class="at">x =</span> h_order, <span class="at">y =</span> name, <span class="at">alpha =</span> value)) <span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_alpha_continuous</span>(<span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  spec_plot</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>spec_plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(spec_cols, make_spec_plot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Finally, we combine them for the final result:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plotlist =</span> <span class="fu">c</span>(<span class="fu">list</span>(coef_plot), spec_plots),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">""</span>, spec_cols), <span class="at">label_size =</span> <span class="dv">8</span>, <span class="at">label_fontface =</span> <span class="st">"italic"</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">align =</span> <span class="st">"v"</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>combined_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>butte <span class="ot">&lt;-</span> <span class="fu">counties</span>(<span class="at">state =</span> <span class="st">"CA"</span>, <span class="at">year =</span> <span class="dv">2019</span>, <span class="at">cb =</span> <span class="cn">TRUE</span>, <span class="at">progress_bar =</span> <span class="cn">FALSE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(GEOID <span class="sc">==</span> <span class="st">"06007"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">proj4string</span>(whp))</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(butte) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/combine-plots-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/butte-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>This approach is flexible and can be easily adapted to include more specification categories, different aesthetics, or other customizations. Happy plotting!</p>
+</section>
+<section id="wildfire-hazard-potential-in-butte" class="level2">
+<h2 class="anchored" data-anchor-id="wildfire-hazard-potential-in-butte">Wildfire Hazard Potential in Butte</h2>
+<p>The next step is to crop the WHP raster to Butte. This, too, is easy, since <code>raster</code> now plays nicely with <code>sf</code>. We can then plot the result.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>whp <span class="ot">&lt;-</span> <span class="fu">crop</span>(whp, butte)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(whp)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/crop-whp-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>But, we’d rather do our raster plotting using ggplot. This is easy as well — we simply convert the raster to a <code>data.frame</code> (often called “fortifying” the raster) and add it to our original Butte County plot.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>whp_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(whp, <span class="at">xy=</span><span class="cn">TRUE</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(butte) <span class="sc">+</span> </span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> whp_df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> Band_1)) <span class="sc">+</span> </span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span> </span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"YlOrRd"</span>, <span class="at">direction =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="st">"none"</span>) <span class="sc">+</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/plot-whp-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="history-of-wildfires-in-butte-county" class="level2">
+<h2 class="anchored" data-anchor-id="history-of-wildfires-in-butte-county">History of wildfires in Butte County</h2>
+<p>The next step is to see where wildfires have occurred and re-occurred in Butte over the years. To do this, we’ll load another data source: historic <a href="https://frap.fire.ca.gov/frap-projects/fire-perimeters/">fire perimeters</a> from CAL FIRE. This history runs all the way back to 1878 until the present day, although data sparsity varies over that time period. Still, we should be able to use it to get a rough sense for where, historically, fires have occurred. We’ll load the perimeters and, like the WHP raster, crop them to Butte County.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Source: https://www.fire.ca.gov/what-we-do/fire-resource-assessment-program/fire-perimeters</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>perims <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">"~/Downloads/fire24_1.gdb/"</span>, <span class="at">layer =</span> <span class="st">"firep24_1"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>perims_butte <span class="ot">&lt;-</span> perims <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_cast</span>(<span class="st">"MULTIPOLYGON"</span>) <span class="sc">%&gt;%</span> <span class="co"># Avoid Unknown WKB type 12 error</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_make_valid</span>() <span class="sc">%&gt;%</span> <span class="co"># Fixes other possible errors</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(<span class="fu">st_crs</span>(butte)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_crop</span>(butte)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>You’ll see that there are a few more lines of code before we crop. Sometimes shapefiles will have one error or another that need to be resolved before we can do operations like cropping. In this case, there are two issues: one is that there’s a funny polygon type in the original shapefile, and two is that a small number of these polygons are invalid. Without going deep into these issues, we fix the first by “casting” the funny polygon to a multi-polygon type that <code>sf</code> knows how to handle, and the second by using a function to patch invalid polygons. Once we’ve done that, we can again reproject to match our other spatial objects and crop to Butte.</p>
+<p>The next step is to count the number of overlapping fire areas in the county. Here we’ll use a neat (and frankly not very well-documented) trick: <code>st_intersection</code>, an <code>sf</code> function, can figure out where polygons overlap and how many of them overlap in each place. This is a little time-consuming, but once it’s done we can sort the overlaps by their number (from least to most) and plot with <code>ggplot</code>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>perims_butte_overlaps <span class="ot">&lt;-</span> <span class="fu">st_intersection</span>(perims_butte) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(n.overlaps)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(butte) <span class="sc">+</span> </span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> perims_butte_overlaps, <span class="fu">aes</span>(<span class="at">fill =</span> n.overlaps)) <span class="sc">+</span> </span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span> </span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">name =</span> <span class="st">"Number of fires"</span>, <span class="at">palette =</span> <span class="st">"YlOrRd"</span>, <span class="at">direction =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/count-overlaps-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>There’s a couple things to note here. First, even historically, fire does not strike the same areas many times over. This is likely because once an area has burned in a significant way, it takes a number of years before there’s enough fuel built back up that it can burn again. The second is that, visually speaking, the historical pattern of fires doesn’t look all that similar to the wildfire hazard potential map. But we can go another step further here to see this a bit more clearly: we can combine the two maps.</p>
+<p>To combine the two maps, we have to decide which one to plot with color and which to plot some other way. In this case, I’ve chosen to stick with the original coloring for WHP and use transparency to represent the number of fires in each area.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(butte) <span class="sc">+</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> whp_df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> Band_1)) <span class="sc">+</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> perims_butte, <span class="at">fill =</span> <span class="st">"black"</span>, <span class="at">colour =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.25</span>) <span class="sc">+</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span> </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"PuBuGn"</span>, <span class="at">direction =</span> <span class="dv">1</span>) <span class="sc">+</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">guides</span>(<span class="at">fill =</span> <span class="cn">FALSE</span>) <span class="sc">+</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_map</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: The `&lt;scale&gt;` argument of `guides()` cannot be `FALSE`. Use "none" instead as
+of ggplot2 3.3.4.</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/plot-both-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>You can see that, in Butte County at least, there isn’t much of a relationship between hazard potential and actual historical fire. Some low hazard potential areas have been hit by fires many times over, and some high potential areas have never been hit. But this is very likely mixing up cause and effect: the WHP (wildfire potential) map is built with landscape characteristics that reflect 2020 conditions, so only a couple of years after the devastating Camp Fire. Areas that have burned recently are likely to have lower hazard potential because there’s less fuel to burn. To really assess how well WHP predicts fire, we’d need to look at how well it predicted fire before the map was made. A project for another day.</p>
+<p>That’s it for now. Hopefully this has given you a sense for some of the capability — and relative simplicity! — of spatial work in R. Happy mapping!</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

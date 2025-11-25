@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Patrick Baylis">
-<meta name="dcterms.date" content="2020-02-28">
-<meta name="description" content="A simple tidyverse approach to creating specification curves for sensitivity analysis">
+<meta name="dcterms.date" content="2021-03-13">
+<meta name="description" content="Efficiently plotting very high-resolution raster data with ggplot2 using terra and downsampling techniques">
 
-<title>How to plot a specification curve – Patrick Baylis</title>
+<title>The magic of downsampling – Patrick Baylis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -176,16 +176,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-page">
-      <h1 class="title">How to plot a specification curve</h1>
+      <h1 class="title">The magic of downsampling</h1>
                   <div>
         <div class="description">
-          A simple tidyverse approach to creating specification curves for sensitivity analysis
+          Efficiently plotting very high-resolution raster data with ggplot2 using terra and downsampling techniques
         </div>
       </div>
                           <div class="quarto-categories">
+                <div class="quarto-category">raster</div>
+                <div class="quarto-category">maps</div>
                 <div class="quarto-category">R</div>
-                <div class="quarto-category">visualization</div>
-                <div class="quarto-category">econometrics</div>
               </div>
                   </div>
   </div>
@@ -203,7 +203,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">February 28, 2020</p>
+        <p class="date">March 13, 2021</p>
       </div>
     </div>
     
@@ -235,76 +235,114 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="callout-body-container callout-body">
 <ul>
-<li>Updated 2025-11-24 to account for breaking package changes.</li>
+<li>Updated 2025-11-24 to use rasters that can be downloaded.</li>
 </ul>
 </div>
 </div>
-<p>Like many researchers, I often want to plot a range of coefficient estimates to figure out if the results I’m finding are robust to other sensible specification and functional form choices. This kind of estimate is called a specification curve (<a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2694998">Simonsohn, Simmons, and Nelson 2015</a>), and I <a href="https://twitter.com/ArielOrtizBobea/status/1233224906709618689">am</a> <a href="https://twitter.com/hhsievertsen/status/1188780383736909825">far</a> <a href="https://twitter.com/deaneckles/status/1171175422219866112">from</a> <a href="https://twitter.com/icymi_r/status/1208660197763362816">the</a> <a href="https://twitter.com/JoachimGassen/status/1122410367915823104">first</a> <a href="https://twitter.com/Bachl/status/1200325153902780417">to</a> <a href="https://twitter.com/JoachimGassen/status/1203326365715619840">do</a> <a href="https://twitter.com/thaddunning/status/1146505592682504194">it</a>. In fact, there are even a couple packages available: <a href="https://github.com/joachim-gassen/rdfanalysis">Joachim Gassen’s <code>rdfanalysis</code></a> and <a href="https://github.com/masurp/specr">Philipp Masur’s <code>specr</code></a> (I haven’t used either, yet).</p>
-<p>I wanted to roll my own, though. Since my code is fairly simple (less than 60 lines including comments and generous spacing) and uses the <a href="https://www.tidyverse.org/"><code>tidyverse</code></a>, it may be helpful to other people too.</p>
+<p>It’s time for another mapping post! For a recent project, I wanted to plot some <strong>very</strong> highly resolved raster data with <code>ggplot2</code>, but I ran into a hiccup. In case it’s useful to someone else, here’s what I learned.</p>
+<p>First, some setup:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, cowplot, fastDummies)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_cowplot</span>())</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(terra, tidyverse, sf, cowplot, rnaturalearth) <span class="co"># World shapefile</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_knit<span class="sc">$</span><span class="fu">set</span>(<span class="at">message =</span> F, <span class="at">warning =</span> F, <span class="at">cache =</span> T)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_map</span>()) <span class="co"># We're only going to be making maps, so just set the theme here.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>First, we create some fake estimates. This includes the point estimates, standard errors, and any variables that describe the specifications we “estimated”.</p>
+<p>Note that I load the new-ish <a href="https://rspatial.org/terra/pkg/index.html"><code>terra</code></a> rather than the usual, and now venerable, <a href="https://www.rdocumentation.org/packages/raster/"><code>raster</code></a> package. <code>terra</code> is the successor to <code>raster</code>, and in general it’s much, much faster (because its written in C++). But everything I do below with <code>terra</code> could be done with <code>raster</code> instead.</p>
+<p>For this exercise, we’ll use the Natural Earth II (downloaded <a href="https://www.naturalearthdata.com/downloads/10m-raster-data/10m-natural-earth-2/">here</a> and described in detail <a href="http://www.shadedrelief.com/natural2/index.html">here</a>). It’s a raster of what the earth might look like without humans. Hopefully not a projection. It’s a 1:10m, world-wide raster, which means that each cell represents a very small chunk of the earth. So there are a <strong>LOT</strong> of chunks. More than 230 million to be exact.</p>
+<p>First, we’ll load the raster and try to plot it. Will it work?</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fe <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Unit"</span>, <span class="st">"Time"</span>, <span class="st">"Unit + Time"</span>)</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>controls <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Basic"</span>, <span class="st">"Some"</span>, <span class="st">"Full"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> <span class="fu">as_tibble</span>(<span class="fu">expand.grid</span>(<span class="st">`</span><span class="at">Fixed Effects</span><span class="st">`</span> <span class="ot">=</span> fe, <span class="st">`</span><span class="at">Controls</span><span class="st">`</span> <span class="ot">=</span> controls))</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">est =</span> <span class="fu">rnorm</span>(<span class="fu">n</span>()), <span class="at">se =</span> <span class="fu">runif</span>(<span class="fu">n</span>(), <span class="dv">0</span>, <span class="fl">0.1</span>))</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">ci_l =</span> est <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se, <span class="at">ci_h =</span> est <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Next, we construct a typical coefficient plot that shows how the estimates and confidence intervals change across different categories.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>spec_cols <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Fixed Effects"</span>, <span class="st">"Controls"</span>) <span class="co"># Could be set by user or figured out</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>estimates <span class="ot">&lt;-</span> estimates <span class="sc">%&gt;%</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(est) <span class="sc">%&gt;%</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">h_order =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>()) <span class="co"># Sort on point estimates for horizontal ordering</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>coef_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(estimates, <span class="fu">aes</span>(<span class="at">x =</span> h_order, <span class="at">y =</span> est)) <span class="sc">+</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_linerange</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_l, <span class="at">ymax =</span> ci_h), <span class="at">linewidth =</span> <span class="dv">1</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">shape =</span> <span class="dv">21</span>) <span class="sc">+</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Coefficient"</span>) <span class="sc">+</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Then we visualize the specifications themselves as a series of dot plots below the coefficient plot.</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>make_spec_plot <span class="ot">&lt;-</span> <span class="cf">function</span>(category) {</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Creates a dot plot for one specification category</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  specs <span class="ot">&lt;-</span> <span class="fu">dummy_cols</span>(estimates, <span class="at">select_columns =</span> category, <span class="at">remove_selected_columns =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(h_order, <span class="fu">starts_with</span>(category)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(category), <span class="at">names_prefix =</span> <span class="fu">paste0</span>(category, <span class="st">"_"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">name =</span> <span class="fu">factor</span>(name, <span class="at">levels =</span> <span class="fu">rev</span>(<span class="fu">unique</span>(name))))</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  spec_plot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(specs, <span class="fu">aes</span>(<span class="at">x =</span> h_order, <span class="at">y =</span> name, <span class="at">alpha =</span> value)) <span class="sc">+</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_alpha_continuous</span>(<span class="at">guide =</span> <span class="st">"none"</span>) <span class="sc">+</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.x =</span> <span class="fu">element_blank</span>(), <span class="at">axis.text.x =</span> <span class="fu">element_blank</span>()) <span class="sc">+</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.text.y =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">6</span>), <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(), <span class="at">axis.line.y =</span> <span class="fu">element_blank</span>())</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  spec_plot</span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>spec_plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(spec_cols, make_spec_plot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<p>Finally, we combine them for the final result:</p>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>combined_plot <span class="ot">&lt;-</span> <span class="fu">plot_grid</span>(</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">plotlist =</span> <span class="fu">c</span>(<span class="fu">list</span>(coef_plot), spec_plots),</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">""</span>, spec_cols), <span class="at">label_size =</span> <span class="dv">8</span>, <span class="at">label_fontface =</span> <span class="st">"italic"</span>, <span class="at">vjust =</span> <span class="fl">0.5</span>, <span class="at">hjust =</span> <span class="sc">-</span><span class="fl">0.1</span>,</span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">rel_heights =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="at">ncol =</span> <span class="dv">1</span>, <span class="at">align =</span> <span class="st">"v"</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>combined_plot</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tr <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">rast</span>(<span class="st">"~/Downloads/NE2_HR_LC_SR_W_DR/NE2_HR_LC_SR_W_DR.tif"</span>)[[<span class="dv">1</span>]]</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tr)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/combine-plots-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="index_files/figure-html/load-raster-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
-<p>This approach is flexible and can be easily adapted to include more specification categories, different aesthetics, or other customizations. Happy plotting!</p>
+<p>Wow, looks great! And it plotted in less than a second. How did <code>plot</code> (actually <code>terra::plot</code>) display hundreds of millions of pieces of information so quickly? It didn’t, it turns out. Through the magic of <strong>downsampling</strong> (or aggregating, or downscaling, or …), the function cleverly takes averages over larger areas, effectively creating a coarser raster with fewer cells. This makes no difference visually, since neither the human eye nor your monitor is capable of detecting or displaying the differences between the very tiny cells represented by the true data at this scale. So what is downsampling actually doing? Borrowing a visual from the ArcGIS <a href="https://desktop.arcgis.com/en/arcmap/latest/tools/spatial-analyst-toolbox/aggregate.htm">documentation</a>, downsampling is converting a high-resolution raster into a lower-resolutation raster.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="downsampling-arc.png" class="img-fluid figure-img"></p>
+<figcaption>Downsampling or aggregating (Source: ArcMap Documentation)</figcaption>
+</figure>
+</div>
+<p>You can think of the downsampling operation as converting a high-resolution raster like the one on the left to a lower-resolution raster like the one on the right by taking some summary (above, a mean) over sets of cells. By summarizing many cells into fewer cells, it leaves <code>plot</code> with a lot less work to do.</p>
+<p>But, let’s say you’ve taken great pains to produce all of your other figures using the consistent visual styling offered by <a href="https://ggplot2.tidyverse.org/"><code>ggplot2</code></a>. You might feel inexplicably compelled to try to want to plot this map using <code>ggplot</code> as well. Fortunately, this is doable, at least in principle: you can simply convert, or “fortify”, the raster to <code>data.frame</code> that <code>ggplot</code> can use. Here’s how we would do that:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tr_df &lt;- as.data.frame(tr, xy = T)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># nrow(tr_df) </span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>Why is that commented out? Because it takes a long time (and screws up my <code>knitr</code> process). What happened? Remember those 230m+ cells? If we fortify that raster, it becomes a massive, 230 <em>million</em> row <code>data.frame</code>. This is a big problem, because <code>ggplot</code> is not going to be able to plot all of these in a reasonable amount of time (take my word for it…).</p>
+<p>So what can we do? One option is to take a page out of the <code>terra</code> playbook and downsample ourselves. We’ll use the function <code>terra::aggregate</code> with a factor of 10 both horizontally and vertically, which should reduce the total cells by a factor of 100.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tr_a <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">aggregate</span>(tr, <span class="at">fact =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tr_a_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tr_a, <span class="at">xy =</span> T)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(tr_a_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2332800</code></pre>
+</div>
+</div>
+<p>Now we have 2 million rather than 233 million rows. This is a lot, but actually well within the capabilities of <code>ggplot2::geom_raster</code>. Let’s take a look:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(tr_a_df, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> NE2_HR_LC_SR_W_DR_1)) <span class="sc">+</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>() <span class="sc">+</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/rast-ggplot-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>To see how this can be useful, we’ll download a shapefile of the countries of the world.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>world <span class="ot">&lt;-</span> rnaturalearth<span class="sc">::</span><span class="fu">ne_countries</span>(<span class="at">scale =</span> <span class="st">"small"</span>, <span class="at">returnclass =</span> <span class="st">"sf"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(world) <span class="sc">+</span> <span class="fu">geom_sf</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/world-shp-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Next, we’ll reproject the raster to the same projection as as the world shapefile and aggregate and fortify again.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tr_p <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(tr, <span class="fu">st_crs</span>(world)<span class="sc">$</span>proj4string)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tr_p_a <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">aggregate</span>(tr_p, <span class="at">fact =</span> <span class="dv">10</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+|---------|---------|---------|---------|
+=========================================
+                                          </code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tr_p_a_df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(tr_p_a, <span class="at">xy =</span> T)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p>And plot, this time with country boundaries.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(world) <span class="sc">+</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>(<span class="at">data =</span> tr_p_a_df, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">fill =</span> NE2_HR_LC_SR_W_DR_1)) <span class="sc">+</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">colour =</span> <span class="fu">alpha</span>(<span class="st">"white"</span>, <span class="fl">0.5</span>), <span class="at">fill =</span> <span class="cn">NA</span>) <span class="sc">+</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_viridis_c</span>(<span class="at">direction =</span> <span class="sc">-</span><span class="dv">1</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/plot-boundaries-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Converting the raster into a <code>ggplot</code>-compatible object opens up a whole world of visualization, but we’ll stop here for now. I hope this has given you a sense for how to smoothly integrate large spatial rasters with your usual <code>ggplot2</code> and <code>sf</code> spatial work. Happy mapping!</p>
 
 
 
