@@ -709,7 +709,7 @@ Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
 </div>
-<p>Assuming we do want to customize the plot further, we can now extract the bin limits and calculate midpoints for plotting.I wrote a helper function that parses the bin names and extracts the lower and upper bounds. It also (optionall) corrects infinite bounds to finite values based on the bin width.</p>
+<p>Assuming we do want to customize the plot further, we can now extract the bin limits and calculate midpoints for plotting. I wrote a helper function that parses the bin names and extracts the lower and upper bounds. It also (optionally) corrects infinite bounds to finite values based on the bin width.</p>
 <p>Finally, the body of the code itself also includes the addition of the reference category (which has an estimate of 0 by definition) and arranges the data frame by bin midpoints.</p>
 <div class="cell">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>extract_limits_from_bin_names <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">fix_Inf =</span> <span class="cn">TRUE</span>) {</span>

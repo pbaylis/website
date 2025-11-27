@@ -72,7 +72,7 @@ Now we can extract the coefficients. We do that by saving the output of `coefplo
 coef_df <- coefplot(fit, keep = "temp_bin")$prms
 ```
 
-Assuming we do want to customize the plot further, we can now extract the bin limits and calculate midpoints for plotting.I wrote a helper function that parses the bin names and extracts the lower and upper bounds. It also (optionall) corrects infinite bounds to finite values based on the bin width.
+Assuming we do want to customize the plot further, we can now extract the bin limits and calculate midpoints for plotting. I wrote a helper function that parses the bin names and extracts the lower and upper bounds. It also (optionally) corrects infinite bounds to finite values based on the bin width.
 
 Finally, the body of the code itself also includes the addition of the reference category (which has an estimate of 0 by definition) and arranges the data frame by bin midpoints.
 
