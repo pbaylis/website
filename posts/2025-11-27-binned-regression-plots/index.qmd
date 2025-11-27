@@ -24,7 +24,7 @@ Anyway, I've found myself writing the same code over and over to estimate models
 We'll use the excellent [`fixest`](https://lrberge.github.io/fixest/) for estimation and the `tidyverse` for data manipulation and plotting.
 
 ```{r setup, message=FALSE}
-pacman::p_load(tidyverse, fixest, cowplot, modelsummary)
+pacman::p_load(tidyverse, fixest, cowplot)
 theme_set(theme_cowplot())
 set.seed(42)
 ```
@@ -49,7 +49,7 @@ data <- tibble(
     temp_bin = cut(temperature, breaks = c(-Inf, seq(0, 40, 5), Inf))
   )
 
-datasummary_skim(data = data)
+glimpse(data)
 ```
 
 ## Estimate the model

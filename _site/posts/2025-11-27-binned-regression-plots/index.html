@@ -271,7 +271,7 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>We’ll use the excellent <a href="https://lrberge.github.io/fixest/"><code>fixest</code></a> for estimation and the <code>tidyverse</code> for data manipulation and plotting.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, fixest, cowplot, modelsummary)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(tidyverse, fixest, cowplot)</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_cowplot</span>())</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -295,371 +295,16 @@ window.Quarto = {
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">temp_bin =</span> <span class="fu">cut</span>(temperature, <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">40</span>, <span class="dv">5</span>), <span class="cn">Inf</span>))</span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">datasummary_skim</span>(<span class="at">data =</span> data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output-display">
-<!-- preamble start -->
-
-    <script>
-
-      function styleCell_1cnm7t9c0i9fgnr398c7(i, j, css_id) {
-          var table = document.getElementById("tinytable_1cnm7t9c0i9fgnr398c7");
-          var cell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-          if (cell) {
-              console.log(`Styling cell at (${i}, ${j}) with class ${css_id}`);
-              cell.classList.add(css_id);
-          } else {
-              console.warn(`Cell at (${i}, ${j}) not found.`);
-          }
-      }
-      function spanCell_1cnm7t9c0i9fgnr398c7(i, j, rowspan, colspan) {
-        var table = document.getElementById("tinytable_1cnm7t9c0i9fgnr398c7");
-        const targetCell = table.querySelector(`[data-row="${i}"][data-col="${j}"]`);
-        if (!targetCell) {
-          console.warn(`Cell at (${i}, ${j}) not found.`);
-        }
-
-        // Get all cells that need to be removed
-        const cellsToRemove = [];
-        for (let r = 0; r < rowspan; r++) {
-          for (let c = 0; c < colspan; c++) {
-            if (r === 0 && c === 0) continue; // Skip the target cell
-            const cell = table.querySelector(`[data-row="${i + r}"][data-col="${j + c}"]`);
-            if (cell) {
-              cellsToRemove.push(cell);
-            }
-          }
-        }
-
-        // Remove all cells
-        cellsToRemove.forEach(cell => cell.remove());
-
-        // Set rowspan and colspan of the target cell if it exists
-        if (targetCell) {
-          targetCell.rowSpan = rowspan;
-          targetCell.colSpan = colspan;
-        }
-      }
-      // tinytable span after
-      window.addEventListener('load', function () {
-          var cellsToStyle = [
-            // tinytable style arrays after
-          { positions: [ { i: '25', j: 0 }, { i: '25', j: 3 }, { i: '25', j: 2 }, { i: '25', j: 1 }, { i: '25', j: 4 }, { i: '25', j: 7 }, { i: '25', j: 6 }, { i: '25', j: 5 }, { i: '25', j: 8 },  ], css_id: 'tinytable_css_es0hv47j9hggs0dip1b2',}, 
-          { positions: [ { i: '5', j: 0 }, { i: '5', j: 3 }, { i: '5', j: 2 }, { i: '5', j: 1 }, { i: '5', j: 4 }, { i: '5', j: 7 }, { i: '5', j: 6 }, { i: '5', j: 5 }, { i: '5', j: 8 },  ], css_id: 'tinytable_css_0ut9snkbmtj1mm6ol2fa',}, 
-          { positions: [ { i: '0', j: 0 }, { i: '0', j: 3 }, { i: '0', j: 2 }, { i: '0', j: 1 }, { i: '0', j: 4 }, { i: '0', j: 7 }, { i: '0', j: 6 }, { i: '0', j: 5 }, { i: '0', j: 8 },  ], css_id: 'tinytable_css_7dfffztku394bzrrc1ga',}, 
-          ];
-
-          // Loop over the arrays to style the cells
-          cellsToStyle.forEach(function (group) {
-              group.positions.forEach(function (cell) {
-                  styleCell_1cnm7t9c0i9fgnr398c7(cell.i, cell.j, group.css_id);
-              });
-          });
-      });
-    </script>
-
-    <style>
-      /* tinytable css entries after */
-      .table td.tinytable_css_es0hv47j9hggs0dip1b2, .table th.tinytable_css_es0hv47j9hggs0dip1b2 { border-bottom: solid #d3d8dc 0.1em; }
-      .table td.tinytable_css_0ut9snkbmtj1mm6ol2fa, .table th.tinytable_css_0ut9snkbmtj1mm6ol2fa { border-top: solid black 0.1em; }
-      .table td.tinytable_css_7dfffztku394bzrrc1ga, .table th.tinytable_css_7dfffztku394bzrrc1ga { border-top: solid #d3d8dc 0.1em; border-bottom: solid #d3d8dc 0.05em; }
-    </style>
-    <div class="container">
-      <table class="table table-borderless" id="tinytable_1cnm7t9c0i9fgnr398c7" style="width: auto; margin-left: auto; margin-right: auto;" data-quarto-disable-processing="true">
-        <thead>
-        
-              <tr>
-                <th scope="col" data-row="0" data-col="0"> </th>
-                <th scope="col" data-row="0" data-col="1">Unique</th>
-                <th scope="col" data-row="0" data-col="2">Missing Pct.</th>
-                <th scope="col" data-row="0" data-col="3">Mean</th>
-                <th scope="col" data-row="0" data-col="4">SD</th>
-                <th scope="col" data-row="0" data-col="5">Min</th>
-                <th scope="col" data-row="0" data-col="6">Median</th>
-                <th scope="col" data-row="0" data-col="7">Max</th>
-                <th scope="col" data-row="0" data-col="8">Histogram</th>
-              </tr>
-        </thead>
-        
-        <tbody>
-                <tr>
-                  <td data-row="1" data-col="0">id</td>
-                  <td data-row="1" data-col="1">500</td>
-                  <td data-row="1" data-col="2">0</td>
-                  <td data-row="1" data-col="3">250.5</td>
-                  <td data-row="1" data-col="4">144.5</td>
-                  <td data-row="1" data-col="5">1.0</td>
-                  <td data-row="1" data-col="6">250.5</td>
-                  <td data-row="1" data-col="7">500.0</td>
-                  <td data-row="1" data-col="8"><img src="./tinytable_assets/idshmq695l28bz786v46co.png" style="height: 1em;"></td>
-                </tr>
-                <tr>
-                  <td data-row="2" data-col="0">temperature</td>
-                  <td data-row="2" data-col="1">500</td>
-                  <td data-row="2" data-col="2">0</td>
-                  <td data-row="2" data-col="3">19.4</td>
-                  <td data-row="2" data-col="4">10.7</td>
-                  <td data-row="2" data-col="5">-9.6</td>
-                  <td data-row="2" data-col="6">19.4</td>
-                  <td data-row="2" data-col="7">52.0</td>
-                  <td data-row="2" data-col="8"><img src="./tinytable_assets/idhaofy0leozotu626jz83.png" style="height: 1em;"></td>
-                </tr>
-                <tr>
-                  <td data-row="3" data-col="0">noise</td>
-                  <td data-row="3" data-col="1">500</td>
-                  <td data-row="3" data-col="2">0</td>
-                  <td data-row="3" data-col="3">0.3</td>
-                  <td data-row="3" data-col="4">3.1</td>
-                  <td data-row="3" data-col="5">-7.6</td>
-                  <td data-row="3" data-col="6">0.4</td>
-                  <td data-row="3" data-col="7">9.4</td>
-                  <td data-row="3" data-col="8"><img src="./tinytable_assets/idfuzr74krdxuc8e1dgqje.png" style="height: 1em;"></td>
-                </tr>
-                <tr>
-                  <td data-row="4" data-col="0">performance</td>
-                  <td data-row="4" data-col="1">500</td>
-                  <td data-row="4" data-col="2">0</td>
-                  <td data-row="4" data-col="3">97.6</td>
-                  <td data-row="4" data-col="4">4.8</td>
-                  <td data-row="4" data-col="5">78.7</td>
-                  <td data-row="4" data-col="6">98.0</td>
-                  <td data-row="4" data-col="7">107.2</td>
-                  <td data-row="4" data-col="8"><img src="./tinytable_assets/idakut5r9yajdu4v7pk870.png" style="height: 1em;"></td>
-                </tr>
-                <tr>
-                  <td data-row="5" data-col="0"></td>
-                  <td data-row="5" data-col="1"></td>
-                  <td data-row="5" data-col="2">N</td>
-                  <td data-row="5" data-col="3">%</td>
-                  <td data-row="5" data-col="4"> </td>
-                  <td data-row="5" data-col="5"> </td>
-                  <td data-row="5" data-col="6"> </td>
-                  <td data-row="5" data-col="7"> </td>
-                  <td data-row="5" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="6" data-col="0">group</td>
-                  <td data-row="6" data-col="1">A</td>
-                  <td data-row="6" data-col="2">51</td>
-                  <td data-row="6" data-col="3">10.2</td>
-                  <td data-row="6" data-col="4"> </td>
-                  <td data-row="6" data-col="5"> </td>
-                  <td data-row="6" data-col="6"> </td>
-                  <td data-row="6" data-col="7"> </td>
-                  <td data-row="6" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="7" data-col="0"></td>
-                  <td data-row="7" data-col="1">B</td>
-                  <td data-row="7" data-col="2">50</td>
-                  <td data-row="7" data-col="3">10.0</td>
-                  <td data-row="7" data-col="4"> </td>
-                  <td data-row="7" data-col="5"> </td>
-                  <td data-row="7" data-col="6"> </td>
-                  <td data-row="7" data-col="7"> </td>
-                  <td data-row="7" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="8" data-col="0"></td>
-                  <td data-row="8" data-col="1">C</td>
-                  <td data-row="8" data-col="2">42</td>
-                  <td data-row="8" data-col="3">8.4</td>
-                  <td data-row="8" data-col="4"> </td>
-                  <td data-row="8" data-col="5"> </td>
-                  <td data-row="8" data-col="6"> </td>
-                  <td data-row="8" data-col="7"> </td>
-                  <td data-row="8" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="9" data-col="0"></td>
-                  <td data-row="9" data-col="1">D</td>
-                  <td data-row="9" data-col="2">46</td>
-                  <td data-row="9" data-col="3">9.2</td>
-                  <td data-row="9" data-col="4"> </td>
-                  <td data-row="9" data-col="5"> </td>
-                  <td data-row="9" data-col="6"> </td>
-                  <td data-row="9" data-col="7"> </td>
-                  <td data-row="9" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="10" data-col="0"></td>
-                  <td data-row="10" data-col="1">E</td>
-                  <td data-row="10" data-col="2">51</td>
-                  <td data-row="10" data-col="3">10.2</td>
-                  <td data-row="10" data-col="4"> </td>
-                  <td data-row="10" data-col="5"> </td>
-                  <td data-row="10" data-col="6"> </td>
-                  <td data-row="10" data-col="7"> </td>
-                  <td data-row="10" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="11" data-col="0"></td>
-                  <td data-row="11" data-col="1">F</td>
-                  <td data-row="11" data-col="2">55</td>
-                  <td data-row="11" data-col="3">11.0</td>
-                  <td data-row="11" data-col="4"> </td>
-                  <td data-row="11" data-col="5"> </td>
-                  <td data-row="11" data-col="6"> </td>
-                  <td data-row="11" data-col="7"> </td>
-                  <td data-row="11" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="12" data-col="0"></td>
-                  <td data-row="12" data-col="1">G</td>
-                  <td data-row="12" data-col="2">44</td>
-                  <td data-row="12" data-col="3">8.8</td>
-                  <td data-row="12" data-col="4"> </td>
-                  <td data-row="12" data-col="5"> </td>
-                  <td data-row="12" data-col="6"> </td>
-                  <td data-row="12" data-col="7"> </td>
-                  <td data-row="12" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="13" data-col="0"></td>
-                  <td data-row="13" data-col="1">H</td>
-                  <td data-row="13" data-col="2">40</td>
-                  <td data-row="13" data-col="3">8.0</td>
-                  <td data-row="13" data-col="4"> </td>
-                  <td data-row="13" data-col="5"> </td>
-                  <td data-row="13" data-col="6"> </td>
-                  <td data-row="13" data-col="7"> </td>
-                  <td data-row="13" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="14" data-col="0"></td>
-                  <td data-row="14" data-col="1">I</td>
-                  <td data-row="14" data-col="2">51</td>
-                  <td data-row="14" data-col="3">10.2</td>
-                  <td data-row="14" data-col="4"> </td>
-                  <td data-row="14" data-col="5"> </td>
-                  <td data-row="14" data-col="6"> </td>
-                  <td data-row="14" data-col="7"> </td>
-                  <td data-row="14" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="15" data-col="0"></td>
-                  <td data-row="15" data-col="1">J</td>
-                  <td data-row="15" data-col="2">70</td>
-                  <td data-row="15" data-col="3">14.0</td>
-                  <td data-row="15" data-col="4"> </td>
-                  <td data-row="15" data-col="5"> </td>
-                  <td data-row="15" data-col="6"> </td>
-                  <td data-row="15" data-col="7"> </td>
-                  <td data-row="15" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="16" data-col="0">temp_bin</td>
-                  <td data-row="16" data-col="1">(-Inf,0]</td>
-                  <td data-row="16" data-col="2">17</td>
-                  <td data-row="16" data-col="3">3.4</td>
-                  <td data-row="16" data-col="4"> </td>
-                  <td data-row="16" data-col="5"> </td>
-                  <td data-row="16" data-col="6"> </td>
-                  <td data-row="16" data-col="7"> </td>
-                  <td data-row="16" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="17" data-col="0"></td>
-                  <td data-row="17" data-col="1">(0,5]</td>
-                  <td data-row="17" data-col="2">30</td>
-                  <td data-row="17" data-col="3">6.0</td>
-                  <td data-row="17" data-col="4"> </td>
-                  <td data-row="17" data-col="5"> </td>
-                  <td data-row="17" data-col="6"> </td>
-                  <td data-row="17" data-col="7"> </td>
-                  <td data-row="17" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="18" data-col="0"></td>
-                  <td data-row="18" data-col="1">(5,10]</td>
-                  <td data-row="18" data-col="2">51</td>
-                  <td data-row="18" data-col="3">10.2</td>
-                  <td data-row="18" data-col="4"> </td>
-                  <td data-row="18" data-col="5"> </td>
-                  <td data-row="18" data-col="6"> </td>
-                  <td data-row="18" data-col="7"> </td>
-                  <td data-row="18" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="19" data-col="0"></td>
-                  <td data-row="19" data-col="1">(10,15]</td>
-                  <td data-row="19" data-col="2">72</td>
-                  <td data-row="19" data-col="3">14.4</td>
-                  <td data-row="19" data-col="4"> </td>
-                  <td data-row="19" data-col="5"> </td>
-                  <td data-row="19" data-col="6"> </td>
-                  <td data-row="19" data-col="7"> </td>
-                  <td data-row="19" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="20" data-col="0"></td>
-                  <td data-row="20" data-col="1">(15,20]</td>
-                  <td data-row="20" data-col="2">85</td>
-                  <td data-row="20" data-col="3">17.0</td>
-                  <td data-row="20" data-col="4"> </td>
-                  <td data-row="20" data-col="5"> </td>
-                  <td data-row="20" data-col="6"> </td>
-                  <td data-row="20" data-col="7"> </td>
-                  <td data-row="20" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="21" data-col="0"></td>
-                  <td data-row="21" data-col="1">(20,25]</td>
-                  <td data-row="21" data-col="2">94</td>
-                  <td data-row="21" data-col="3">18.8</td>
-                  <td data-row="21" data-col="4"> </td>
-                  <td data-row="21" data-col="5"> </td>
-                  <td data-row="21" data-col="6"> </td>
-                  <td data-row="21" data-col="7"> </td>
-                  <td data-row="21" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="22" data-col="0"></td>
-                  <td data-row="22" data-col="1">(25,30]</td>
-                  <td data-row="22" data-col="2">72</td>
-                  <td data-row="22" data-col="3">14.4</td>
-                  <td data-row="22" data-col="4"> </td>
-                  <td data-row="22" data-col="5"> </td>
-                  <td data-row="22" data-col="6"> </td>
-                  <td data-row="22" data-col="7"> </td>
-                  <td data-row="22" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="23" data-col="0"></td>
-                  <td data-row="23" data-col="1">(30,35]</td>
-                  <td data-row="23" data-col="2">44</td>
-                  <td data-row="23" data-col="3">8.8</td>
-                  <td data-row="23" data-col="4"> </td>
-                  <td data-row="23" data-col="5"> </td>
-                  <td data-row="23" data-col="6"> </td>
-                  <td data-row="23" data-col="7"> </td>
-                  <td data-row="23" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="24" data-col="0"></td>
-                  <td data-row="24" data-col="1">(35,40]</td>
-                  <td data-row="24" data-col="2">22</td>
-                  <td data-row="24" data-col="3">4.4</td>
-                  <td data-row="24" data-col="4"> </td>
-                  <td data-row="24" data-col="5"> </td>
-                  <td data-row="24" data-col="6"> </td>
-                  <td data-row="24" data-col="7"> </td>
-                  <td data-row="24" data-col="8"> </td>
-                </tr>
-                <tr>
-                  <td data-row="25" data-col="0"></td>
-                  <td data-row="25" data-col="1">(40, Inf]</td>
-                  <td data-row="25" data-col="2">13</td>
-                  <td data-row="25" data-col="3">2.6</td>
-                  <td data-row="25" data-col="4"> </td>
-                  <td data-row="25" data-col="5"> </td>
-                  <td data-row="25" data-col="6"> </td>
-                  <td data-row="25" data-col="7"> </td>
-                  <td data-row="25" data-col="8"> </td>
-                </tr>
-        </tbody>
-      </table>
-    </div>
-<!-- hack to avoid NA insertion in last line -->
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(data)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows: 500
+Columns: 6
+$ id          &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,…
+$ group       &lt;chr&gt; "A", "E", "A", "I", "J", "D", "B", "J", "A", "H", "G", "D"…
+$ temperature &lt;dbl&gt; 24.0143625, 4.9065749, 8.6163413, 23.3774120, 5.2737186, 1…
+$ noise       &lt;dbl&gt; -4.2756753, -1.4613355, -0.8006003, 0.6995681, -1.2175681,…
+$ performance &lt;dbl&gt; 93.01786, 98.53866, 99.19940, 98.27483, 98.78243, 101.8180…
+$ temp_bin    &lt;fct&gt; "(20,25]", "(0,5]", "(5,10]", "(20,25]", "(5,10]", "(15,20…</code></pre>
 </div>
 </div>
 </section>
@@ -667,9 +312,9 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="estimate-the-model">Estimate the model</h2>
 <p>We’ll estimate a simple model with binned temperature and group fixed effects. The reference category is the bin containing temperatures around 15-20°C (where we expect performance to be close to baseline).</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">feols</span>(performance <span class="sc">~</span> <span class="fu">i</span>(temp_bin, <span class="at">ref =</span> <span class="st">"(15,20]"</span>) <span class="sc">|</span> group, <span class="at">data =</span> data)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">feols</span>(performance <span class="sc">~</span> <span class="fu">i</span>(temp_bin, <span class="at">ref =</span> <span class="st">"(15,20]"</span>) <span class="sc">|</span> group, <span class="at">data =</span> data)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">etable</span>(fit)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                                           fit
 Dependent Var.:                    performance
@@ -699,8 +344,8 @@ Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <h2 class="anchored" data-anchor-id="extract-and-clean-coefficients">Extract and clean coefficients</h2>
 <p>Now we can extract the coefficients. We do that by saving the output of <code>coefplot</code>, which gives us a tidy data frame of estimates in the <code>prms</code> object. Note that calling <code>coefplot</code> yields a pretty good plot by default! So you may want to stop here if you’re just doing a quick visualization.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get coefficient estimates with confidence intervals</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coef_df <span class="ot">&lt;-</span> <span class="fu">coefplot</span>(fit, <span class="at">keep =</span> <span class="st">"temp_bin"</span>)<span class="sc">$</span>prms</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get coefficient estimates with confidence intervals</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>coef_df <span class="ot">&lt;-</span> <span class="fu">coefplot</span>(fit, <span class="at">keep =</span> <span class="st">"temp_bin"</span>)<span class="sc">$</span>prms</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -712,53 +357,53 @@ Signif. codes: 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <p>Assuming we do want to customize the plot further, we can now extract the bin limits and calculate midpoints for plotting. I wrote a helper function that parses the bin names and extracts the lower and upper bounds. It also (optionally) corrects infinite bounds to finite values based on the bin width.</p>
 <p>Finally, the body of the code itself also includes the addition of the reference category (which has an estimate of 0 by definition) and arranges the data frame by bin midpoints.</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>extract_limits_from_bin_names <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">fix_Inf =</span> <span class="cn">TRUE</span>) {</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract intervals from coefficient names like "temp_bin::(0,5]"</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  intervals_chr <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">(([^,]+),([^</span><span class="sc">\\</span><span class="st">]]+)</span><span class="sc">\\</span><span class="st">]"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Parse the lower and upper bounds</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>  intervals <span class="ot">&lt;-</span> <span class="fu">str_match</span>(intervals_chr, <span class="st">"</span><span class="sc">\\</span><span class="st">(([^,]+),([^</span><span class="sc">\\</span><span class="st">]]+)</span><span class="sc">\\</span><span class="st">]"</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>  intervals_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">bin_low =</span> <span class="fu">as.numeric</span>(intervals[, <span class="dv">2</span>]),</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bin_high =</span> <span class="fu">as.numeric</span>(intervals[, <span class="dv">3</span>])</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Replace infinite bounds with finite values based on bin width</span></span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (fix_Inf) {</span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>    bin_size <span class="ot">&lt;-</span> intervals_df<span class="sc">$</span>bin_high <span class="sc">-</span> intervals_df<span class="sc">$</span>bin_low</span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    bin_size <span class="ot">&lt;-</span> <span class="fu">min</span>(bin_size[<span class="fu">is.finite</span>(bin_size)])</span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    intervals_df <span class="ot">&lt;-</span> intervals_df <span class="sc">%&gt;%</span></span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">bin_low =</span> <span class="fu">if_else</span>(<span class="fu">is.infinite</span>(bin_low), bin_high <span class="sc">-</span> bin_size, bin_low),</span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">bin_high =</span> <span class="fu">if_else</span>(<span class="fu">is.infinite</span>(bin_high), bin_low <span class="sc">+</span> bin_size, bin_high)</span>
-<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>      )</span>
-<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(intervals_df)</span>
-<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract bin limits and calculate midpoints</span></span>
-<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>coef_df <span class="ot">&lt;-</span> coef_df <span class="sc">%&gt;%</span></span>
-<span id="cb6-30"><a href="#cb6-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">extract_limits_from_bin_names</span>(coef_df<span class="sc">$</span>estimate_names)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-31"><a href="#cb6-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bin_mid =</span> (bin_low <span class="sc">+</span> bin_high) <span class="sc">/</span> <span class="dv">2</span>)</span>
-<span id="cb6-32"><a href="#cb6-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-33"><a href="#cb6-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the reference category (estimate = 0)</span></span>
-<span id="cb6-34"><a href="#cb6-34" aria-hidden="true" tabindex="-1"></a>ref_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb6-35"><a href="#cb6-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate_names =</span> <span class="st">"(15,20]"</span>,</span>
-<span id="cb6-36"><a href="#cb6-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="dv">0</span>,</span>
-<span id="cb6-37"><a href="#cb6-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_low =</span> <span class="dv">0</span>,</span>
-<span id="cb6-38"><a href="#cb6-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_high =</span> <span class="dv">0</span>,</span>
-<span id="cb6-39"><a href="#cb6-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">bin_low =</span> <span class="dv">15</span>,</span>
-<span id="cb6-40"><a href="#cb6-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">bin_high =</span> <span class="dv">20</span>,</span>
-<span id="cb6-41"><a href="#cb6-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">bin_mid =</span> <span class="fl">17.5</span></span>
-<span id="cb6-42"><a href="#cb6-42" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb6-43"><a href="#cb6-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-44"><a href="#cb6-44" aria-hidden="true" tabindex="-1"></a>coef_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(coef_df, ref_df) <span class="sc">%&gt;%</span></span>
-<span id="cb6-45"><a href="#cb6-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bin_mid)</span>
-<span id="cb6-46"><a href="#cb6-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-47"><a href="#cb6-47" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(coef_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>extract_limits_from_bin_names <span class="ot">&lt;-</span> <span class="cf">function</span>(x, <span class="at">fix_Inf =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Extract intervals from coefficient names like "temp_bin::(0,5]"</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  intervals_chr <span class="ot">&lt;-</span> <span class="fu">str_extract</span>(x, <span class="st">"</span><span class="sc">\\</span><span class="st">(([^,]+),([^</span><span class="sc">\\</span><span class="st">]]+)</span><span class="sc">\\</span><span class="st">]"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Parse the lower and upper bounds</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  intervals <span class="ot">&lt;-</span> <span class="fu">str_match</span>(intervals_chr, <span class="st">"</span><span class="sc">\\</span><span class="st">(([^,]+),([^</span><span class="sc">\\</span><span class="st">]]+)</span><span class="sc">\\</span><span class="st">]"</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  intervals_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">bin_low =</span> <span class="fu">as.numeric</span>(intervals[, <span class="dv">2</span>]),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">bin_high =</span> <span class="fu">as.numeric</span>(intervals[, <span class="dv">3</span>])</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Replace infinite bounds with finite values based on bin width</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (fix_Inf) {</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    bin_size <span class="ot">&lt;-</span> intervals_df<span class="sc">$</span>bin_high <span class="sc">-</span> intervals_df<span class="sc">$</span>bin_low</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    bin_size <span class="ot">&lt;-</span> <span class="fu">min</span>(bin_size[<span class="fu">is.finite</span>(bin_size)])</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    intervals_df <span class="ot">&lt;-</span> intervals_df <span class="sc">%&gt;%</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">mutate</span>(</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        <span class="at">bin_low =</span> <span class="fu">if_else</span>(<span class="fu">is.infinite</span>(bin_low), bin_high <span class="sc">-</span> bin_size, bin_low),</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">bin_high =</span> <span class="fu">if_else</span>(<span class="fu">is.infinite</span>(bin_high), bin_low <span class="sc">+</span> bin_size, bin_high)</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(intervals_df)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract bin limits and calculate midpoints</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>coef_df <span class="ot">&lt;-</span> coef_df <span class="sc">%&gt;%</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(<span class="fu">extract_limits_from_bin_names</span>(coef_df<span class="sc">$</span>estimate_names)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">bin_mid =</span> (bin_low <span class="sc">+</span> bin_high) <span class="sc">/</span> <span class="dv">2</span>)</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co"># Add the reference category (estimate = 0)</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>ref_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate_names =</span> <span class="st">"(15,20]"</span>,</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimate =</span> <span class="dv">0</span>,</span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_low =</span> <span class="dv">0</span>,</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="at">ci_high =</span> <span class="dv">0</span>,</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>  <span class="at">bin_low =</span> <span class="dv">15</span>,</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>  <span class="at">bin_high =</span> <span class="dv">20</span>,</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>  <span class="at">bin_mid =</span> <span class="fl">17.5</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>coef_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(coef_df, ref_df) <span class="sc">%&gt;%</span></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(bin_mid)</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(coef_df)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 10
 Columns: 11
@@ -779,17 +424,17 @@ $ bin_mid            &lt;dbl&gt; -2.5, 2.5, 7.5, 12.5, 17.5, 22.5, 27.5, 32.5, 3
 <section id="plot-the-results" class="level2">
 <h2 class="anchored" data-anchor-id="plot-the-results">Plot the results</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(coef_df, <span class="fu">aes</span>(<span class="at">x =</span> bin_mid, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_low, <span class="at">ymax =</span> ci_high), <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Temperature (°C)"</span>,</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Change in performance relative to 15-20°C"</span>,</span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Effect of temperature on performance"</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(coef_df, <span class="fu">aes</span>(<span class="at">x =</span> bin_mid, <span class="at">y =</span> estimate)) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">linetype =</span> <span class="st">"dashed"</span>, <span class="at">color =</span> <span class="st">"gray50"</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="fu">aes</span>(<span class="at">ymin =</span> ci_low, <span class="at">ymax =</span> ci_high), <span class="at">alpha =</span> <span class="fl">0.2</span>, <span class="at">fill =</span> <span class="st">"steelblue"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"steelblue"</span>, <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Temperature (°C)"</span>,</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Change in performance relative to 15-20°C"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Effect of temperature on performance"</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_cowplot</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
