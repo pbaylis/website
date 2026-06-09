@@ -4,6 +4,20 @@ image: pbaylis-avatar2021-small.png
 toc: true
 ---
 
+## Working papers
+
+- Heat Adaptation in Distance Running 
+  - [Working Paper](/pdf/running-hot.pdf) $\cdot$ [SSRN Working Paper (June 2026)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6906780)
+
+- Does Time Shift Behavior? The Clock- vs. Solar-time Tradeoff (with Severin Borenstein and Ed Rubin, under revision at the *Journal of Economic Behavior & Organization*)
+  - [Working Paper](/pdf/time-behavior.pdf) $\cdot$ [NBER Working Paper (March 2023)](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
+
+- Is the Demand for Clean Air Too Low? Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
+  - [Working Paper](/pdf/masks.pdf)
+  
+- Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton)
+  - [Working Paper](/pdf/dspace-rct.pdf) $\cdot$ [J-PAL blog post](https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon)
+
 ## Peer-Reviewed Publications
 
 - Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, *Journal of Public Economics* (short paper), 2025)
@@ -42,18 +56,7 @@ toc: true
 - Climate Change is Projected to Have Severe Impacts on the Frequency and Intensity of Peak Electricity Demand Across the United States (with Max Auffhammer and Catherine H. Hausman, *Proceedings of the National Academy of Sciences*, 2017)
   - [Paper](http://www.pnas.org/content/114/8/1886.full)
   - Selected media:  [New York Times](https://www.nytimes.com/interactive/2017/06/22/climate/95-degree-day-maps.html) $\cdot$ [ARS Technica](https://arstechnica.com/science/2017/02/us-electric-grid-isnt-ready-to-handle-our-future-climate/)
-  
-## Working papers
 
-- Is the Demand for Clean Air Too Low? Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
-  - [Working Paper](/pdf/masks.pdf)
-  
-- Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton)
-  - [Working Paper](/pdf/dspace-rct.pdf) $\cdot$ [J-PAL blog post](https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon)
-
-- Does Time Shift Behavior? The Clock- vs. Solar-time Tradeoff (with Severin Borenstein and Ed Rubin)
-  - [Working Paper](/pdf/time-behavior.pdf) $\cdot$ [NBER Working Paper (March 2023)](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
-  
 
 ## Selected work in progress
 
