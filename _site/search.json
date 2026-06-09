@@ -719,5 +719,68 @@
     "title": "Plotting binned regression estimates in R",
     "section": "Wrapping up",
     "text": "Wrapping up\nThis workflow is handy whenever you’re working with binned variables and want to visualize the estimates. The key steps are:\n\nCreate bins using cut()\nEstimate the model with i() syntax in fixest\nExtract coefficients using coefplot()\nParse bin limits from coefficient names\nAdd the reference category manually\nPlot using ggplot2\n\nThe extract_limits_from_bin_names() function does the heavy lifting of parsing the interval notation, which saves you from manually typing out bin midpoints or limits."
+  },
+  {
+    "objectID": "posts/2018-05-20-climate-projection/index.html",
+    "href": "posts/2018-05-20-climate-projection/index.html",
+    "title": "Climate Projection Sandbox",
+    "section": "",
+    "text": "Many climate-society papers project the impacts of predicted climate change on the outcome of interest (guilty!). This post include code to conduct this kind of “climate projection exercise”. The idea is to combine a dose-response function \\(f(T)\\) (i.e., a damage function) with an estimate of the projected shift in the distribution of climate \\(\\Delta g(T)\\). Specifically, damages are: \\[ \\int^T f(t) \\Delta g(t) dt \\]\nHowever, we’ll be estimating this integral numerically, because \\(f(T)\\) is annoying to integrate analytically and \\(g(T)\\) will be projected numerically. More on that later. First, import some packages\npacman::p_load(data.table, tidyverse, splines, survey, lfe, scales)\nSimulate a mostly-but-not-entirely increasing sinusoidal dose-response function, where \\(y\\) is some outcome we care about that is affected (in a weird way) by temperature.\nset.seed(42)\nN &lt;- 1000 \ndt &lt;- data.table(T = runif(N, 0, 40))\ndt[, y := -10 + 0.5 * T + 8 * sin(T / 6) + rnorm(N)]\n\nggplot(data = dt, aes(x = T, y = y)) + geom_point() + theme_minimal()"
+  },
+  {
+    "objectID": "posts/2018-05-20-climate-projection/index.html#predict-from-felm-output-with-svycontrast",
+    "href": "posts/2018-05-20-climate-projection/index.html#predict-from-felm-output-with-svycontrast",
+    "title": "Climate Projection Sandbox",
+    "section": "Predict from felm output with svycontrast",
+    "text": "Predict from felm output with svycontrast\nPredict over the sequence using survey::svycontrast. This works with both lm and felm.\n\nres.list &lt;- list()\nfor (i in 1:nrow(Xp)) {\n  this.x &lt;- s[i]\n  this.row &lt;- c(unlist(Xp[i, ])) # Sometimes, will need to fill in values for other covariates (0s or means?), e.g. ppt\n  temp.dt &lt;- as.data.table(svycontrast(fit, this.row))\n  temp.dt[, x:=this.x]\n  setnames(temp.dt, c(\"coef\", \"se\", \"x\"))\n  res.list[[as.character(this.x)]] &lt;- temp.dt\n}\nresult_survey &lt;- rbindlist(res.list)\n\nggplot(data = result_survey, aes(x = x, y = coef)) + \n  geom_point(data = dt, mapping = aes(x = T, y = y), colour = \"blue\", alpha = 0.5) +\n  geom_line() +\n  theme_minimal()"
+  },
+  {
+    "objectID": "posts/2018-05-20-climate-projection/index.html#predict-from-lm-output-with-predict",
+    "href": "posts/2018-05-20-climate-projection/index.html#predict-from-lm-output-with-predict",
+    "title": "Climate Projection Sandbox",
+    "section": "Predict from lm output with predict",
+    "text": "Predict from lm output with predict\nAlternative to usingy survey::svycontrast loop is to do the same using predict.lm, but there is no equivalent predict.felm.\n\n# Note the list notation here. Need to tell predict that Xp is replacing X o\nresult_predict &lt;- as.data.table(predict(lmfit, newdata = list(X = Xp), se.fit = T))\nresult_predict[, s := s]\nggplot(data = result_predict, aes(x = s, y = fit)) + \n  geom_point(data = dt, mapping = aes(x = T, y = y), colour = \"blue\", alpha = 0.5) +\n  geom_line() +\n  theme_minimal()"
+  },
+  {
+    "objectID": "posts/2016-03-17-zonal-analysis-speed/index.html",
+    "href": "posts/2016-03-17-zonal-analysis-speed/index.html",
+    "title": "Fast Zonal Statistics",
+    "section": "",
+    "text": "Warning\n\n\n\nUpdate (July 2020): There are now other R options that are faster. For example exactextractr, velox, and fasterize, among many others. I no longer resort to Python for these tasks.\n\n\nTaking the average value of rasters by polygon is slow in R. Really slow. Using extract with a raster of more than 800k cells (PRISM weather data) and a shapefile of more than 3000 polygons (counties) takes a little over 500 seconds.\nThe rasterstats package in Python offers a faster solution, but can be tricky to install, particularly in Windows:\n\nInstall Anaconda Python (trying to upgrade pip broke it, so I just reinstalled Ananconda)\nInstall gdal 1.11.4 (not 2.0), fiona, rasterio, and Shapely\n\nMay need to install some from binaries if using Windows\n\nInstall rasterstats\n\nSample code to run zonal statistics and save the result to CSV.\nimport csv\nfrom rasterstats import zonal_stats\n\n# GLOBALS\nRAST = 'E:/prism/data/zipped/PRISM_tmin_stable_4kmD1_20150531_bil.bil'\nPOLY = 'E:/prism/data/census/gz_2010_us_050_00_20m/gz_2010_us_050_00_20m.shp'\n\n# Run zonal_stats\nstats = zonal_stats(POLY, RAST, stats=['count', 'mean', 'min', 'max'], all_touched=True, geojson_out=True)\n\n# Save to CSV\nkeys = stats[0]['properties'].keys()\nwith open('E:/prism/out.csv', 'wb') as output_file:\n    dict_writer = csv.DictWriter(output_file, keys)\n    dict_writer.writeheader()\n    for row in stats:\n        dict_writer.writerow(dict((k, v.encode('utf-8')) if isinstance(v, basestring) else (k,v) for k, v in row['properties'].iteritems()))"
+  },
+  {
+    "objectID": "posts/2019-05-16-a-list-of-gists/index.html",
+    "href": "posts/2019-05-16-a-list-of-gists/index.html",
+    "title": "A list of gists",
+    "section": "",
+    "text": "I’ve been saving a lot of code snippets here. To keep things organized, I’m going to keep them in a single page instead.\nAn ideal solution would be to have an embedded, dynamically updating page that listed all of my gists by category or language. It’s not obvious to me how I can do that easily right now, although there is a Gist API.\nFor now, here is the list of all of my gists. And below is a hand-curated list by category:\n\nR\n\nUpdate beamer packages using TinyTex\nSpatial interpolation\nPadding integers with zeroes\nApply multiple functions to multiple columns (data.table)\nPoints in polys (sf)\ndplyr dynamic variable names\n\nPython\n\nUnclaimed property scraping code\n\nStata\n\nCompute relative humidity\nCompute heat index\nCreate nice dummy bins\n\nOther\n\nUsing tmux for remote commands\nOpen Bear with a daily log template"
+  },
+  {
+    "objectID": "posts/2019-11-05-fd-vs-fe/index.html",
+    "href": "posts/2019-11-05-fd-vs-fe/index.html",
+    "title": "FD vs FE and new tidyr commands",
+    "section": "",
+    "text": "For two periods, first differences is numerically equivalent to a fixed effect model. The following code reproduces that result, using the (new) pivot_longer and pivot_wider commands from tidyr.\nlibrary(tidyverse)\nlibrary(lfe)\nlibrary(broom)\n\n# Create some fake data\n\ndata &lt;- as_tibble(expand.grid(group = c(\"A\", \"B\"),\n                              period = 0:1))\n\ndata &lt;- data %&gt;% \n    mutate(x = rnorm(nrow(.)))  %&gt;% \n    mutate(y = 3*x + period * 1.5 + rnorm(nrow(.)))\n\n# Long differences ----\n\n# Reshape long-then-wide so that variable names are row IDs, take differences, reshape wide again to get differences\nld &lt;- data %&gt;% \n    pivot_longer(c(x, y),\n                 names_to = \"var\") %&gt;%\n    pivot_wider(id_cols = c(group, var),\n                names_from = period,\n                names_prefix = \"period\",\n                values_from = \"value\") %&gt;%\n    mutate(diff = period1 - period0) %&gt;%\n    pivot_wider(id_cols = c(group), \n                names_from = var,\n                names_prefix = \"diff_\",\n                values_from = diff)\n\n# LD\ntidy(lm(diff_y ~ diff_x - 1, data = ld))\n\n# FE\ntidy(lm(y ~ x + group, data = data))"
+  },
+  {
+    "objectID": "posts/2016-05-18-tweets-mongo/index.html",
+    "href": "posts/2016-05-18-tweets-mongo/index.html",
+    "title": "How to save a stream of tweets",
+    "section": "",
+    "text": "Note\n\n\n\nUpdate (July 2020): I no longer use this process, since now I save the raw tweets as JSONs and convert to CSVs for processing later. This takes up more hard drive space, but preserves the raw data.\n\n\nThe Twitter Streaming API returns each tweet as a JSON. My current implementation transforms that multi-level JSON object into a flat set of key-value pairs and saves those to a SQLite database. That transformation does not preserve the considerable amount of data available in the JSON, however.\nToday, I wanted to determine better strategy for saving the entire JSON. Major considerations are, in no particular order, storage space required, ability to consume throughput, and the time required to extra the raw data into a format ready for analysis. My working assumption from is that client will be consuming roughly 2.4 million tweets per day, though in reality it is probably more like 1.5. Three options on the table, including the current system:\n\nCurrent system: Save to relational DB on download\n\nPros\n\n0.3 gb per day (roughly)\nFairly fast to move to analysis\nCould be better for real-time\n\nCons\n\nLossy, we may want data for other projects\nKludgy code, data transformations make it more breakable\n\n\nJSON files: Save raw JSON, compress all tweets at the end of the day\n\nPros\n\nSaves all data\nNo need to deal with MongoDB\nWhen updating dataset, can just import dates not already included\nCleaner code\n\nCons\n\n1 gb per day (using daily bz2 compression)\n2.4m files created per day (file system stress)\nCompression is time-consuming (file system stress)\nPreparation for analysis could be time-consuming\n(Long-term) Difficult to use for real-time system?\n\n\nMongoDB: Save JSON to MongoDB\n\nPros\n\nSaves all data\nLittle stress on file system\nTransformation to data analysis should be easier than with files\nElegant, cleaner code\n\nCons\n\n1 gb per day (using zlib)\nzlib compression is comparable to bz2; code below db.create_collection('test', storageEngine={'wiredTiger':{'configString':'block_compressor=zlib'}})\nLack of knowledge about using MongoDB: unknown unknowns?\n\n\n\nUntil I have a server with a sufficient amount of space, I’m inclined to let the linux box continue to do its thing. Once I have access to a server with 1TB+ space, I like the MongoDB option."
+  },
+  {
+    "objectID": "posts/2018-12-19-git-lfs/index.html",
+    "href": "posts/2018-12-19-git-lfs/index.html",
+    "title": "Things I forget: install git lfs and initialize in repo",
+    "section": "",
+    "text": "git lfs is great for including (fairly) large files in git repositories. Since the entire history of files is saved, it prevents large files from blowing up the repo. I’m not sure why it isn’t installed by default with git. Anyway, I always forget how to use it.\n\nInstalling git lfs\nEach computer accessing a repo with lfs enabled needs to have it installed, otherwise expected files may not appear and the user could (potentially) screw the repo up by deleting the wrong things. More instructions here, but for OS X I just run:\nbrew install git-lfs\ngit lfs install\nNote that this only needs to be run once per computer, not per repo.\n\n\nEnabling git lfs on a repo and adding files to it\nFor each repo, I need to tell git lfs which files or kinds of files to track. Suppose I want to use lfs for any csv files:\ngit lfs track '*.csv' '*.fst' '*.Rds' '*.gz' \"*.zip\"\ngit add .gitattributes '*.csv' '*.fst' '*.Rds' '*.gz' \"*.zip\"\nFirst line tells lfs which patterns to track, second adds .gitattributes and all of the relevant files (if necessary) to the commit.\n\n\nChecking in on git lfs\ngit lfs ls-files: Show a list of tracked files\n\n\nCleaning up an LFS repo\nI’m frequently finding myself at the limits of my GitHub LFS storage space. Here’s how I use BFG to do that. The following code clones a bare repo, drops anything bigger than 10m in the history, and pushes the update to GitHub.\n{bash, eval = FALSE} git clone --mirror git://example.com/some-big-repo.git java -jar bfg.jar --strip-blobs-bigger-than 10M some-big-repo.git cd some-big-repo.git git reflog expire --expire=now --all && git gc --prune=now --aggressive git push\nTo run this, you need to know which repo is eating up your LFS storage. That’s actually not straightforward, since (as far as I can tell) there’s no quick way to see the storage for all of your repos.\n\n\nSources\n\nInstall LFS\nLFS tutorial"
+  },
+  {
+    "objectID": "posts/2018-09-11-tmux/index.html",
+    "href": "posts/2018-09-11-tmux/index.html",
+    "title": "Things I forget: tmux for headless SSH use",
+    "section": "",
+    "text": "How to run something through SSH that takes a long time without having to stay logged in:\n\nLog into ssh\nExecute tmux\nType command\nCTRL-b d to detach tmux. You can exit ssh.\nWhen returning to server, execute tmux attach\n\nReference"
   }
 ]

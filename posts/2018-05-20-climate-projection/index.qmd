@@ -21,7 +21,7 @@ $$ \int^T f(t) \Delta g(t) dt $$
 
 However, we'll be estimating this integral numerically, because $f(T)$ is annoying to integrate analytically and $g(T)$ will be projected numerically. More on that later. First, import some packages
 ```{r import, warning=FALSE, message=FALSE}
-pacman::p_load(data.table, tidyverse, splints, survey, lfe, scales)
+pacman::p_load(data.table, tidyverse, splines, survey, lfe, scales)
 ```
 
 Simulate a mostly-but-not-entirely increasing sinusoidal dose-response function, where $y$ is some outcome we care about that is affected (in a weird way) by temperature.
