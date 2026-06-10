@@ -11,7 +11,7 @@ Some of my recent [work](research.html) includes evaluating the effectiveness of
 ::: {.callout-note collapse="true"}
 ## New Working Paper -- **[Heat Adaptation in Distance Running](/pdf/running-hot.pdf)**
 
-Does training in hot weather improve performance in hot weather? I use data from millions of race performances in very long distances events to try and find out. (Spoiler: yes.)
+Does training in hot weather improve performance in hot weather? I use data from millions of race performances in long distance running events to find out. (Spoiler: yes.)
 
 ![Hot training days and race performance](img/running-hot-fig.png){width=80%}
 
