@@ -6,6 +6,12 @@ toc: true
 
 ## Working papers
 
+- The Distribution and Consequences of Natural Disasters: Evidence from U.S. Wildfire Victims (with Judson Boomhower, Jonathan M. Colmer, and John L. Voorheis)
+  - [NBER Working Paper (August 2026)](https://www.nber.org/papers/w35675)
+
+- Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton)
+  - [Working Paper](/pdf/dspace-rct.pdf) $\cdot$ [J-PAL blog post](https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon)
+
 - Heat Adaptation in Distance Running 
   - [Working Paper](/pdf/running-hot.pdf) $\cdot$ [SSRN Working Paper (June 2026)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6906780)
 
@@ -15,8 +21,7 @@ toc: true
 - Is the Demand for Clean Air Too Low? Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
   - [Working Paper](/pdf/masks.pdf)
   
-- Incentivizing Self-Protection from Wildfires (with Judson Boomhower and Bob Horton)
-  - [Working Paper](/pdf/dspace-rct.pdf) $\cdot$ [J-PAL blog post](https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon)
+
 
 ## Peer-Reviewed Publications
 
