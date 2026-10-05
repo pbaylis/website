@@ -4,6 +4,7 @@
     "items": [
       "/posts/2025-11-27-binned-regression-plots/index.html",
       "/posts/2025-09-25-predict-update/index.html",
+      "/posts/2025-04-16-movement/index.html",
       "/posts/2025-02-22-tweet-data/index.html",
       "/posts/2024-04-06-tables-update/index.html",
       "/posts/2022-12-11-welcome-to-quarto/index.html",
@@ -16,6 +17,7 @@
       "/posts/2021-01-22-predict-partial/index.html",
       "/posts/2020-08-21-remote-teaching/index.html",
       "/posts/2020-07-03-plot-raster-shape/index.html",
+      "/posts/2020-04-29-easy-ssh/index.html",
       "/posts/2020-04-12-bread-notes/index.html",
       "/posts/2020-02-28-specification-curve/index.html",
       "/posts/2019-12-05-scoring-texts/index.html",
@@ -23,6 +25,7 @@
       "/posts/2019-11-05-fd-vs-fe/index.html",
       "/posts/2019-06-11-making-regressions-purrr/index.html",
       "/posts/2019-05-16-a-list-of-gists/index.html",
+      "/posts/2019-04-16-for-dummies-gmm/index.html",
       "/posts/2018-12-19-git-lfs/index.html",
       "/posts/2018-10-11-beamer-resizing/index.html",
       "/posts/2018-10-08-readr-shortcuts/index.html",
@@ -31,13 +34,16 @@
       "/posts/2018-08-28-nominatim-install-notes/index.html",
       "/posts/2018-05-20-climate-projection/index.html",
       "/posts/2018-04-12-svycontrasts/index.html",
+      "/posts/2017-02-07-bins-and-fixed-effects/index.html",
       "/posts/2017-02-03-r-speed-tests/index.html",
       "/posts/2017-01-19-r-and-julia-again/index.html",
       "/posts/2016-05-18-prism-leads/index.html",
       "/posts/2016-05-18-tweets-mongo/index.html",
       "/posts/2016-03-17-zonal-analysis-speed/index.html",
       "/posts/2015-10-12-conley-se-and-fe/index.html",
-      "/posts/2015-09-08-researchproductivity/index.html"
+      "/posts/2015-09-08-reference-managers/index.html",
+      "/posts/2015-09-08-researchproductivity/index.html",
+      "/posts/2015-03-05-rd-notes/index.html"
     ]
   }
 ]

@@ -10,10 +10,10 @@ toc: true
   - [NBER Working Paper (September 2026)](https://www.nber.org/papers/w35764) $\cdot$ [J-PAL blog post](https://www.povertyactionlab.org/blog/5-10-24/building-research-partnerships-address-wildfire-risk-jackson-county-oregon)
 
 - The Distribution and Consequences of Natural Disasters: Evidence from U.S. Wildfire Victims (with Judson Boomhower, Jonathan M. Colmer, and John L. Voorheis)
-  - [NBER Working Paper (August 2026)](https://www.nber.org/papers/w35675)
+  - [NBER Working Paper (August 2026)](https://www.nber.org/papers/w35675) $\cdot$ [UCSD Today](https://today.ucsd.edu/story/wildfire-losses-have-lasting-economic-consequences-for-homeowners)
 
 - Heat Adaptation in Distance Running 
-  - [Working Paper](/pdf/running-hot.pdf) $\cdot$ [SSRN Working Paper (June 2026)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6906780)
+  - [Working Paper](/pdf/running-hot.pdf) $\cdot$ [SSRN Working Paper (June 2026)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6906780) $\cdot$ [SWAP podcast (25 min mark)](https://open.spotify.com/episode/03z15CEvIHJUSfTx85xdIg)
 
 - Does Time Shift Behavior? The Clock- vs. Solar-time Tradeoff (with Severin Borenstein and Ed Rubin, under revision at the *Journal of Economic Behavior & Organization*)
   - [Working Paper](/pdf/time-behavior.pdf) $\cdot$ [NBER Working Paper (March 2023)](https://www.nber.org/papers/w30999) $\cdot$ [Blog post](https://energyathaas.wordpress.com/2023/03/06/does-anybody-really-care-what-time-it-is/)
@@ -21,8 +21,6 @@ toc: true
 - Is the Demand for Clean Air Too Low? Experimental Evidence from Delhi (with Michael Greenstone, Kenneth Lee, and Harshil Sahai)
   - [Working Paper](/pdf/masks.pdf)
   
-
-
 ## Peer-Reviewed Publications
 
 - Climate and Migration in the United States (with Prashant Bharadwaj, Jamie Mullins, and Nick Obradovich, *Journal of Public Economics* (short paper), 2025)
@@ -75,6 +73,9 @@ toc: true
 <!-- - Requiring Defensible Space (with Tamma Carleton and Robert Heilmeyr) -->
 
 ## Other writing
+
+- Analysis of health impacts associated with adopting permanent standard time or permanent daylight saving time to inform policy in Canada (with Raymond W. Lm, Ralph Mistlberger, and Alexandra Choi, *Canadian Medical Association Journal*, 2026)
+  - [Analysis](https://www.cmaj.ca/content/198/34/E1335)
 
 - How to Spend One Trillion Dollars: The US Decarbonization Conundrum (with Peter Christensen, Teevrat Garg, Shanjun Li, Gordon C. McCord, Erich Muehlegger, Erica Myers, Emma Noble Smith, and David S. Rapson, comment in *Nature*, 2024)
   - [Comment](https://www.nature.com/articles/d41586-024-03474-3)
