@@ -76,7 +76,7 @@ toc: true
 
 - Analysis of health impacts associated with adopting permanent standard time or permanent daylight saving time to inform policy in Canada (with Raymond W. Lm, Ralph Mistlberger, and Alexandra Choi, *Canadian Medical Association Journal*, 2026)
   - [Analysis](https://www.cmaj.ca/content/198/34/E1335) 
-  - Selected media: [USA Today](https://www.usatoday.com/story/news/nation/2026/10/10/daylight-saving-time-health-study/92116651007/) $\cdot$ [CBC Early Edition](https://www.cbc.ca/listen/live-radio/1-91-the-early-edition/clip/16241508-new-study-says-pacific-standard-time-better-body) $\cdot$ [Global News](https://globalnews.ca/news/12087724/daylight-saving-analysis-manitoba-bc/)
+  - Selected media: [USA Today](https://www.usatoday.com/story/news/nation/2026/10/10/daylight-saving-time-health-study/92116651007/) $\cdot$ [CBC Early Edition](https://www.cbc.ca/listen/live-radio/1-91-the-early-edition/clip/16241508-new-study-says-pacific-standard-time-better-body) $\cdot$ [CBC Montreal](https://www.cbc.ca/news/canada/montreal/should-quebec-abolish-daylight-time-9.7380545) $\cdot$ [Global News](https://globalnews.ca/news/12087724/daylight-saving-analysis-manitoba-bc/) 
 
 - How to Spend One Trillion Dollars: The US Decarbonization Conundrum (with Peter Christensen, Teevrat Garg, Shanjun Li, Gordon C. McCord, Erich Muehlegger, Erica Myers, Emma Noble Smith, and David S. Rapson, comment in *Nature*, 2024)
   - [Comment](https://www.nature.com/articles/d41586-024-03474-3)
